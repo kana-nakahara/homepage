@@ -1,34 +1,286 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import excelLimitImg from './assets/ExcelやAccessでの管理に限界がきている.png'
+import speedCostImg from './assets/開発スピード・コストが気になる.png'
+import workflowImg from './assets/業務が効率的でない.png'
+import dataMgmtImg from './assets/情報を一元管理できていない.png'
+import dxAiImg from './assets/DX化・AI活用を進めたい.png'
+import systemDissatisfyImg from './assets/現在のシステムや開発体制に不満がある.png'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="page" id="top">
+      <div className="site-nav">
+        <div className="site-nav__inner">
+          <a className="site-nav__brand" href="#top">
+            UNITARY
+          </a>
+          <div className="site-nav__links">
+            <a href="#business">事業内容</a>
+            <a href="#company">会社概要</a>
+            <a href="#profile">代表プロフィール</a>
+            <a href="#contact">お問い合わせ</a>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <header className="hero">
+        <div className="hero__content hero__content--center">
+          <h1 className="hero__title">あるべき姿を実現する</h1>
+          <p className="hero__lead" style={{ marginTop: '4em' }}>
+            わたしたちは常にあるべき姿を考え、確かな技術力でそれを実現し
+            <br />
+            お客様の可能性を最大限に引き出せるようサポートいたします
+          </p>
+        </div>
+      </header>
+
+      <section className="section section--accent section--center" id="business">
+        <div className="section__header">
+          <h2>事業内容</h2>
+          <hr className="section__divider" />
+          <p className="section__title">自社製ノーコードフレームワーク ZeroCoder によるシステム開発</p>
+        </div>
+        <div className="section__body">
+          <p>
+            20 年に渡って蓄積されたノウハウと、実績に裏付けられた確かな技術力と提案力により、<br/>
+            多種多様な業務システム・Webシステム / サイトを安価かつスピーディに企画・開発いたします。
+          </p>
+          <p>
+            散在した社内データの一元管理や集計・分析機能、プロセス管理はもちろん、<br/>
+            複雑なビジネスロジックの実現を強みとしております。
+          </p>
+        </div>
+        <div className="worries">
+          <h3 className="worries__title">こんなことで悩んでいませんか？</h3>
+          <div className="worries__grid">
+            <article className="worry-card">
+              <h4>ExcelやAccessでの管理に限界がきている</h4>
+              <ul>
+                <li>データが多すぎて動作が遅い</li>
+                <li>同時編集がやりづらい</li>
+                <li>権限管理が弱い</li>
+                <li>変更履歴を追えない</li>
+                <li>Webや他システムと連携できない</li>
+                <li>Excelマクロが多く属人化している</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={excelLimitImg}
+                alt="ExcelやAccessでの管理に限界がきている"
+              />
+            </article>
+            <article className="worry-card">
+              <h4>開発スピード・コストが気になる</h4>
+              <ul>
+                <li>開発期間が長すぎる</li>
+                <li>運用検証までに時間がかかる</li>
+                <li>バグが収束せず開発、改修が終わらない</li>
+                <li>開発費用が高すぎる</li>
+                <li>小さな改修でも数十万円かかる</li>
+                <li>保守費用が高い</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={speedCostImg}
+                alt="開発スピード・コストが気になる"
+              />
+            </article>
+            <article className="worry-card">
+              <h4>業務が効率的でない</h4>
+              <ul>
+                <li>同じ情報を何度も入力している</li>
+                <li>手作業で情報を転記している</li>
+                <li>業務が属人化している</li>
+                <li>紙、FAX、メールがまだ残っている</li>
+                <li>進捗管理がブラックボックス化している</li>
+                <li>承認フローがアナログ</li>
+                <li>プロセス管理ができていない</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={workflowImg}
+                alt="業務が効率的でない"
+              />
+            </article>
+            <article className="worry-card">
+              <h4>情報を一元管理できていない</h4>
+              <ul>
+                <li>情報が社内に散らばっている</li>
+                <li>最新データがどれか分からない</li>
+                <li>同じ情報が異なるシステムに存在する</li>
+                <li>データは沢山あるのに活用できていない</li>
+                <li>名刺がバラバラで顧客を一元管理できていない</li>
+                <li>商談履歴が個人のメールにしか残っていない</li>
+                <li>データに基づく経営ができていない</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={dataMgmtImg}
+                alt="情報を一元管理できていない"
+              />
+            </article>
+            <article className="worry-card">
+              <h4>DX化・AI活用を進めたい</h4>
+              <ul>
+                <li>DX化、AI活用を進めたいがどうすれば良いか分からない</li>
+                <li>事業拡大にシステムが追い付かなくなってしまった</li>
+                <li>売上を分析してビジネス戦略を立てたい</li>
+                <li>AIを活用するためにデータ管理体制を整えたい</li>
+                <li>自動化を進めて業務を効率化したい</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={dxAiImg}
+                alt="DX化・AI活用を進めたい"
+              />
+            </article>
+            <article className="worry-card">
+              <h4>現在のシステムや開発体制に不満がある</h4>
+              <ul>
+                <li>システムが使いづらい</li>
+                <li>仕様変更に弱く自由度が低い</li>
+                <li>複雑な機能だと実現できない or 追加コストがかかる</li>
+                <li>データ分析、集計機能が弱い</li>
+                <li>他システムとの連携やAPI連携が弱い</li>
+                <li>スマホ対応していない</li>
+              </ul>
+              <img
+                className="worry-card__image"
+                src={systemDissatisfyImg}
+                alt="現在のシステムや開発体制に不満がある"
+              />
+            </article>
+          </div>
+          <h3 className="worries__title" style={{ marginTop: "3.5rem" }}>UNITARYならすべて解消できます！</h3>
+          <div className="features">
+            <div className="features__list">
+              <article className="feature-row">
+                <div className="feature-row__index">01</div>
+                <div className="feature-row__content">
+                  <h4>ノーコードなのに柔軟に複雑なUI・ロジックを実現可能</h4>
+                  <ul>
+                    <li>1対多の親子構造・動的フォーム生成</li>
+                    <li>自由なDB操作</li>
+                    <li>データ横断トランザクション処理</li>
+                    <li>複雑な状態管理や分岐</li>
+                    <li>AI・機械学習の組み込み</li>
+                  </ul>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-row__index">02</div>
+                <div className="feature-row__content">
+                  <h4>従来開発手法に対する圧倒的なコスト削減実績</h4>
+                  <div className="feature-row__stats">
+                    <span>効率：従来の7倍</span>
+                    <span>工期：従来の1/3</span>
+                    <span>工数：従来の1/3</span>
+                  </div>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-row__index">03</div>
+                <div className="feature-row__content">
+                  <h4>豊富な標準機能</h4>
+                  <ul>
+                    <li>データの一元管理・検索・フィルタ</li>
+                    <li>データ分析・データ集計・グラフ作成</li>
+                    <li>TODOリスト・プロセス管理</li>
+                    <li>組織階層による権限制御</li>
+                  </ul>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-row__index">04</div>
+                <div className="feature-row__content">
+                  <h4>外部システムとの連携</h4>
+                  <ul>
+                    <li>REST APIなどのAPI連携</li>
+                    <li>他システム・Webサイトとの連携</li>
+                    <li>指定フォーマットデータによる連携</li>
+                  </ul>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-row__index">05</div>
+                <div className="feature-row__content">
+                  <h4>国内大手メーカーMでの20年以上の確かな実績</h4>
+                  <ul>
+                    <li>販売・購買・在庫管理システム</li>
+                    <li>生産・在庫・出荷管理システム</li>
+                    <li>受注・売上・請求管理システム</li>
+                    <li>資材管理システム</li>
+                    <li>自動販売機レンタル管理システム</li>
+                    <li>サブスクリプション管理システム</li>
+                    <li>ソフトウェア契約管理システム</li>
+                    <li>名刺管理システム</li>
+                  </ul>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-row__index">06</div>
+                <div className="feature-row__content">
+                  <h4>DX化・AI活用</h4>
+                  <p>
+                    データ活用と自動化を支える基盤を整え、
+                    事業成長に合わせたDX推進・AI活用をサポートします。
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--center" id="company">
+        <div className="section__header">
+          <h2>会社概要</h2>
+          <hr className="section__divider" />
+        </div>
+        <div className="company-card">
+          <dl>
+            <div>
+              <dt>会社名</dt>
+              <dd>株式会社 UNITARY</dd>
+            </div>
+            <div>
+              <dt>所在地</dt>
+              <dd>〒1500021 東京都渋谷区恵比寿西 2 丁目 4 番 8 号ウィンド恵比寿ビル 8F</dd>
+            </div>
+            <div>
+              <dt>代表取締役</dt>
+              <dd>中原華奈</dd>
+            </div>
+            <div>
+              <dt>事業内容</dt>
+              <dd>IT ソフトウェアの企画・開発・運用・保守</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section className="section section--muted section--center" id="profile">
+        <div className="section__header">
+          <h2>代表プロフィール</h2>
+        </div>
+        <ul className="section__timeline">
+          <li>1996 年 神奈川県鎌倉市にて生まれる</li>
+          <li>2018 年 東京工業大学（現東京科学大学）理学部物理学科　卒業</li>
+          <li>2020 年 東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</li>
+          <li>2020 年 日本アイ・ビー・エム株式会社に入社、多くのプロダクトの開発に携わる</li>
+          <li>2024 年 株式会社 UNITARY を立ち上げる</li>
+        </ul>
+      </section>
+
+      <section className="section section--cta section--center" id="contact">
+        <div className="section__header">
+          <h2>お問い合わせ</h2>
+          <p>お気軽にご相談ください。</p>
+        </div>
+        <a className="section__cta" href="mailto:info@unitary.jp">
+          info@unitary.jp
+        </a>
+      </section>
+    </div>
   )
 }
 
