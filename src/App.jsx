@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import excelLimitImg from './assets/ExcelやAccessでの管理に限界がきている.png'
 import speedCostImg from './assets/開発スピード・コストが気になる.png'
@@ -5,13 +6,18 @@ import workflowImg from './assets/業務が効率的でない.png'
 import dataMgmtImg from './assets/情報を一元管理できていない.png'
 import dxAiImg from './assets/DX化・AI活用を進めたい.png'
 import systemDissatisfyImg from './assets/現在のシステムや開発体制に不満がある.png'
+import logoImg from './assets/会社ロゴのみ.png'
+import zeroCoderIntroImg from './assets/ZeroCoderご紹介.png'
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   return (
     <div className="page" id="top">
       <div className="site-nav">
         <div className="site-nav__inner">
           <a className="site-nav__brand" href="#top">
+            <img className="site-nav__logo" src={logoImg} alt="UNITARY" />
             UNITARY
           </a>
           <div className="site-nav__links">
@@ -20,7 +26,36 @@ function App() {
             <a href="#profile">代表プロフィール</a>
             <a href="#contact">お問い合わせ</a>
           </div>
+          <button
+            className="site-nav__toggle"
+            type="button"
+            aria-label="メニューを開く"
+            aria-expanded={isMenuOpen}
+            aria-controls="site-nav-menu"
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+        <nav
+          id="site-nav-menu"
+          className={`site-nav__menu ${isMenuOpen ? 'site-nav__menu--open' : ''}`}
+        >
+          <a href="#business" onClick={() => setIsMenuOpen(false)}>
+            事業内容
+          </a>
+          <a href="#company" onClick={() => setIsMenuOpen(false)}>
+            会社概要
+          </a>
+          <a href="#profile" onClick={() => setIsMenuOpen(false)}>
+            代表プロフィール
+          </a>
+          <a href="#contact" onClick={() => setIsMenuOpen(false)}>
+            お問い合わせ
+          </a>
+        </nav>
       </div>
       <header className="hero">
         <div className="hero__content hero__content--center">
@@ -42,11 +77,11 @@ function App() {
         <div className="section__body">
           <p>
             20 年に渡って蓄積されたノウハウと、実績に裏付けられた確かな技術力と提案力により、<br/>
-            多種多様な業務システム・Webシステム / サイトを安価かつスピーディに企画・開発いたします。
+            多種多様な業務システム・Webシステム / サイトを安価かつスピーディに企画・開発いたします
           </p>
           <p>
             散在した社内データの一元管理や集計・分析機能、プロセス管理はもちろん、<br/>
-            複雑なビジネスロジックの実現を強みとしております。
+            複雑なビジネスロジックの実現を強みとしております
           </p>
         </div>
         <div className="worries">
@@ -151,82 +186,8 @@ function App() {
             </article>
           </div>
           <h3 className="worries__title" style={{ marginTop: "3.5rem" }}>UNITARYならすべて解消できます！</h3>
-          <div className="features">
-            <div className="features__list">
-              <article className="feature-row">
-                <div className="feature-row__index">01</div>
-                <div className="feature-row__content">
-                  <h4>ノーコードなのに柔軟に複雑なUI・ロジックを実現可能</h4>
-                  <ul>
-                    <li>1対多の親子構造・動的フォーム生成</li>
-                    <li>自由なDB操作</li>
-                    <li>データ横断トランザクション処理</li>
-                    <li>複雑な状態管理や分岐</li>
-                    <li>AI・機械学習の組み込み</li>
-                  </ul>
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-row__index">02</div>
-                <div className="feature-row__content">
-                  <h4>従来開発手法に対する圧倒的なコスト削減実績</h4>
-                  <div className="feature-row__stats">
-                    <span>効率：従来の7倍</span>
-                    <span>工期：従来の1/3</span>
-                    <span>工数：従来の1/3</span>
-                  </div>
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-row__index">03</div>
-                <div className="feature-row__content">
-                  <h4>豊富な標準機能</h4>
-                  <ul>
-                    <li>データの一元管理・検索・フィルタ</li>
-                    <li>データ分析・データ集計・グラフ作成</li>
-                    <li>TODOリスト・プロセス管理</li>
-                    <li>組織階層による権限制御</li>
-                  </ul>
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-row__index">04</div>
-                <div className="feature-row__content">
-                  <h4>外部システムとの連携</h4>
-                  <ul>
-                    <li>REST APIなどのAPI連携</li>
-                    <li>他システム・Webサイトとの連携</li>
-                    <li>指定フォーマットデータによる連携</li>
-                  </ul>
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-row__index">05</div>
-                <div className="feature-row__content">
-                  <h4>国内大手メーカーMでの20年以上の確かな実績</h4>
-                  <ul>
-                    <li>販売・購買・在庫管理システム</li>
-                    <li>生産・在庫・出荷管理システム</li>
-                    <li>受注・売上・請求管理システム</li>
-                    <li>資材管理システム</li>
-                    <li>自動販売機レンタル管理システム</li>
-                    <li>サブスクリプション管理システム</li>
-                    <li>ソフトウェア契約管理システム</li>
-                    <li>名刺管理システム</li>
-                  </ul>
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-row__index">06</div>
-                <div className="feature-row__content">
-                  <h4>DX化・AI活用</h4>
-                  <p>
-                    データ活用と自動化を支える基盤を整え、
-                    事業成長に合わせたDX推進・AI活用をサポートします。
-                  </p>
-                </div>
-              </article>
-            </div>
+          <div className="zero-coder-intro">
+            <img src={zeroCoderIntroImg} alt="ZeroCoderご紹介" />
           </div>
         </div>
       </section>
@@ -258,23 +219,53 @@ function App() {
         </div>
       </section>
 
-      <section className="section section--muted section--center" id="profile">
+      <section className="section section--center" id="profile">
         <div className="section__header">
           <h2>代表プロフィール</h2>
+          <hr className="section__divider" />
         </div>
-        <ul className="section__timeline">
-          <li>1996 年 神奈川県鎌倉市にて生まれる</li>
-          <li>2018 年 東京工業大学（現東京科学大学）理学部物理学科　卒業</li>
-          <li>2020 年 東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</li>
-          <li>2020 年 日本アイ・ビー・エム株式会社に入社、多くのプロダクトの開発に携わる</li>
-          <li>2024 年 株式会社 UNITARY を立ち上げる</li>
-        </ul>
+        <div className="company-card">
+          <dl>
+            <div>
+              <dt>1996 年</dt>
+              <dd>神奈川県鎌倉市にて生まれる</dd>
+            </div>
+            <div>
+              <dt>2018 年</dt>
+              <dd>東京工業大学（現東京科学大学）理学部物理学科　卒業</dd>
+            </div>
+            <div>
+              <dt>2020 年</dt>
+              <dd>東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</dd>
+            </div>
+            <div>
+              <dt>2020 年</dt>
+              <dd>日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</dd>
+            </div>
+            <div>
+              <dt>2023 年</dt>
+              <dd>コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</dd>
+            </div>
+            <div>
+              <dt>2024 年</dt>
+              <dd>株式会社 UNITARY を立ち上げる</dd>
+            </div>
+            <div>
+              <dt>2025 年</dt>
+              <dd>コンシューマーゲーム会社にて、30歳未満の若手MVP賞を受賞</dd>
+            </div>
+            <div>
+              <dt>2026 年</dt>
+              <dd>コンシューマーゲーム会社を退職し、独立</dd>
+            </div>
+          </dl>
+        </div>
       </section>
 
       <section className="section section--cta section--center" id="contact">
         <div className="section__header">
           <h2>お問い合わせ</h2>
-          <p>お気軽にご相談ください。</p>
+          <p>お気軽にご相談ください</p>
         </div>
         <a className="section__cta" href="mailto:info@unitary.jp">
           info@unitary.jp
