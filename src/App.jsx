@@ -21,6 +21,7 @@ function App() {
             UNITARY
           </a>
           <div className="site-nav__links">
+            <a href="#philosophy">企業理念</a>
             <a href="#business">事業内容</a>
             <a href="#company">会社概要</a>
             <a href="#profile">代表プロフィール</a>
@@ -43,6 +44,9 @@ function App() {
           id="site-nav-menu"
           className={`site-nav__menu ${isMenuOpen ? 'site-nav__menu--open' : ''}`}
         >
+          <a href="#philosophy" onClick={() => setIsMenuOpen(false)}>
+            企業理念
+          </a>
           <a href="#business" onClick={() => setIsMenuOpen(false)}>
             事業内容
           </a>
@@ -59,33 +63,71 @@ function App() {
       </div>
       <header className="hero">
         <div className="hero__content hero__content--center">
-          <h1 className="hero__title">あるべき姿を実現する</h1>
-          <p className="hero__lead" style={{ marginTop: '4em' }}>
-            わたしたちは常にあるべき姿を考え、確かな技術力でそれを実現し
-            <br />
+          <h1 className="hero__title" style={{marginBottom: '6rem'}}>あるべき姿を実現する</h1>
+        </div>
+      </header>
+      
+      <section className="section section--center" id="philosophy">
+        <div className="section__header">
+          <h2>企業理念</h2>
+          <hr className="section__divider" />
+        </div>
+        <div className="section__body">
+          <p style={{marginTop: '0.5rem'}}>
+            UNITARYは専門知識・経験を持つメンバーによる少数精鋭の開発チームを目指しています<br />
+          </p>
+          <p style={{marginTop: '0.5rem', marginBottom: '0rem'}}>
+            各メンバーが常にあるべき姿を考え、確かな技術力でそれを実現することで<br />
             お客様の可能性を最大限に引き出せるようサポートいたします
           </p>
         </div>
-      </header>
+      </section>
 
-      <section className="section section--accent section--center" id="business">
-        <div className="section__header">
+      <section className="section section--center" id="business">
+        <div className="section__header" style={{marginTop: '-3rem'}}>
           <h2>事業内容</h2>
           <hr className="section__divider" />
-          <p className="section__title">自社製ノーコードフレームワーク ZeroCoder によるシステム開発</p>
         </div>
+        <p className="section__title">自社製ノーコードフレームワーク ZeroCoder によるシステム開発</p>
         <div className="section__body">
           <p>
             20 年に渡って蓄積されたノウハウと、実績に裏付けられた確かな技術力と提案力により、<br/>
             多種多様な業務システム・Webシステム / サイトを安価かつスピーディに企画・開発いたします
           </p>
-          <p>
+          <p style={{marginTop: '0.5rem'}}>
             散在した社内データの一元管理や集計・分析機能、プロセス管理はもちろん、<br/>
-            複雑なビジネスロジックの実現を強みとしております
+            複雑なビジネスロジックの実現も強みとしております
+          </p>
+        </div>
+        <p className="section__title" style={{marginTop: '2rem'}}>DX推進のご支援</p>
+        <div className="section__body">
+          <p>
+            企業内に散在するデータや業務プロセスを整理・可視化することで、<br/>
+            一元管理されたデータ基盤の構築をご支援いたします
+          </p>
+          <p style={{marginTop: '0.5rem'}}>
+            蓄積されたデータを活用し、経営状況や事業活動を多角的に分析できる環境を整備することで、<br/>
+            データに基づいた経営戦略・意思決定を可能にします
+          </p>
+          <p style={{marginTop: '0.5rem'}}>
+            AI活用を見据えたデータ設計・システム構造の整備まで一貫してサポートいたします
+          </p>
+        </div>
+        <p className="section__title" style={{marginTop: '2rem'}}>AIを活用した業務改善</p>
+        <div className="section__body">
+          <p>
+            業務効率化・自動化を推進し、生産性の向上を実現します
+          </p>
+          <p style={{marginTop: '0.5rem'}}>
+            一元管理されたデータを活用したAIによるデータ分析・業務支援を通じて、<br />
+            経験などに依存していた業務判断を最適化し、業務品質の向上を支援いたします
+          </p>
+          <p style={{marginTop: '0.5rem'}}>
+            既存システムや業務フローと連携した実践的なAI導入により、現場で継続的に活用できる仕組みを構築します
           </p>
         </div>
         <div className="worries">
-          <h3 className="worries__title">こんなことで悩んでいませんか？</h3>
+          <h3 className="worries__title">こんなお悩みはありませんか？</h3>
           <div className="worries__grid">
             <article className="worry-card">
               <h4>ExcelやAccessでの管理に限界がきている</h4>
@@ -185,7 +227,7 @@ function App() {
               />
             </article>
           </div>
-          <h3 className="worries__title" style={{ marginTop: "3.5rem" }}>UNITARYならすべて解消できます！</h3>
+          <h3 className="worries__title" style={{ marginTop: "6rem" }}>UNITARYならすべて解消できます！</h3>
           <div className="zero-coder-intro">
             <img src={zeroCoderIntroImg} alt="ZeroCoderご紹介" />
           </div>
@@ -212,8 +254,12 @@ function App() {
               <dd>中原華奈</dd>
             </div>
             <div>
+              <dt>資本金</dt>
+              <dd>3,000,000円</dd>
+            </div>
+            <div>
               <dt>事業内容</dt>
-              <dd>IT ソフトウェアの企画・開発・運用・保守</dd>
+              <dd>IT ソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</dd>
             </div>
           </dl>
         </div>
@@ -248,15 +294,11 @@ function App() {
             </div>
             <div>
               <dt>2024 年</dt>
+              <dd>30歳未満の若手MVP賞を受賞</dd>
+            </div>
+            <div>
+              <dt>2024 年</dt>
               <dd>株式会社 UNITARY を立ち上げる</dd>
-            </div>
-            <div>
-              <dt>2025 年</dt>
-              <dd>コンシューマーゲーム会社にて、30歳未満の若手MVP賞を受賞</dd>
-            </div>
-            <div>
-              <dt>2026 年</dt>
-              <dd>コンシューマーゲーム会社を退職し、独立</dd>
             </div>
           </dl>
         </div>
