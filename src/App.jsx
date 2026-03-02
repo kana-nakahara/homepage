@@ -251,7 +251,7 @@ function App() {
             </div>
             <div>
               <dt>代表取締役</dt>
-              <dd>中原華奈</dd>
+              <dd>中原 華奈</dd>
             </div>
             <div>
               <dt>資本金</dt>
