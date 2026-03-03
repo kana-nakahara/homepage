@@ -74,7 +74,7 @@ function App() {
         </div>
         <div className="section__body">
           <p style={{marginTop: '0.5rem'}}>
-            UNITARYは専門知識・豊富な経験を持つメンバーによる少数精鋭の開発チームを目指しています<br />
+            UNITARYは、学術的な専門知識・豊富な経験を持つメンバーによる少数精鋭の開発チームを目指しています<br />
           </p>
           <p style={{marginTop: '0.5rem', marginBottom: '0rem'}}>
             各メンバーが常にあるべき姿を考え、確かな技術力でそれを実現することで<br />
