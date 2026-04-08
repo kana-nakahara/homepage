@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import excelLimitImg from './assets/ExcelやAccessでの管理に限界がきている.png'
 import speedCostImg from './assets/開発スピード・コストが気になる.png'
@@ -8,13 +8,33 @@ import dxAiImg from './assets/DX化・AI活用を進めたい.png'
 import systemDissatisfyImg from './assets/現在のシステムや開発体制に不満がある.png'
 import logoImg from './assets/会社ロゴのみ.png'
 import zeroCoderIntroImg from './assets/ZeroCoderご紹介.png'
+import topImg from './assets/top.jpg'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Animation refs and effect
+  const bgRef = useRef(null)
+  const titleBarRef = useRef(null)
+  const navRef = useRef(null)
+  useEffect(() => {
+    // Animate background image
+    if (bgRef.current) {
+      setTimeout(() => {
+        bgRef.current.classList.add('is-visible')
+      }, 120)
+    }
+    // Animate title bar and nav together, after DOM is painted
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        if (titleBarRef.current) titleBarRef.current.classList.add('is-visible')
+        if (navRef.current) navRef.current.classList.add('is-visible')
+      })
+    }, 500)
+  }, [])
 
   return (
     <div className="page" id="top">
-      <div className="site-nav">
+      <div className="site-nav" ref={navRef}>
         <div className="site-nav__inner">
           <a className="site-nav__brand" href="#top">
             <img className="site-nav__logo" src={logoImg} alt="UNITARY" />
@@ -61,25 +81,29 @@ function App() {
           </a>
         </nav>
       </div>
-      <header className="hero">
+      <header className="hero hero--with-bg">
+        <img
+          src={topImg}
+          alt="あるべき姿を実現する 背景"
+          className="hero__bg-image"
+          ref={bgRef}
+        />
         <div className="hero__content hero__content--center">
-          <h1 className="hero__title" style={{marginBottom: '6rem'}}>あるべき姿を実現する</h1>
+          <div className="hero__title-bar" ref={titleBarRef}>
+            <h1 className="hero__title" style={{margin: 0}}>あるべき姿を実現する</h1>
+          </div>
         </div>
       </header>
       
-      <section className="section section--center" id="philosophy">
-        <div className="section__header">
-          <h2>企業理念</h2>
-          <hr className="section__divider" />
-        </div>
-        <div className="section__body">
-          <p style={{marginTop: '0.5rem'}}>
-            UNITARYは、情報系・AI分野の学術的な専門知識・豊富な経験を持つメンバーで開発チームを構成しております<br />
-          </p>
-          <p style={{marginTop: '0.5rem', marginBottom: '0rem'}}>
-            各メンバーが常にあるべき姿を考え、確かな技術力でそれを実現することで<br />
-            お客様の可能性を最大限に引き出せるようサポートいたします
-          </p>
+      <section className="philosophy-visual" id="philosophy">
+        <div className="philosophy-label">PHILOSOPHY</div>
+        <div className="philosophy-main-texts">
+          <div className="philosophy-main-text philosophy-main-text--bold">
+            UNITARYは、情報系・AI分野の学術的な専門知識・豊富な経験を持つメンバーで開発チームを構成しております
+          </div>
+          <div className="philosophy-main-text">
+            各メンバーが常にあるべき姿を考え、確かな技術力でそれを実現することでお客様の可能性を最大限に引き出せるようサポートいたします
+          </div>
         </div>
       </section>
 
