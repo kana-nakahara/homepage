@@ -29,6 +29,10 @@ function App() {
   const [serviceZeroInView, setServiceZeroInView] = useState(false)
   const [serviceDxInView, setServiceDxInView] = useState(false)
   const [serviceAiInView, setServiceAiInView] = useState(false)
+  const companyRef = useRef(null)
+  const profileRef = useRef(null)
+  const [companyInView, setCompanyInView] = useState(false)
+  const [profileInView, setProfileInView] = useState(false)
 
   useEffect(() => {
     // Animate background image
@@ -58,6 +62,8 @@ function App() {
       checkInView(serviceZeroRef, setServiceZeroInView)
       checkInView(serviceDxRef, setServiceDxInView)
       checkInView(serviceAiRef, setServiceAiInView)
+      checkInView(companyRef, setCompanyInView)
+      checkInView(profileRef, setProfileInView)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     // Initial check in case already in view
@@ -76,7 +82,7 @@ function App() {
             UNITARY
           </a>
           <div className="site-nav__links">
-            <a href="#philosophy">企業理念</a>
+            <a href="#philosophy">私たちについて</a>
             <a href="#business">事業内容</a>
             <a href="#company">会社概要</a>
             <a href="#profile">代表プロフィール</a>
@@ -100,7 +106,7 @@ function App() {
           className={`site-nav__menu ${isMenuOpen ? 'site-nav__menu--open' : ''}`}
         >
           <a href="#philosophy" onClick={() => setIsMenuOpen(false)}>
-            企業理念
+            私たちについて
           </a>
           <a href="#business" onClick={() => setIsMenuOpen(false)}>
             事業内容
@@ -336,11 +342,11 @@ function App() {
       </section>
 
       <section className="section section--center" id="company">
-        <div className="section__header">
-          <h2>会社概要</h2>
-          <hr className="section__divider" />
-        </div>
-        <div className="company-card">
+        <div ref={companyRef} className={`slide-up${companyInView ? ' slide-up--inview' : ''}`}>
+          <div className="section__header">
+            <div className="business-label philosophy-label" style={{ textAlign: 'center', marginBottom: '2rem' }}>- COMPANY -</div>
+          </div>
+          <div className="company-card">
           <dl>
             <div>
               <dt>会社名</dt>
@@ -363,15 +369,16 @@ function App() {
               <dd>IT ソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</dd>
             </div>
           </dl>
+          </div>
         </div>
       </section>
 
       <section className="section section--center" id="profile">
-        <div className="section__header">
-          <h2>代表プロフィール</h2>
-          <hr className="section__divider" />
-        </div>
-        <div className="company-card">
+        <div ref={profileRef} className={`slide-up${profileInView ? ' slide-up--inview' : ''}`}>
+          <div className="section__header">
+            <div className="business-label philosophy-label" style={{ textAlign: 'center', marginBottom: '2rem' }}>- PROFILE -</div>
+          </div>
+          <div className="company-card">
           <dl>
             <div>
               <dt>1996 年</dt>
@@ -402,12 +409,13 @@ function App() {
               <dd>株式会社 UNITARY を立ち上げる</dd>
             </div>
           </dl>
+          </div>
         </div>
       </section>
 
       <section className="section section--cta section--center" id="contact">
         <div className="section__header">
-          <h2>お問い合わせ</h2>
+          <div className="business-label philosophy-label" style={{ textAlign: 'center', marginBottom: '2rem' }}>- CONTACT -</div>
           <p>お気軽にご相談ください</p>
         </div>
         <a className="section__cta" href="mailto:info@unitary.jp">

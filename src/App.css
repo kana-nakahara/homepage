@@ -38,7 +38,7 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
-  margin: 0 15vw;
+  margin: 0 12.5vw;
 }
 .business-visual__content--ai {
   background:
@@ -48,7 +48,7 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
-  margin: 0 15vw;
+  margin: 0 12.5vw;
 }
 .business-label {
   margin-bottom: 0 !important;
@@ -61,7 +61,7 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
-  margin: 0 15vw;
+  margin: 0 12.5vw;
 }
 .business-main-vertical {
   padding: 8vh 0;
@@ -578,7 +578,7 @@
 .section__header {
   max-width: auto;
   font-size: 1.4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .section__header--center {
@@ -616,11 +616,14 @@
 
 .worries {
   margin-top: 3.5rem;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 
 .worries__title {
   font-size: 1.6rem;
   margin: 0 0 2rem;
+  text-align:center;
 }
 
 .worries__grid {
