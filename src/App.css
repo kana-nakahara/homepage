@@ -1,8 +1,126 @@
+/* --- Philosophy Section Scroll Animation --- */
+.philosophy-visual__content,
+.philosophy-visual__img-shadow,
+.philosophy-visual__img {
+  opacity: 0;
+  /* Start below, keep original transform for position, add +60px for animation */
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.philosophy-visual__content {
+  transform: translateY(60px);
+}
+.philosophy-visual__img-shadow {
+  transform: translateY(calc(-40% + 60px)) scale(1.08, 1);
+}
+.philosophy-visual__img {
+  transform: translateY(calc(-45% + 60px));
+}
+.philosophy-visual--inview .philosophy-visual__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+.philosophy-visual--inview .philosophy-visual__img-shadow {
+  opacity: 0.55;
+  transform: translateY(-40%) scale(1.08, 1);
+}
+.philosophy-visual--inview .philosophy-visual__img {
+  opacity: 1;
+  transform: translateY(-45%);
+}
+.philosophy-visual__img-shadow {
+  position: absolute;
+  right: 10vw;
+  top: 50%;
+  transform: translateY(-40%) scale(1.08, 1);
+  height: 60vh;
+  max-width: 40vw;
+  width: auto;
+  z-index: 0;
+  opacity: 0.55;
+  border-radius: 6px;
+  pointer-events: none;
+  user-select: none;
+  background: linear-gradient(120deg, #e90ea0, #6366f1);
+  content: "";
+  aspect-ratio: 4/3;
+}
+  .philosophy-visual__img-shadow {
+    position: absolute;
+    right: 10vw;
+    top: 50%;
+    transform: translateY(-40%) scale(1.08, 1);
+    height: 60vh;
+    max-width: 40vw;
+    width: auto;
+    z-index: 0;
+    opacity: 0.55;
+    border-radius: 6px;
+    pointer-events: none;
+    user-select: none;
+    background: linear-gradient(120deg, #e90ea0, #6366f1);
+    aspect-ratio: 4/3;
+    /* Combine left-to-right and top-to-bottom fade using mask-composite */
+    -webkit-mask-image: 
+      linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)),
+      linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    -webkit-mask-composite: intersect;
+    mask-image: 
+      linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)),
+      linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    mask-composite: intersect;
+  }
 /* --- Philosophy Visual Section --- */
 .philosophy-visual {
-  background: #fff;
-  padding: 3.5rem 0 2.5rem 0;
-  margin-bottom: 2.5rem;
+  background: #f1f5f9;
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.philosophy-visual__content {
+  width: 75vw;
+  min-width: 320px;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+  transform: translateY(7.5vh);
+}
+.philosophy-visual__img {
+  position: absolute;
+  right: 10vw;
+  top: 50%;
+  transform: translateY(-45%);
+  height: 60vh;
+  width: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  border-radius: 6px;
+}
+@media (max-width: 900px) {
+  .philosophy-visual__content {
+    width: 90vw;
+    margin-left: 4vw;
+    margin-bottom: 0;
+    justify-content: center;
+  }
+  .philosophy-visual__img {
+    height: 28vh;
+    right: 4vw;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 .philosophy-label {
   color: #444;
@@ -24,10 +142,24 @@
   font-size: 1.45rem;
   font-weight: 500;
   border-radius: 10px;
-  padding: 0.4em 0.9em 0.32em 0.9em;
+  padding: 0.32em 0.7em 0.22em 0.7em;
   line-height: 1.5;
   margin-bottom: 0.1em;
   letter-spacing: 0.01em;
+  width: auto;
+  max-width: 100%;
+  white-space: pre-line;
+}
+
+.philosophy-main-text--small {
+  font-size: 1.2rem;
+  padding: 0.22em 0.55em 0.14em 0.55em;
+}
+@media (max-width: 600px) {
+  .philosophy-main-text--small {
+    font-size: 1.02rem;
+    padding: 0.16em 0.38em 0.10em 0.38em;
+  }
 }
 .philosophy-main-text--bold {
   font-size: 1.55rem;

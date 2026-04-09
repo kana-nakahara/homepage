@@ -9,6 +9,7 @@ import systemDissatisfyImg from './assets/現在のシステムや開発体制�
 import logoImg from './assets/会社ロゴのみ.png'
 import zeroCoderIntroImg from './assets/ZeroCoderご紹介.png'
 import topImg from './assets/top.jpg'
+import philosophyImg from './assets/philosophy.jpg'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,6 +17,9 @@ function App() {
   const bgRef = useRef(null)
   const titleBarRef = useRef(null)
   const navRef = useRef(null)
+  const philosophyRef = useRef(null)
+  const [philosophyInView, setPhilosophyInView] = useState(false)
+
   useEffect(() => {
     // Animate background image
     if (bgRef.current) {
@@ -30,6 +34,23 @@ function App() {
         if (navRef.current) navRef.current.classList.add('is-visible')
       })
     }, 500)
+
+    // Scroll trigger for philosophy section
+    const handleScroll = () => {
+      if (!philosophyRef.current) return
+      const rect = philosophyRef.current.getBoundingClientRect()
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight
+      // Trigger when top of section is within 60% of viewport height
+      if (rect.top < windowHeight * 0.6) {
+        setPhilosophyInView(true)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    // Initial check in case already in view
+    handleScroll()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
@@ -95,16 +116,28 @@ function App() {
         </div>
       </header>
       
-      <section className="philosophy-visual" id="philosophy">
-        <div className="philosophy-label">PHILOSOPHY</div>
-        <div className="philosophy-main-texts">
-          <div className="philosophy-main-text philosophy-main-text--bold">
-            UNITARYは、情報系・AI分野の学術的な専門知識・豊富な経験を持つメンバーで開発チームを構成しております
-          </div>
-          <div className="philosophy-main-text">
-            各メンバーが常にあるべき姿を考え、確かな技術力でそれを実現することでお客様の可能性を最大限に引き出せるようサポートいたします
+      <section
+        className={`philosophy-visual philosophy-visual--full${philosophyInView ? ' philosophy-visual--inview' : ''}`}
+        id="philosophy"
+        ref={philosophyRef}
+      >
+        <div className="philosophy-visual__content">
+          <div className="philosophy-label">- PHILOSOPHY -</div>
+          <div className="philosophy-main-texts">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.3em' }}>
+              <span className="philosophy-main-text philosophy-main-text--bold">UNITARYは</span>
+              <span className="philosophy-main-text philosophy-main-text--bold">情報系・AI分野の学術的な専門知識と豊富な経験を持つメンバーで</span>
+              <span className="philosophy-main-text philosophy-main-text--bold">開発チームを構成しております</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.3em' }}>
+              <span className="philosophy-main-text philosophy-main-text--small">各メンバーが常にあるべき姿を考え</span>
+              <span className="philosophy-main-text philosophy-main-text--small">確かな技術力でそれを実現することで</span>
+              <span className="philosophy-main-text philosophy-main-text--small">お客様の可能性を最大限に引き出せるようサポートいたします</span>
+            </div>
           </div>
         </div>
+        <div className="philosophy-visual__img-shadow"></div>
+        <img src={philosophyImg} alt="philosophy" className="philosophy-visual__img" />
       </section>
 
       <section className="section section--center" id="business">
