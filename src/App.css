@@ -1,3 +1,32 @@
+.business-label {
+  margin-bottom: 0 !important;
+}
+.business-visual__content {
+  background:
+    linear-gradient(120deg, rgba(233,14,160,0.75), rgba(99,102,241,0.4)),
+    url('./assets/zerocoder.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  margin: 0 10vw;
+}
+.business-main-vertical {
+  padding: 10vh 0;
+  margin: 10vh 5vw;
+}
+.business-main-vertical > div {
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.business-main-vertical > div:last-child {
+  margin-bottom: 0;
+}
+.business-title-blue {
+  color: #0ea5e9 !important;
+}
 /* --- Philosophy Section Scroll Animation --- */
 .philosophy-visual__content,
 .philosophy-visual__img-shadow,

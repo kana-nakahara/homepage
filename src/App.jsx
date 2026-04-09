@@ -10,6 +10,7 @@ import logoImg from './assets/会社ロゴのみ.png'
 import zeroCoderIntroImg from './assets/ZeroCoderご紹介.png'
 import topImg from './assets/top.jpg'
 import philosophyImg from './assets/philosophy.jpg'
+import zeroCoderBgImg from './assets/zerocoder.jpg'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -122,7 +123,7 @@ function App() {
         ref={philosophyRef}
       >
         <div className="philosophy-visual__content">
-          <div className="philosophy-label">- PHILOSOPHY -</div>
+          <div className="philosophy-label">- ABOUT -</div>
           <div className="philosophy-main-texts">
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.3em' }}>
               <span className="philosophy-main-text philosophy-main-text--bold">UNITARYは</span>
@@ -140,49 +141,48 @@ function App() {
         <img src={philosophyImg} alt="philosophy" className="philosophy-visual__img" />
       </section>
 
-      <section className="section section--center" id="business">
-        <div className="section__header" style={{marginTop: '-3rem'}}>
-          <h2>事業内容</h2>
-          <hr className="section__divider" />
+
+      <div className="business-label philosophy-label" style={{ textAlign: 'center', width: '100%', margin: '4rem' }}>- SERVICE -</div>
+      <section className="business-visual" id="business">
+        <div className="business-visual__content">
+          <div className="philosophy-main-texts business-main-vertical">
+            <div><span className="philosophy-main-text philosophy-main-text--bold business-title-blue">自社製ノーコードフレームワーク ZeroCoder によるシステム開発</span></div>
+            <div>
+              <span className="philosophy-main-text">20 年に渡って蓄積されたノウハウと実績に裏付けられた確かな技術力と提案力により</span>
+              <span className="philosophy-main-text">多種多様な業務システム・Webシステム / サイト・スマホアプリを</span>
+              <span className="philosophy-main-text">安価かつスピーディに企画・開発いたします</span>
+            </div>
+            <div>
+              <span className="philosophy-main-text philosophy-main-text--small">散在した社内データの一元管理や集計・分析機能、プロセス管理はもちろん</span>
+              <span className="philosophy-main-text philosophy-main-text--small">複雑なビジネスロジックの実現も強みとしております</span>
+            </div>
+          </div>
         </div>
-        <p className="section__title">自社製ノーコードフレームワーク ZeroCoder によるシステム開発</p>
-        <div className="section__body">
-          <p>
-            20 年に渡って蓄積されたノウハウと実績に裏付けられた確かな技術力と提案力により、<br/>
-            多種多様な業務システム・Webシステム / サイト・スマホアプリを安価かつスピーディに企画・開発いたします
-          </p>
-          <p style={{marginTop: '0.5rem'}}>
-            散在した社内データの一元管理や集計・分析機能、プロセス管理はもちろん、<br/>
-            複雑なビジネスロジックの実現も強みとしております
-          </p>
+      </section>
+
+      <section className="business-visual" id="business-dx">
+        <div className="business-visual__content">
+          <div className="philosophy-main-texts business-main-vertical">
+            <div><span className="philosophy-main-text philosophy-main-text--bold business-title-blue">DX推進のご支援</span></div>
+            <div><span className="philosophy-main-text">企業内に散在するデータや業務プロセスを整理・可視化することで、<br/>一元管理されたデータ基盤の構築をご支援いたします</span></div>
+            <div><span className="philosophy-main-text philosophy-main-text--small">蓄積されたデータを活用し、経営状況や事業活動を多角的に分析できる環境を整備することで、<br/>データに基づいた経営戦略・意思決定を可能にします</span></div>
+            <div><span className="philosophy-main-text philosophy-main-text--small">AI活用を見据えたデータ設計・システム構造の整備まで一貫してサポートいたします</span></div>
+          </div>
         </div>
-        <p className="section__title" style={{marginTop: '2rem'}}>DX推進のご支援</p>
-        <div className="section__body">
-          <p>
-            企業内に散在するデータや業務プロセスを整理・可視化することで、<br/>
-            一元管理されたデータ基盤の構築をご支援いたします
-          </p>
-          <p style={{marginTop: '0.5rem'}}>
-            蓄積されたデータを活用し、経営状況や事業活動を多角的に分析できる環境を整備することで、<br/>
-            データに基づいた経営戦略・意思決定を可能にします
-          </p>
-          <p style={{marginTop: '0.5rem'}}>
-            AI活用を見据えたデータ設計・システム構造の整備まで一貫してサポートいたします
-          </p>
+      </section>
+
+      <section className="business-visual" id="business-ai">
+        <div className="business-visual__content">
+          <div className="philosophy-main-texts business-main-vertical">
+            <div><span className="philosophy-main-text philosophy-main-text--bold business-title-blue">AIを活用した業務改善</span></div>
+            <div><span className="philosophy-main-text">業務効率化・自動化を推進し、生産性の向上を実現します</span></div>
+            <div><span className="philosophy-main-text philosophy-main-text--small">一元管理されたデータを活用したAIによるデータ分析・業務支援を通じて、<br/>経験などに依存していた業務判断を最適化し、業務品質の向上を支援いたします</span></div>
+            <div><span className="philosophy-main-text philosophy-main-text--small">既存システムや業務フローと連携した実践的なAI導入により、現場で継続的に活用できる仕組みを構築します</span></div>
+          </div>
         </div>
-        <p className="section__title" style={{marginTop: '2rem'}}>AIを活用した業務改善</p>
-        <div className="section__body">
-          <p>
-            業務効率化・自動化を推進し、生産性の向上を実現します
-          </p>
-          <p style={{marginTop: '0.5rem'}}>
-            一元管理されたデータを活用したAIによるデータ分析・業務支援を通じて、<br />
-            経験などに依存していた業務判断を最適化し、業務品質の向上を支援いたします
-          </p>
-          <p style={{marginTop: '0.5rem'}}>
-            既存システムや業務フローと連携した実践的なAI導入により、現場で継続的に活用できる仕組みを構築します
-          </p>
-        </div>
+      </section>
+
+      <section id="worries">
         <div className="worries">
           <h3 className="worries__title">こんなお悩みはありませんか？</h3>
           <div className="worries__grid">
