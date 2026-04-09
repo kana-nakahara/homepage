@@ -1,26 +1,72 @@
+.business-arrow-btn {
+  position: absolute;
+  right: 3vw;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.2s;
+}
+.business-arrow-btn img {
+  width: 44px;
+  height: 44px;
+  display: block;
+  filter: drop-shadow(0 0 2px #fff8);
+}
+.business-arrow-btn:hover img {
+  filter: drop-shadow(0 0 8px #fff) brightness(1.2);
+}
+.business-visual__content--dx {
+  background:
+    linear-gradient(120deg, rgba(133, 23, 94, 0.4), rgba(23, 27, 241, 0.4)),
+    url('./assets/dx.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  margin: 0 15vw;
+}
+.business-visual__content--ai {
+  background:
+    linear-gradient(120deg, rgba(115, 47, 121, 0.6), rgba(27, 100, 180, 0.1)),
+    url('./assets/ai.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  margin: 0 15vw;
+}
 .business-label {
   margin-bottom: 0 !important;
 }
 .business-visual__content {
   background:
-    linear-gradient(120deg, rgba(233,14,160,0.75), rgba(99,102,241,0.4)),
+    linear-gradient(120deg, rgba(43, 28, 43, 0.9), rgba(52, 55, 238, 0.4)),
     url('./assets/zerocoder.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
-  margin: 0 10vw;
+  margin: 0 15vw;
 }
 .business-main-vertical {
-  padding: 10vh 0;
+  padding: 8vh 0;
   margin: 10vh 5vw;
 }
 .business-main-vertical > div {
-  margin-bottom: 0.5em;
+  margin-bottom: 1.4em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+  .business-main-vertical > .business-block--zerocoder {
+    margin-bottom: 3.2em;
+  }
 .business-main-vertical > div:last-child {
   margin-bottom: 0;
 }
