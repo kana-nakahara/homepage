@@ -21,6 +21,14 @@ function App() {
   const navRef = useRef(null)
   const philosophyRef = useRef(null)
   const [philosophyInView, setPhilosophyInView] = useState(false)
+  const serviceLabelRef = useRef(null)
+  const serviceZeroRef = useRef(null)
+  const serviceDxRef = useRef(null)
+  const serviceAiRef = useRef(null)
+  const [serviceLabelInView, setServiceLabelInView] = useState(false)
+  const [serviceZeroInView, setServiceZeroInView] = useState(false)
+  const [serviceDxInView, setServiceDxInView] = useState(false)
+  const [serviceAiInView, setServiceAiInView] = useState(false)
 
   useEffect(() => {
     // Animate background image
@@ -39,13 +47,17 @@ function App() {
 
     // Scroll trigger for philosophy section
     const handleScroll = () => {
-      if (!philosophyRef.current) return
-      const rect = philosophyRef.current.getBoundingClientRect()
       const windowHeight = window.innerHeight || document.documentElement.clientHeight
-      // Trigger when top of section is within 60% of viewport height
-      if (rect.top < windowHeight * 0.6) {
-        setPhilosophyInView(true)
+      const checkInView = (ref, setter) => {
+        if (!ref.current) return
+        const rect = ref.current.getBoundingClientRect()
+        if (rect.top < windowHeight * 0.85) setter(true)
       }
+      checkInView(philosophyRef, setPhilosophyInView)
+      checkInView(serviceLabelRef, setServiceLabelInView)
+      checkInView(serviceZeroRef, setServiceZeroInView)
+      checkInView(serviceDxRef, setServiceDxInView)
+      checkInView(serviceAiRef, setServiceAiInView)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     // Initial check in case already in view
@@ -143,9 +155,9 @@ function App() {
       </section>
 
 
-      <div className="business-label philosophy-label" style={{ textAlign: 'center', marginTop: '4rem' }}>- SERVICE -</div>
+      <div ref={serviceLabelRef} className={`business-label philosophy-label slide-up${serviceLabelInView ? ' slide-up--inview' : ''}`} style={{ textAlign: 'center', marginTop: '4rem' }}>- SERVICE -</div>
       <section className="business-visual" id="business">
-        <div className="business-visual__content" style={{position: 'relative'}}>
+        <div ref={serviceZeroRef} className={`business-visual__content slide-up${serviceZeroInView ? ' slide-up--inview' : ''}`} style={{position: 'relative'}}>
           <div className="philosophy-main-texts business-main-vertical">
             <div className="business-block--zerocoder">
               <span className="philosophy-main-text philosophy-main-text--bold business-title-blue">自社製ノーコードフレームワーク『ZeroCoder』によるシステム開発</span>
@@ -167,7 +179,7 @@ function App() {
       </section>
 
       <section className="business-visual" id="business-dx">
-        <div className="business-visual__content--dx" style={{position: 'relative'}}>
+        <div ref={serviceDxRef} className={`business-visual__content--dx slide-up${serviceDxInView ? ' slide-up--inview' : ''}`} style={{position: 'relative'}}>
           <div className="philosophy-main-texts business-main-vertical business-main-vertical--right">
             <div className="business-block--zerocoder">
               <span className="philosophy-main-text philosophy-main-text--bold business-title-blue">DX推進のご支援</span>
@@ -191,7 +203,7 @@ function App() {
       </section>
 
       <section className="business-visual" id="business-ai">
-        <div className="business-visual__content--ai" style={{position: 'relative'}}>
+        <div ref={serviceAiRef} className={`business-visual__content--ai slide-up${serviceAiInView ? ' slide-up--inview' : ''}`} style={{position: 'relative'}}>
           <div className="philosophy-main-texts business-main-vertical">
             <div>
               <span className="philosophy-main-text philosophy-main-text--bold business-title-blue">AIを活用した業務改善</span>

@@ -1,3 +1,12 @@
+.slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.4s cubic-bezier(0.4,0,0.2,1), transform 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+.slide-up--inview {
+  opacity: 1;
+  transform: translateY(0);
+}
 .business-arrow-btn {
   position: absolute;
   right: 3vw;
@@ -79,7 +88,7 @@
 .philosophy-visual__img {
   opacity: 0;
   /* Start below, keep original transform for position, add +60px for animation */
-  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 1.4s cubic-bezier(0.4,0,0.2,1), transform 1.4s cubic-bezier(0.4,0,0.2,1);
 }
 .philosophy-visual__content {
   transform: translateY(60px);
