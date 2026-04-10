@@ -1,6 +1,6 @@
 .slide-up {
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(120px);
   transition: opacity 1.4s cubic-bezier(0.4,0,0.2,1), transform 1.4s cubic-bezier(0.4,0,0.2,1);
 }
 .slide-up--inview {
@@ -91,13 +91,13 @@
   transition: opacity 1.4s cubic-bezier(0.4,0,0.2,1), transform 1.4s cubic-bezier(0.4,0,0.2,1);
 }
 .philosophy-visual__content {
-  transform: translateY(60px);
+  transform: translateY(120px);
 }
 .philosophy-visual__img-shadow {
-  transform: translateY(calc(-40% + 60px)) scale(1.08, 1);
+  transform: translateY(calc(-40% + 120px)) scale(1.08, 1);
 }
 .philosophy-visual__img {
-  transform: translateY(calc(-45% + 60px));
+  transform: translateY(calc(-45% + 120px));
 }
 .philosophy-visual--inview .philosophy-visual__content {
   opacity: 1;
@@ -281,13 +281,13 @@
 .hero__bg-image {
   /* ...existing styles... */
   opacity: 0;
-  transform: translateX(60px);
+  transform: translateY(60px);
   transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
 }
 
 .hero__bg-image.is-visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .hero__title-bar {
