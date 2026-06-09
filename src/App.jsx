@@ -181,7 +181,7 @@ function App() {
           <button 
             className="business-arrow-btn" 
             aria-label="詳細へ"
-            onClick={() => window.open('./assets/サービス資料.pdf', '_blank')}
+            onClick={() => window.open('/サービス資料.pdf', '_blank')}
           >
             <img src={arrowOutline} alt="arrow" />
           </button>
