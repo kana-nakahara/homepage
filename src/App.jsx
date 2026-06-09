@@ -178,7 +178,11 @@ function App() {
               <span className="philosophy-main-text philosophy-main-text--small">複雑なビジネスロジックの実現も強みとしております</span>
             </div>
           </div>
-          <button className="business-arrow-btn" aria-label="詳細へ">
+          <button 
+            className="business-arrow-btn" 
+            aria-label="詳細へ"
+            onClick={() => window.open('./assets/サービス資料.pdf', '_blank')}
+          >
             <img src={arrowOutline} alt="arrow" />
           </button>
         </div>
@@ -202,9 +206,6 @@ function App() {
               <span className="philosophy-main-text philosophy-main-text--small">AI活用を見据えたデータ設計・システム構造の整備まで一貫してサポートいたします</span>
             </div>
           </div>
-          <button className="business-arrow-btn" aria-label="詳細へ">
-            <img src={arrowOutline} alt="arrow" />
-          </button>
         </div>
       </section>
 
@@ -226,9 +227,6 @@ function App() {
               <span className="philosophy-main-text philosophy-main-text--small">現場で継続的に活用できる仕組みを構築します</span>
             </div>
           </div>
-          <button className="business-arrow-btn" aria-label="詳細へ">
-            <img src={arrowOutline} alt="arrow" />
-          </button>
         </div>
       </section>
 
