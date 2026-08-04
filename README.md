@@ -1,16 +1,25 @@
-# React + Vite
+# UNITARY コーポレートサイト
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+株式会社 UNITARY のコーポレートサイト。単一の静的 HTML（[index.html](index.html)）で構成され、Vite でビルドして GitHub Pages に公開しています。
 
-Currently, two official plugins are available:
+## 構成
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [index.html](index.html) — ページ全体（HTML / CSS / JS をすべて内包）
+- [public/](public/) — そのまま配信される静的ファイル（favicon、サービス資料 PDF）
+- [src/assets/](src/assets/) — 旧デザインで使用していた画像素材（現在は未使用）
 
-## React Compiler
+外部依存は Google Fonts（Noto Sans JP / Inter / JetBrains Mono）のみです。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## コマンド
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev      # 開発サーバー
+npm run build    # dist/ に本番ビルド
+npm run preview  # ビルド結果の確認
+npm run lint     # ESLint
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## デプロイ
+
+`develop` ブランチへの push で [.github/workflows/deploy.yml](.github/workflows/deploy.yml) が走り、GitHub Pages に公開されます。

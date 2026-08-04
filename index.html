@@ -1,13 +1,964 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/src/assets/会社ロゴのみ.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UNITARY</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITARY — AIで世界に、自由と美しさを。</title>
+<meta name="description" content="株式会社UNITARYは、自社製ノーコードフレームワーク「ZeroCoder」と100万件超の定義文を学習したAIによる真のAI駆動開発で、基幹業務システムをオーダーメイドで開発します。">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0B1220; --deep2:#101A2E; --ink:#0E1116; --white:#FFFFFF; --pale:#EAF0F8;
+  --slate:#8A96A6; --slate-d:#55606B; --line:#233149; --line-l:#E7EAEE;
+  --orange:#F6A33E; --orange-d:#E8830C; --blue:#6DA8E6; --blue-d:#3E77B8;
+  --sans:'Noto Sans JP','Inter',sans-serif; --en:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ========== HEADER (transparent over hero) ========== */
+header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,border-color .4s ease}
+header.solid{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--en);font-weight:800;letter-spacing:.16em;font-size:16px;color:#fff;transition:color .4s}
+header.solid .logo{color:var(--ink)}
+nav ul{display:flex;gap:28px;list-style:none;font-size:13px;font-weight:500}
+nav a{color:rgba(255,255,255,.75);transition:color .3s}
+header.solid nav a{color:var(--slate-d)}
+nav a:hover{color:var(--orange)}
+.hd .cta-s{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:9px 22px;border-radius:6px}
+@media(max-width:760px){nav{display:none}}
+
+/* ========== HERO ========== */
+.hero{position:relative;height:100svh;min-height:600px;background:radial-gradient(1200px 700px at 50% 30%,#16233E 0%,var(--deep) 62%);color:#fff;overflow:hidden}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(109,168,230,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(109,168,230,.06) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%)}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--blue);opacity:.5;animation:float 9s linear infinite}
+.particle.o{background:var(--orange)}
+@keyframes float{0%{transform:translateY(20px);opacity:0}15%{opacity:.6}85%{opacity:.5}100%{transform:translateY(-90vh);opacity:0}}
+
+.stage{position:absolute;inset:0;display:grid;place-items:center;transition:opacity 1.2s ease,filter 1.2s ease}
+.stage.dim{opacity:.35;filter:blur(1px)}
+.scene{width:min(760px,92vw);position:relative}
+
+/* phase panels */
+.ph{position:absolute;left:0;right:0;top:50%;transform:translateY(-46%) scale(.97);opacity:0;transition:opacity .7s ease,transform .7s ease;pointer-events:none}
+.ph.on{opacity:1;transform:translateY(-50%) scale(1)}
+.ph-label{font-family:var(--mono);font-size:12px;letter-spacing:.28em;color:var(--blue);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.ph-label::before{content:"";width:26px;height:1px;background:var(--blue)}
+.ph-label.o{color:var(--orange)}
+.ph-label.o::before{background:var(--orange)}
+
+/* phase1: human input */
+.chat{background:rgba(255,255,255,.04);border:1px solid rgba(109,168,230,.35);border-radius:14px;padding:26px 28px;backdrop-filter:blur(4px);box-shadow:0 0 60px rgba(109,168,230,.12)}
+.chat .who{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--slate);margin-bottom:14px}
+.chat .who i{width:26px;height:26px;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
+.chat .txt{font-size:clamp(17px,2.6vw,23px);font-weight:700;line-height:1.8;min-height:2.6em}
+.cursor{display:inline-block;width:9px;height:1.05em;background:var(--orange);vertical-align:-3px;animation:blink 1s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+
+/* phase2: AI generates definitions */
+.gen-code{background:rgba(10,16,28,.85);border:1px solid rgba(246,163,62,.4);border-radius:14px;padding:24px 26px;font-family:var(--mono);font-size:clamp(11.5px,1.7vw,13.5px);line-height:2;color:#D8DEE6;box-shadow:0 0 70px rgba(246,163,62,.14)}
+.gen-code .ln{opacity:0;transform:translateX(-8px);transition:opacity .35s ease,transform .35s ease;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gen-code .ln.on{opacity:1;transform:none}
+.gen-code .kw{color:#7FB5FF}.gen-code .st{color:#FFC46B}.gen-code .cm{color:#5E6B7E}
+.scanline{height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);margin-top:14px;animation:scan 1.6s ease-in-out infinite;opacity:.9}
+@keyframes scan{0%,100%{transform:translateX(-30%)}50%{transform:translateX(30%)}}
+
+/* phase3: system assembles */
+.app{background:rgba(255,255,255,.97);border-radius:14px;overflow:hidden;color:var(--ink);box-shadow:0 0 90px rgba(109,168,230,.25),0 30px 80px rgba(0,0,0,.45)}
+.app .abar{height:38px;background:#F2F5F9;border-bottom:1px solid var(--line-l);display:flex;align-items:center;gap:7px;padding:0 14px}
+.app .abar i{width:9px;height:9px;border-radius:50%;background:#D5DBE3}
+.app .abar span{font-family:var(--mono);font-size:11px;color:var(--slate-d);margin-left:8px}
+.app .abody{display:grid;grid-template-columns:150px 1fr;min-height:230px}
+@media(max-width:560px){.app .abody{grid-template-columns:1fr}.app .side{display:none}}
+.app .side{background:#0F1B30;padding:14px 12px;display:flex;flex-direction:column;gap:8px}
+.app .side b{display:block;height:26px;border-radius:6px;background:rgba(255,255,255,.08);opacity:0;transform:translateX(-10px);transition:.4s ease}
+.app .side b.hl{background:var(--orange)}
+.app .main{padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:60px;gap:10px}
+.app .blk{border:1.5px solid var(--line-l);border-radius:8px;background:#FAFBFC;position:relative;opacity:0;transform:scale(.8);transition:.45s cubic-bezier(.2,.8,.2,1)}
+.app .blk::after{content:attr(data-l);position:absolute;left:9px;top:6px;font-family:var(--mono);font-size:10px;color:var(--slate-d)}
+.app .blk.w2{grid-column:span 2}
+.app .blk.hl{border-color:var(--orange);background:#FFF6E8}
+.app .blk.ch{border-color:var(--blue);background:#F0F6FD}
+.app .blk.ch::before{content:"";position:absolute;left:10px;right:10px;bottom:8px;top:22px;background:linear-gradient(180deg,transparent 40%,rgba(109,168,230,.35) 40%),repeating-linear-gradient(90deg,var(--blue) 0 8px,transparent 8px 14px);opacity:.7;border-radius:3px}
+.assembled .side b,.assembled .blk{opacity:1;transform:none}
+
+/* copy overlay */
+.copy{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none;z-index:3}
+.copy .l1,.copy .l2{display:inline-block;opacity:0;transform:translateY(26px);transition:opacity 1.7s cubic-bezier(.2,.6,.2,1),transform 1.7s cubic-bezier(.2,.6,.2,1)}
+.copy.on .l1{opacity:1;transform:none;transition-delay:.15s}
+.copy.on .l2{opacity:1;transform:none;transition-delay:.8s}
+.copy.on{opacity:1;transform:none;pointer-events:auto}
+.copy h1{font-size:clamp(34px,6.4vw,64px);font-weight:900;letter-spacing:.04em;line-height:1.5;text-shadow:0 4px 40px rgba(0,0,0,.5)}
+.copy h1 .o{color:var(--orange)}
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--slate);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4}
+.scroll-cue i{width:1px;height:36px;background:linear-gradient(180deg,var(--orange),transparent);animation:cue 1.8s ease infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* bridge statement — full screen, writes itself left to right, orange city grows below */
+.bridge{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;background:linear-gradient(180deg,#FFFCF7 0%,#FBF2E3 62%,#F8EBD5 100%)}
+.bridge .wrap{position:relative;z-index:1;text-align:center;padding-bottom:18vh}
+.bridge-line{font-size:clamp(17px,2.6vw,27px);font-weight:900;line-height:2.15;letter-spacing:.03em}
+.bridge-line span{display:inline-block;clip-path:inset(0 100% 0 0);transition:clip-path 1.5s cubic-bezier(.3,.6,.3,1)}
+.bridge.on .l1 span{clip-path:inset(0 0 0 0)}
+.bridge.on .l2 span{clip-path:inset(0 0 0 0);transition-delay:1.1s}
+.city{position:absolute;left:0;right:0;bottom:0;height:min(41vh,400px);pointer-events:none}
+@media(min-width:900px){.city{height:min(34.2vw,500px)}}
+.citysun{position:absolute;bottom:-70px;left:15%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(246,163,62,.38),rgba(246,163,62,.12) 55%,transparent 72%);animation:sunGlow 6s ease-in-out infinite}
+@keyframes sunGlow{50%{opacity:.65;transform:scale(1.07)}}
+.city svg{position:absolute;inset:0;width:100%;height:100%}
+.city .c{transform:scaleY(0);transform-origin:bottom;transform-box:fill-box}
+.bridge.on .city .c{transform:scaleY(1);transition:transform 1.7s cubic-bezier(.3,1.35,.5,1)}
+.city .wheel{transform-box:fill-box;transform-origin:center;animation:spinW 26s linear infinite}
+@keyframes spinW{to{transform:rotate(360deg)}}
+.city .blink{animation:blinkA 2.4s ease-in-out infinite}
+@keyframes blinkA{50%{opacity:.15}}
+@media(max-width:760px){.bridge .wrap{padding:0 24px 22vh}}
+
+/* tech section pop-orange background loop */
+#tech{position:relative;overflow:hidden}
+.tech-head{position:relative}
+.tech-bg{position:absolute;top:50%;left:50%;width:min(310px,55vw);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;z-index:-1}
+.tech-bg::before{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(246,163,62,.08),transparent 70%);opacity:0;transition:opacity 1.4s ease .4s}
+.tech-bg.born::before{opacity:1}
+.tech-bg .sun{position:absolute;top:50%;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:rgba(246,163,62,.55);box-shadow:0 0 18px rgba(246,163,62,.4);transform:scale(0);opacity:0;transition:transform .6s cubic-bezier(.2,.7,.3,1.3),opacity .4s ease}
+.tech-bg.born .sun{transform:scale(1);opacity:1}
+.tech-bg .osc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform 1s cubic-bezier(.16,.7,.3,1),opacity .6s ease}
+.tech-bg.born .osc{transform:translate(-50%,-50%) scale(1);opacity:1}
+.tech-bg .o1{width:26%;height:26%;transition-delay:.15s}
+.tech-bg .o2{width:48%;height:48%;transition-delay:.3s}
+.tech-bg .o3{width:72%;height:72%;transition-delay:.45s}
+.tech-bg .o4{width:96%;height:96%;transition-delay:.6s}
+.tech-bg .orbit{position:absolute;inset:0;border:1px solid rgba(246,163,62,.22);border-radius:50%;animation:orbitSpin linear infinite}
+.tech-bg .o1 .orbit{animation-duration:8s}
+.tech-bg .o2 .orbit{animation-duration:14s;animation-direction:reverse}
+.tech-bg .o3 .orbit{animation-duration:21s}
+.tech-bg .o4 .orbit{animation-duration:30s;animation-direction:reverse}
+.tech-bg .orbit i{position:absolute;top:-4px;left:50%;margin-left:-4px;width:8px;height:8px;border-radius:50%;background:var(--orange);opacity:.75;box-shadow:0 0 8px rgba(246,163,62,.55)}
+.tech-bg .o3 .orbit i{width:6px;height:6px;top:-3px;margin-left:-3px;opacity:.6}
+.tech-bg .o4 .orbit i{width:5px;height:5px;top:-2.5px;margin-left:-2.5px;opacity:.5}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+
+
+/* ========== SECTIONS ========== */
+section{padding:110px 0}
+.k{font-family:var(--en);font-size:12px;font-weight:600;letter-spacing:.24em;color:var(--orange-d);margin-bottom:18px}
+.kx .kt{display:inline-block;position:relative;padding-bottom:8px;clip-path:inset(-6px -12px 0 0);transition:clip-path 1.1s cubic-bezier(.3,.6,.3,1)}
+.kx .kt{clip-path:inset(-6px 100% 0 0)}
+.kx.on .kt{clip-path:inset(-6px -12px 0 0)}
+.kx .kt::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--orange),#FFC46B);box-shadow:0 0 8px rgba(246,163,62,.85),0 0 18px rgba(246,163,62,.45);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.3,.6,.3,1) .95s}
+.kx.on .kt::after{transform:scaleX(1)}
+h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spacing:.01em;margin-bottom:24px}
+.em-o{color:var(--orange-d)}
+.subhead{font-size:clamp(14px,2vw,18px);font-weight:900;line-height:1.9;letter-spacing:.02em;margin:-14px 0 28px;position:relative;padding-left:24px}
+.subhead::before{content:"";position:absolute;left:5px;top:.95em;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--orange);z-index:1}
+.subhead::after{content:"";position:absolute;left:5px;top:.95em;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,rgba(246,163,62,.4),rgba(246,163,62,.14) 55%,transparent 72%)}
+.subhead .x{color:var(--orange-d);margin:0 .4em;font-size:.9em}
+.subhead.sub2{margin-top:44px}
+.free-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:26px;align-items:center}
+.free-anim{position:relative;height:160px;width:185px;margin:0 auto}
+.free-anim i{position:absolute;left:0;top:0;width:33px;height:33px;border-radius:8px;background:transparent;border:2px solid rgba(240,152,44,.55);box-shadow:0 0 10px rgba(246,163,62,.35),inset 0 0 8px rgba(246,163,62,.22);transition:transform 1.4s cubic-bezier(.3,.7,.2,1)}
+.free-anim i.b{border-color:rgba(94,155,217,.5);box-shadow:0 0 10px rgba(109,168,230,.35),inset 0 0 8px rgba(109,168,230,.22)}
+@media(max-width:820px){.free-grid{grid-template-columns:1fr;gap:14px}}
+.mk{background:linear-gradient(transparent 66%,rgba(246,163,62,.35) 66%)}
+.prose{color:#333A42}
+.prose p{margin-bottom:1.4em}
+.prose strong{color:var(--ink)}
+
+/* faint geometric signature (from Candidate A) */
+#tech{position:relative;overflow:hidden;padding-bottom:48px}
+#value{padding-top:48px;background:#F7F8FA}
+
+/* reveal system */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.48s}
+
+/* zerocoder accumulation → AI → generation */
+.zc-stage{background:var(--deep);border-radius:20px;padding:46px 38px 42px;margin:56px 0 10px;color:#fff;position:relative;overflow:hidden}
+.zc-stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(109,168,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(109,168,230,.05) 1px,transparent 1px);background-size:44px 44px}
+.zc-inner{position:relative;display:grid;grid-template-columns:1fr 58px 1fr 58px 1fr;align-items:center}
+.zc-col{text-align:center}
+.zc-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--slate);margin-bottom:14px}
+.zc-cap b{color:var(--blue);font-weight:500}
+.zc-cap.o b{color:var(--orange)}
+.zc-stack{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;max-width:190px;margin:0 auto}
+.zc-stack i{height:9px;border-radius:2.5px;background:rgba(109,168,230,.5);opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease}
+.zc-stack i.o{background:rgba(246,163,62,.65)}
+.go .zc-stack i{opacity:1;transform:none}
+.zc-count{margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--pale)}
+.zc-count b{font-family:var(--en);font-size:20px;font-weight:800;color:#fff;letter-spacing:.01em}
+.zc-count small{color:var(--slate);font-size:11px;display:block;margin-top:2px;letter-spacing:.14em}
+.zc-core{position:relative;width:150px;margin:0 auto}
+.zc-core svg{width:100%;height:auto;display:block}
+.zc-core .lk{stroke:rgba(109,168,230,.75);stroke-width:1.2;stroke-dasharray:80;stroke-dashoffset:80;transition:stroke-dashoffset .9s ease}
+.go .zc-core .lk{stroke-dashoffset:0}
+.zc-core .nd{fill:#22334F;transition:fill .5s ease}
+.go .zc-core .nd{fill:var(--blue)}
+.go .zc-core .nd.c{fill:var(--orange)}
+.zc-core .ring{fill:none;stroke:var(--orange);stroke-width:1.5;opacity:0;transform-origin:center}
+.go .zc-core .ring{animation:zring 2.4s ease-out infinite 1.6s}
+@keyframes zring{0%{opacity:.8;transform:scale(.55)}100%{opacity:0;transform:scale(1.22)}}
+.zc-flow{position:relative;height:2px;background:rgba(255,255,255,.12);border-radius:1px}
+.zc-flow i{position:absolute;top:-2.5px;left:-4px;width:7px;height:7px;border-radius:50%;opacity:0}
+.zc-flow.in i{background:var(--blue);box-shadow:0 0 8px rgba(109,168,230,.8)}
+.zc-flow.out i{background:var(--orange);box-shadow:0 0 8px rgba(246,163,62,.8)}
+.go .zc-flow i{animation:zflowH 1.5s linear infinite}
+.go .zc-flow.in i:nth-child(1){animation-delay:.6s}
+.go .zc-flow.in i:nth-child(2){animation-delay:1.1s}
+.go .zc-flow.in i:nth-child(3){animation-delay:1.6s}
+.go .zc-flow.out i:nth-child(1){animation-delay:1.9s}
+.go .zc-flow.out i:nth-child(2){animation-delay:2.4s}
+.go .zc-flow.out i:nth-child(3){animation-delay:2.9s}
+@keyframes zflowH{0%{opacity:0;transform:translateX(0)}12%{opacity:1}88%{opacity:1}100%{opacity:0;transform:translateX(60px)}}
+@keyframes zflowV{0%{opacity:0;transform:translateY(0)}12%{opacity:1}88%{opacity:1}100%{opacity:0;transform:translateY(54px)}}
+.zc-app{max-width:200px;margin:0 auto;background:#0A1322;border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.zc-app b{height:26px;border-radius:5px;background:rgba(255,255,255,.07);opacity:0;transform:scale(.7);transition:opacity .35s ease,transform .35s ease}
+.zc-app b.hl{background:rgba(246,163,62,.55)}
+.zc-app b.bl{background:rgba(109,168,230,.5)}
+.go .zc-app b{opacity:1;transform:none}
+@media(max-width:820px){
+  .zc-stage{padding:36px 22px}
+  .zc-inner{grid-template-columns:1fr;gap:18px}
+  .zc-flow{width:2px;height:52px;margin:0 auto}
+  .zc-flow i{left:-2.5px;top:-4px}
+  .go .zc-flow i{animation-name:zflowV}
+}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+@media(max-width:700px){.nums{grid-template-columns:1fr}}
+.num{border-top:3px solid #AFBBC9;background:#FAFBFC;border-radius:0 0 12px 12px;padding:26px 24px}
+.num .v{font-family:var(--en);font-size:42px;font-weight:800;letter-spacing:-.01em}
+.num .v small{font-size:17px;font-family:var(--sans);font-weight:700;margin-left:3px}
+.num .l{font-size:13px;color:var(--slate-d);margin-top:6px}
+
+/* works */
+.works{background:var(--deep);color:#fff}
+.works .k{color:var(--orange)}
+.works .prose{color:#B9C4D6}
+.works .prose strong{color:#fff}
+.wcards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:48px}
+@media(max-width:760px){.wcards{grid-template-columns:1fr}}
+.wcard{background:var(--deep2);border:1px solid var(--line);border-radius:16px;padding:30px 28px;transition:transform .25s ease,border-color .25s ease}
+.wcard:hover{transform:translateY(-4px);border-color:var(--blue-d)}
+.wcard .cat{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--blue)}
+.wcard h3{font-size:19px;font-weight:900;margin:10px 0 10px}
+.wcard p{font-size:13.5px;color:var(--slate)}
+.wcard .mini{margin-top:20px;background:#0A1322;border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.wcard .mini b{height:34px;border-radius:6px;background:rgba(255,255,255,.06);transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
+.wcard .mini b:nth-child(2){background:rgba(246,163,62,.5)}
+.wcard .mini b:nth-child(5){background:rgba(109,168,230,.5)}
+.rv.on .mini b{transform:none}
+.rv.on .mini b:nth-child(1){transition-delay:.3s}.rv.on .mini b:nth-child(2){transition-delay:.42s}
+.rv.on .mini b:nth-child(3){transition-delay:.54s}.rv.on .mini b:nth-child(4){transition-delay:.66s}
+.rv.on .mini b:nth-child(5){transition-delay:.78s}.rv.on .mini b:nth-child(6){transition-delay:.9s}
+
+/* flow steps */
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:#fff;border:1.5px solid var(--line-l);border-radius:14px;padding:26px 22px;position:relative;transition:border-color .5s ease,box-shadow .5s ease}
+.step .no{font-family:var(--mono);font-size:12px;color:var(--slate-d);transition:color .5s ease}
+.step h3{font-size:16px;font-weight:900;margin:10px 0 8px}
+.step p{font-size:13px;color:var(--slate-d)}
+.step.lit{border-color:var(--orange);box-shadow:0 10px 30px rgba(246,163,62,.15)}
+.step.lit .no{color:var(--orange-d)}
+.progressline{height:3px;background:var(--line-l);border-radius:2px;margin-top:34px;overflow:hidden}
+.progressline i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--blue));transition:width 2.4s cubic-bezier(.3,.7,.3,1)}
+.rv.on .progressline i{width:100%}
+
+/* company info */
+.company{background:#F7F8FA;padding-bottom:0}
+.c2-label{font-family:var(--en);font-size:13px;font-weight:700;letter-spacing:.3em;color:#2A2F36;text-align:center;margin-bottom:36px}
+.cinfo{background:#fff;border:1px solid var(--line-l);border-radius:16px;padding:14px 34px;box-shadow:0 8px 26px rgba(14,17,22,.04)}
+.crow{display:grid;grid-template-columns:130px 1fr;gap:26px;padding:19px 0;position:relative;font-size:14.5px;line-height:1.9}
+.crow+.crow::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--line-l);transform:scaleX(0);transform-origin:left;transition:transform .9s ease}
+.cinfo.go .crow+.crow::before{transform:scaleX(1)}
+.cinfo.go .crow:nth-child(2)::before{transition-delay:.28s}
+.cinfo.go .crow:nth-child(3)::before{transition-delay:.46s}
+.cinfo.go .crow:nth-child(4)::before{transition-delay:.64s}
+.cinfo.go .crow:nth-child(5)::before{transition-delay:.82s}
+.crow .cl{font-weight:900;text-align:right;white-space:nowrap}
+.crow .cl,.crow .cv{opacity:0;transform:translateX(-14px);transition:opacity .6s ease,transform .6s ease}
+.cinfo.go .crow .cl,.cinfo.go .crow .cv{opacity:1;transform:none}
+@media(max-width:560px){.cinfo{padding:8px 20px}.crow{grid-template-columns:82px 1fr;gap:14px;font-size:13px}.crow .cl{text-align:left}}
+
+/* founder */
+.founder{background:#F7F8FA}
+.ftl{background:#fff;border:1px solid var(--line-l);border-radius:16px;padding:10px 30px;box-shadow:0 8px 26px rgba(14,17,22,.04)}
+.ftl .row{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:17px 0;border-bottom:1px solid var(--line-l);font-size:14.5px;line-height:1.9}
+.ftl .row:last-child{border-bottom:none}
+.ftl .y{font-weight:900;white-space:nowrap}
+@media(max-width:560px){.ftl{padding:6px 18px}.ftl .row{grid-template-columns:64px 1fr;gap:12px;font-size:13px}}
+
+/* cta + footer */
+.contact{background:linear-gradient(160deg,#FFF3E0 0%,#FFD9A0 45%,#F6A33E 100%);text-align:center;padding:76px 24px 84px}
+.c-label{font-family:var(--en);font-size:13px;font-weight:700;letter-spacing:.3em;color:#C97C13}
+.c-lead{color:#3A2A12;font-size:clamp(16px,2.4vw,20px);font-weight:700;letter-spacing:.1em;margin:16px 0 36px}
+.c-btn{display:inline-block;background:#E8830C;color:#fff;font-weight:700;font-size:15px;padding:15px 46px;border-radius:99px;transition:transform .15s ease,box-shadow .15s ease}
+.c-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(232,131,12,.4)}
+footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:var(--slate-d);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv,.copy,.copy .l1,.copy .l2{opacity:1;transform:none}
+  .bridge-line span{clip-path:none}
+  .kx .kt{clip-path:none}
+  .kx .kt::after{transform:none}
+  .crow .cl,.crow .cv{opacity:1;transform:none}
+  .crow+.crow::before{transform:none}
+  .city .c{transform:none}
+  .citysun{animation:none}
+  .tech-bg::before{opacity:1}
+  .tech-bg .sun{opacity:1;transform:scale(1)}
+  .tech-bg .osc{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .zc-stack i,.zc-core .nd,.zc-app b{opacity:1;transform:none}
+  .zc-core .lk{stroke-dashoffset:0}
+  .zc-core .nd{fill:var(--blue)}
+  .zc-core .nd.c{fill:var(--orange)}
+  .zc-flow i{display:none}
+  .ph{opacity:0}.ph.static{opacity:1;position:relative;transform:none;margin-bottom:20px}
+  .stage{position:relative;padding:120px 0 60px}
+  .hero{height:auto}
+  .app .side b,.app .blk{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap hd">
+    <a class="logo" href="#">UNITARY</a>
+    <nav aria-label="主要メニュー"><ul>
+      <li><a href="#tech">AI駆動開発</a></li>
+      <li><a href="#value">自由と美しさ</a></li>
+      <li><a href="#works">開発事例</a></li>
+      <li><a href="#flow">導入の流れ</a></li>
+      <li><a href="#founder">代表紹介</a></li>
+    </ul></nav>
+    <a class="cta-s" href="#contact">無料相談</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero" id="hero">
+  <div class="grid-bg"></div>
+  <div id="particles"></div>
+
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="scene">
+
+      <!-- PHASE 1 : human input -->
+      <div class="ph" id="ph1">
+        <p class="ph-label">01 — HUMAN INPUT｜やりたいことを、話す</p>
+        <div class="chat">
+          <div class="who"><i><svg width="13" height="13" viewBox="0 0 13 13"><circle cx="6.5" cy="4" r="2.6" fill="#fff"/><path d="M1.5 12c.8-3 2.8-4.5 5-4.5s4.2 1.5 5 4.5" fill="#fff"/></svg></i>お客様</div>
+          <p class="txt"><span id="typed"></span><span class="cursor" id="cur"></span></p>
+        </div>
+      </div>
+
+      <!-- PHASE 2 : AI generates definitions -->
+      <div class="ph" id="ph2">
+        <p class="ph-label o">02 — AI GENERATES｜100万件の蓄積から、定義文を生成</p>
+        <div class="gen-code" id="genCode">
+          <div class="ln"><span class="cm"># ZeroCoder 定義文 — auto-generated</span></div>
+          <div class="ln"><span class="kw">画面</span> <span class="st">"受注一覧"</span> { 検索: 得意先, 受注日, 状態 }</div>
+          <div class="ln"><span class="kw">画面</span> <span class="st">"入出荷登録"</span> { 入力: 品番, 数量, 倉庫 }</div>
+          <div class="ln"><span class="kw">帳票</span> <span class="st">"納品書"</span> ← 受注明細 × 得意先マスタ</div>
+          <div class="ln"><span class="kw">集計</span> <span class="st">"在庫推移"</span> { 軸: 品目, 期間: 月次 }</div>
+          <div class="ln"><span class="kw">権限</span> { 営業: 閲覧/登録, 管理: 承認 }</div>
+          <div class="scanline"></div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 : system assembles -->
+      <div class="ph" id="ph3">
+        <p class="ph-label">03 — SYSTEM BUILDS｜定義が、そのまま動き出す</p>
+        <div class="app" id="app">
+          <div class="abar"><i></i><i></i><i></i><span>unitary://your-system</span></div>
+          <div class="abody">
+            <div class="side"><b class="hl"></b><b></b><b></b><b></b><b></b></div>
+            <div class="main">
+              <div class="blk w2 hl" data-l="受注一覧"></div><div class="blk" data-l="検索"></div>
+              <div class="blk" data-l="登録"></div><div class="blk ch w2" data-l="在庫推移"></div>
+              <div class="blk" data-l="帳票"></div><div class="blk" data-l="承認"></div><div class="blk" data-l="権限"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- catch copy -->
+  <div class="copy" id="copy">
+    <div>
+      <h1><span class="l1">AIで世界に</span><br><span class="l2"><span class="o">自由と美しさ</span>を</span></h1>
+    </div>
+  </div>
+
+  <div class="scroll-cue">SCROLL<i></i></div>
+</div>
+
+<!-- ================= BRIDGE / MISSION ================= -->
+<section class="bridge" id="mission">
+  <div class="wrap">
+    <p class="bridge-line l1"><span>弊社UNITARYは、真のAI駆動開発を実現したことにより</span></p>
+    <p class="bridge-line l2"><span>システム開発でも<b class="em-o">自由と美しさ</b>を追求できるようになりました</span></p>
+  </div>
+    <div class="city" aria-hidden="true">
+    <span class="citysun"></span>
+    <svg viewBox="0 -110 1200 410" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F6A33E"/><stop offset="1" stop-color="#E8830C"/>
+        </linearGradient>
+        <pattern id="win" width="20" height="24" patternUnits="userSpaceOnUse">
+          <rect x="0" y="11" width="20" height="2.4" fill="rgba(255,255,255,.38)"/>
+        </pattern>
+        <pattern id="winB" width="30" height="10" patternUnits="userSpaceOnUse">
+          <rect x="8" y="0" width="13" height="10" fill="rgba(255,255,255,.3)"/>
+        </pattern>
+        <pattern id="winC" width="42" height="48" patternUnits="userSpaceOnUse">
+          <rect x="7" y="7" width="28" height="34" rx="5" fill="rgba(255,255,255,.34)"/>
+        </pattern>
+        <pattern id="winD" width="20" height="34" patternUnits="userSpaceOnUse">
+          <rect x="0" y="9" width="20" height="11" fill="rgba(255,255,255,.28)"/>
+        </pattern>
+        <linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F8BA64"/><stop offset="1" stop-color="#F0982A"/>
+        </linearGradient>
+        <linearGradient id="cg3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#EE9022"/><stop offset="1" stop-color="#D9730B"/>
+        </linearGradient>
+      </defs>
+
+      <!-- back silhouettes -->
+      <g fill="#F7C98C" opacity=".38">
+        <rect class="c" x="0" y="160" width="55" height="140"/>
+        <path class="c" d="M70,300 V130 a20 20 0 0 1 40 0 V300 Z"/>
+        <rect class="c" x="128" y="70" width="45" height="230"/>
+        <path class="c" d="M190,300 V210 a35 24 0 0 1 70 0 V300 Z"/>
+        <rect class="c" x="278" y="215" width="70" height="85" rx="6"/>
+        <rect class="c" x="420" y="130" width="50" height="170" rx="24"/>
+        <rect class="c" x="585" y="90" width="42" height="210"/>
+        <path class="c" d="M640,300 V150 a37 26 0 0 1 74 0 V300 Z"/>
+        <rect class="c" x="735" y="175" width="55" height="125"/>
+        <rect class="c" x="800" y="40" width="48" height="260"/>
+        <rect class="c" x="948" y="120" width="52" height="180" rx="8"/>
+        <rect class="c" x="1015" y="170" width="78" height="130"/>
+        <rect class="c" x="1140" y="95" width="60" height="205" rx="10"/>
+        <rect class="c" x="355" y="140" width="40" height="160"/>
+        <rect class="c" x="505" y="22" width="44" height="278"/>
+        <path class="c" d="M470,300 V230 a26 20 0 0 1 52 0 V300 Z"/>
+        <rect class="c" x="700" y="110" width="36" height="190" rx="6"/>
+        <rect class="c" x="862" y="95" width="46" height="205"/>
+        <rect class="c" x="912" y="150" width="30" height="150" rx="12"/>
+        <rect class="c" x="1098" y="140" width="34" height="160"/>
+      </g>
+
+      <!-- front, detailed -->
+      <g>
+        <!-- tower with antenna -->
+        <g class="c">
+          <rect x="40" y="150" width="70" height="150" rx="6" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.28)"><rect x="40.0" y="168.5" width="70" height="11"/><rect x="40.0" y="202.5" width="70" height="11"/><rect x="40.0" y="236.5" width="70" height="11"/><rect x="40.0" y="270.5" width="70" height="11"/></g>
+          <rect x="48" y="141" width="14" height="9" fill="#E8830C"/>
+          <rect x="88" y="143" width="10" height="7" fill="#E8830C"/>
+          <line x1="75" y1="150" x2="75" y2="100" stroke="#E8830C" stroke-width="4"/>
+          <circle class="blink" cx="75" cy="96" r="4" fill="#F6A33E"/>
+        </g>
+        <!-- stepped skyscraper -->
+        <g class="c">
+          <rect x="150" y="220" width="95" height="80" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.38)"><rect x="153.0" y="246.8" width="89" height="2.4"/><rect x="153.0" y="270.8" width="89" height="2.4"/></g>
+          <rect x="165" y="140" width="65" height="80" fill="url(#cg2)"/>
+          <g fill="rgba(255,255,255,0.3)"><rect x="176.0" y="148.0" width="13" height="72"/><rect x="206.0" y="148.0" width="13" height="72"/></g>
+          <rect x="181" y="68" width="33" height="72" rx="4" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="183.5" y="87.0" width="28" height="34" rx="5"/></g>
+        </g>
+        <!-- tree -->
+        <g class="c">
+          <rect x="268" y="268" width="4" height="32" fill="#E8830C"/>
+          <circle cx="270" cy="262" r="15" fill="#F6A33E" opacity=".85"/>
+        </g>
+        <!-- dome building -->
+        <g class="c">
+          <rect x="295" y="205" width="84" height="95" fill="url(#cg2)"/>
+          <g fill="rgba(255,255,255,0.3)"><rect x="315.5" y="213.0" width="13" height="87"/><rect x="345.5" y="213.0" width="13" height="87"/></g>
+          <path d="M295,205 a42 26 0 0 1 84 0 Z" fill="url(#cg)"/>
+        </g>
+        <!-- construction crane -->
+        <g class="c">
+          <rect x="386" y="162" width="6" height="138" fill="#E8830C"/>
+          <rect x="350" y="155" width="92" height="6" rx="3" fill="#E8830C"/>
+          <path d="M389,162 L352,158 M389,162 L438,158" stroke="#F6A33E" stroke-width="3" fill="none"/>
+          <line x1="430" y1="161" x2="430" y2="198" stroke="#F6A33E" stroke-width="2.5"/>
+          <rect x="424" y="198" width="12" height="9" rx="2" fill="#F6A33E"/>
+        </g>
+        <!-- street lamp -->
+        <g class="c">
+          <rect x="404" y="258" width="3" height="42" fill="#E8830C"/>
+          <circle class="blink" cx="405.5" cy="254" r="5" fill="#F6A33E" opacity=".9"/>
+        </g>
+        <!-- lattice tower (Tokyo Tower style) -->
+        <g class="c">
+          <path d="M455,300 Q496,150 502,52" fill="none" stroke="#E8830C" stroke-width="7" stroke-linecap="round"/>
+          <path d="M555,300 Q514,150 508,52" fill="none" stroke="#E8830C" stroke-width="7" stroke-linecap="round"/>
+          <line x1="470" y1="235" x2="540" y2="235" stroke="#F6A33E" stroke-width="5"/>
+          <line x1="483" y1="175" x2="527" y2="175" stroke="#F6A33E" stroke-width="5"/>
+          <line x1="492" y1="120" x2="518" y2="120" stroke="#F6A33E" stroke-width="4"/>
+          <line x1="498" y1="78" x2="512" y2="78" stroke="#F6A33E" stroke-width="4"/>
+          <line x1="505" y1="52" x2="505" y2="28" stroke="#E8830C" stroke-width="4"/>
+          <circle class="blink" cx="505" cy="24" r="4" fill="#F6A33E"/>
+        </g>
+        <!-- wide low building -->
+        <g class="c">
+          <rect x="585" y="178" width="46" height="122" rx="6" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.28)"><rect x="585.0" y="199.5" width="46" height="11"/><rect x="585.0" y="233.5" width="46" height="11"/><rect x="585.0" y="267.5" width="46" height="11"/></g>
+          <rect x="659" y="178" width="46" height="122" rx="6" fill="url(#cg3)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="668.0" y="198.0" width="28" height="34" rx="5"/><rect x="668.0" y="246.0" width="28" height="34" rx="5"/></g>
+          <rect x="626" y="208" width="38" height="13" rx="6" fill="#F6A33E"/>
+        </g>
+        <!-- slant-roof tower -->
+        <g class="c">
+          <rect x="738" y="130" width="62" height="170" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="755.0" y="150.0" width="28" height="34" rx="5"/><rect x="755.0" y="198.0" width="28" height="34" rx="5"/><rect x="755.0" y="246.0" width="28" height="34" rx="5"/></g>
+          <path d="M738,130 L800,130 L800,100 Z" fill="#E8830C"/>
+        </g>
+        <!-- ferris wheel -->
+        <g class="c">
+          <g class="wheel">
+            <circle cx="885" cy="205" r="66" fill="none" stroke="#E8830C" stroke-width="5"/>
+            <g stroke="#F6A33E" stroke-width="3">
+              <line x1="885" y1="139" x2="885" y2="271"/>
+              <line x1="819" y1="205" x2="951" y2="205"/>
+              <line x1="838" y1="158" x2="932" y2="252"/>
+              <line x1="932" y1="158" x2="838" y2="252"/>
+            </g>
+            <g fill="url(#cg)">
+              <circle cx="885" cy="139" r="7"/><circle cx="885" cy="271" r="7"/>
+              <circle cx="819" cy="205" r="7"/><circle cx="951" cy="205" r="7"/>
+              <circle cx="838" cy="158" r="7"/><circle cx="932" cy="252" r="7"/>
+              <circle cx="932" cy="158" r="7"/><circle cx="838" cy="252" r="7"/>
+            </g>
+          </g>
+          <path d="M885,205 L858,300 M885,205 L912,300" stroke="#E8830C" stroke-width="6" fill="none"/>
+          <circle cx="885" cy="205" r="8" fill="#E8830C"/>
+        </g>
+        <!-- rounded tower -->
+        <g class="c">
+          <rect x="990" y="170" width="58" height="130" rx="8" fill="url(#cg2)"/>
+          <g fill="rgba(255,255,255,0.28)"><rect x="990.0" y="195.5" width="58" height="11"/><rect x="990.0" y="229.5" width="58" height="11"/><rect x="990.0" y="263.5" width="58" height="11"/></g>
+          <path d="M990,170 L1019,140 L1048,170 Z" fill="#E8830C"/>
+          <circle cx="1019" cy="194" r="13" fill="#FFF7EC"/>
+          <line x1="1019" y1="194" x2="1019" y2="185" stroke="#E8830C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="1019" y1="194" x2="1026" y2="197" stroke="#E8830C" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <!-- tree pair -->
+        <g class="c">
+          <rect x="1076" y="272" width="4" height="28" fill="#E8830C"/>
+          <circle cx="1078" cy="266" r="13" fill="#F6A33E" opacity=".85"/>
+          <rect x="1100" y="266" width="4" height="34" fill="#E8830C"/>
+          <circle cx="1102" cy="258" r="16" fill="#F6A33E" opacity=".85"/>
+        </g>
+        <!-- tall tower with antenna -->
+        <g class="c">
+          <rect x="1128" y="48" width="64" height="252" rx="8" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.3)"><rect x="1138.5" y="56.0" width="13" height="244"/><rect x="1168.5" y="56.0" width="13" height="244"/></g>
+          <rect x="1136" y="40" width="48" height="9" rx="4" fill="#E8830C"/>
+          <line x1="1160" y1="40" x2="1160" y2="14" stroke="#E8830C" stroke-width="4"/>
+          <circle class="blink" cx="1160" cy="10" r="4" fill="#F6A33E"/>
+        </g>
+        <!-- infill buildings -->
+        <g class="c">
+          <rect x="118" y="245" width="28" height="55" rx="4" fill="url(#cg3)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="118.0" y="255.5" width="28" height="34" rx="5"/></g>
+          <path d="M116,245 L132,230 L148,245 Z" fill="#E8830C"/>
+        </g>
+        <g class="c">
+          <rect x="412" y="192" width="38" height="108" rx="6" fill="url(#cg2)"/>
+          <g fill="rgba(255,255,255,0.28)"><rect x="412.0" y="223.5" width="38" height="11"/><rect x="412.0" y="257.5" width="38" height="11"/></g>
+          <path d="M412,192 L450,192 L431,176 Z" fill="#E8830C"/>
+        </g>
+        <g class="c">
+          <rect x="708" y="188" width="26" height="112" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.3)"><rect x="714.5" y="196.0" width="13" height="104"/></g>
+        </g>
+        <g class="c">
+          <rect x="806" y="252" width="46" height="48" rx="10" fill="url(#cg2)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="815.0" y="259.0" width="28" height="34" rx="5"/></g>
+          <path d="M804,254 q8,-11 16,0 q8,-11 16,0 q8,-11 16,0 Z" fill="#E8830C"/>
+        </g>
+        <g class="c">
+          <rect x="957" y="228" width="24" height="72" rx="4" fill="url(#cg3)"/>
+          <g fill="rgba(255,255,255,0.28)"><rect x="957.0" y="258.5" width="24" height="11"/></g>
+        </g>
+        <g class="c">
+          <rect x="1052" y="206" width="22" height="94" rx="4" fill="url(#cg)"/>
+          <g fill="rgba(255,255,255,0.34)"><rect x="1049.0" y="236.0" width="28" height="34" rx="5"/></g>
+        </g>
+      </g>
+
+      <rect x="0" y="297" width="1200" height="3" fill="#E8830C" opacity=".3"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ================= ZEROCODER / AI ================= -->
+<section id="tech">
+  <div class="wrap">
+    <div class="tech-head">
+      <div class="tech-bg" aria-hidden="true"><span class="sun"></span><div class="osc o1"><div class="orbit"><i></i></div></div><div class="osc o2"><div class="orbit"><i></i></div></div><div class="osc o3"><div class="orbit"><i></i></div></div><div class="osc o4"><div class="orbit"><i></i></div></div></div>
+      <p class="k rv kx"><span class="kt">TECHNOLOGY — ZeroCoder × AI</span></p>
+      <h2 class="rv d1">UNITARYの<span class="em-o">AI駆動開発</span></h2>
+      <p class="subhead rv d2">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
+      <div class="prose rv d3">
+      <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong>20年以上多種多様なシステムを作り続けてきました</strong>。</p>
+      <p>その過程で蓄積された<strong>100万件を超える定義文</strong>—やりたいことを定義した実データ—をAIに学習させることで、<span class="mk">一般論からの推測ではなく<strong>稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
+      </div>
+    </div>
+
+    <div class="zc-stage rv d2" id="zcStage" aria-label="20年分の定義文データがAI学習モデルと掛け合わさり、AI駆動開発が実現する図">
+      <div class="zc-inner">
+        <div class="zc-col">
+          <p class="zc-cap"><b>DATA</b> — 20年の蓄積</p>
+          <div class="zc-stack" id="zcStack" aria-hidden="true"></div>
+          <p class="zc-count"><b id="zcDefs">0</b> 件<small>独自の定義文（開発データ）</small></p>
+        </div>
+        <div class="zc-flow in" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="zc-col">
+          <p class="zc-cap o"><b>AI MODEL</b> — 学習</p>
+          <div class="zc-core" aria-hidden="true">
+            <svg viewBox="0 0 150 150">
+              <circle class="ring" cx="75" cy="75" r="52"/>
+              <line class="lk" x1="75" y1="17" x2="75" y2="75"/>
+              <line class="lk" x1="125" y1="46" x2="75" y2="75"/>
+              <line class="lk" x1="125" y1="104" x2="75" y2="75"/>
+              <line class="lk" x1="75" y1="133" x2="75" y2="75"/>
+              <line class="lk" x1="25" y1="104" x2="75" y2="75"/>
+              <line class="lk" x1="25" y1="46" x2="75" y2="75"/>
+              <circle class="nd" cx="75" cy="17" r="6"/>
+              <circle class="nd" cx="125" cy="46" r="6"/>
+              <circle class="nd" cx="125" cy="104" r="6"/>
+              <circle class="nd" cx="75" cy="133" r="6"/>
+              <circle class="nd" cx="25" cy="104" r="6"/>
+              <circle class="nd" cx="25" cy="46" r="6"/>
+              <circle class="nd c" cx="75" cy="75" r="10"/>
+            </svg>
+          </div>
+          <p class="zc-count" style="margin-top:10px"><small>実績データで学習したAIモデル</small></p>
+        </div>
+        <div class="zc-flow out" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="zc-col">
+          <p class="zc-cap"><b>OUTPUT</b> — 生成</p>
+          <div class="zc-app" id="zcApp" aria-hidden="true"><b class="hl"></b><b></b><b></b><b></b><b class="bl"></b><b></b></div>
+          <p class="zc-count" style="margin-top:10px"><small>AI駆動生成</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nums">
+      <div class="num rv d1"><p class="v"><span data-count="20">0</span><small>年+</small></p><p class="l">フレームワーク改良と実装の歴史</p></div>
+      <div class="num rv d2"><p class="v"><span data-count="100">0</span><small>万件+</small></p><p class="l">AIが学習する独自定義文</p></div>
+      <div class="num rv d3"><p class="v">1/<span data-count="10">0</span></p><p class="l">定義生成による実装工数（当社比）</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VALUE ================= -->
+<section id="value">
+  <div class="wrap">
+    <p class="k rv kx"><span class="kt">VALUE — 自由と美しさ</span></p>
+    <h2 class="rv d1">システム開発で表現する<span class="em-o">自由と美しさ</span></h2>
+    <p class="subhead rv d2">ノーコードなのに<span class="mk">フルスクラッチ並の自由度</span></p>
+    <div class="free-grid rv d3">
+      <div class="prose">
+        <p>ZeroCoderは<strong>900以上の定義項目</strong>を組み合わせることで<span class="mk"><strong>フルスクラッチ開発と同等の自由度</strong></span>を実現し、多種多様なお客様の要望を叶えてきました。</p>
+        <p>ノーコードなのに<span class="mk">テンプレートの型に嵌めることなく</span>、<strong>自由なアイディアを表現</strong>します。</p>
+      </div>
+      <div class="free-anim" id="freeAnim" aria-label="同じ部品の組み合わせが、さまざまな形に組み変わる図"></div>
+    </div>
+
+    <div class="beauty-wrap">
+      <p class="subhead sub2 rv">美しさを追求する</p>
+      <div class="prose rv d1">
+        <p>システム開発には緻密な設計が欠かせません。<br>UNITARYはAI駆動開発によって短縮された工数分、綿密なヒアリングと検証により<span class="mk"><strong>あるべき姿</strong></span>を実現することができます。</p>
+        <p>エンジンの仕組みだけでなく、<strong>自由な発想でシステムがどうあるべきなのかを常に考え、<span class="mk">美しさにこだわる</span>。</strong><br>それが<strong>UNITARYの強み</strong>です。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= WORKS ================= -->
+<section class="works" id="works">
+  <div class="wrap">
+    <p class="k rv">WORKS — 開発事例</p>
+    <h2 class="rv d1">基幹業務を、オーダーメイドで。</h2>
+    <div class="prose rv d2"><p>AIが実装を担うから、オーダーメイド開発を現実的な価格とスピードで。どちらの事例も、要件定義から運用保守まで一気通貫で伴走しています。</p></div>
+    <div class="wcards">
+      <div class="wcard rv d1">
+        <p class="cat">WHOLESALE / RETAIL</p>
+        <h3>入出荷・在庫管理システム</h3>
+        <p>仕入から出荷まで品物台帳を一元化。バーコード運用・帳票出力に対応し、棚卸と転記の工数を削減しました。</p>
+        <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+      </div>
+      <div class="wcard rv d2">
+        <p class="cat">MEDIA / SALES</p>
+        <h3>CRM / SFAシステム</h3>
+        <p>顧客・案件管理に通話の自動文字起こしと帳票OCRを組み込み、営業記録の入力コストを大幅に削減しました。</p>
+        <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLOW ================= -->
+<section id="flow">
+  <div class="wrap">
+    <p class="k rv">FLOW — 導入の流れ</p>
+    <h2 class="rv d1">UNITARYの開発フロー</h2>
+    <div class="rv d2">
+      <div class="steps" id="steps">
+        <div class="step"><p class="no">STEP 01</p><h3>ヒアリング</h3><p>現状の業務フロー・課題をじっくりお聞きします。</p></div>
+        <div class="step"><p class="no">STEP 02</p><h3>あるべき姿の設計</h3><p>型に嵌めず、御社に最適な業務を設計。</p></div>
+        <div class="step"><p class="no">STEP 03</p><h3>ZeroCoderで開発</h3><p>自社フレームワークで高速にシステム構築。</p></div>
+        <div class="step"><p class="no">STEP 04</p><h3>導入後も継続支援</h3><p>運用後も「あるべき姿」を考え続け、柔軟に改善し続けます。</p></div>
+      </div>
+      <div class="progressline"><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOUNDER ================= -->
+<!-- ================= COMPANY ================= -->
+<section class="company" id="company">
+  <div class="wrap">
+    <p class="c2-label rv">- COMPANY -</p>
+    <div class="cinfo rv d1" id="cinfo">
+      <div class="crow"><span class="cl">会社名</span><span class="cv">株式会社 UNITARY</span></div>
+      <div class="crow"><span class="cl">所在地</span><span class="cv">〒150-0021　東京都渋谷区恵比寿西2丁目4番8号　ウィンド恵比寿ビル 8F</span></div>
+      <div class="crow"><span class="cl">代表取締役</span><span class="cv">中原 華奈</span></div>
+      <div class="crow"><span class="cl">資本金</span><span class="cv">3,000,000円</span></div>
+      <div class="crow"><span class="cl">事業内容</span><span class="cv">ITソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="founder" id="founder">
+  <div class="wrap">
+    <p class="k rv">FOUNDER — 代表紹介</p>
+    <div class="ftl rv d1">
+      <div class="row"><span class="y">1996年</span><span>神奈川県鎌倉市にて生まれる</span></div>
+      <div class="row"><span class="y">2018年</span><span>東京工業大学（現東京科学大学）理学部物理学科　卒業</span></div>
+      <div class="row"><span class="y">2020年</span><span>東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</span></div>
+      <div class="row"><span class="y">2020年</span><span>日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</span></div>
+      <div class="row"><span class="y">2023年</span><span>コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</span></div>
+      <div class="row"><span class="y">2024年</span><span>30歳未満の若手MVP賞を受賞</span></div>
+      <div class="row"><span class="y">2024年</span><span>株式会社 UNITARY を立ち上げる</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="contact rv" id="contact">
+  <p class="c-label">- CONTACT -</p>
+  <p class="c-lead">お気軽にご相談ください</p>
+  <a class="c-btn" href="mailto:info@unitary.jp">info@unitary.jp</a>
+</section>
+
+<div class="wrap"><footer>
+  <span>© UNITARY Inc.</span><span>Ebisu, Shibuya, Tokyo</span>
+</footer></div>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* particles */
+if(!reduce){
+  const pWrap=document.getElementById('particles');
+  for(let i=0;i<18;i++){
+    const p=document.createElement('i');
+    p.className='particle'+(i%3===0?' o':'');
+    p.style.left=(Math.random()*100)+'%';
+    p.style.top=(60+Math.random()*40)+'%';
+    p.style.animationDelay=(Math.random()*9)+'s';
+    p.style.animationDuration=(7+Math.random()*6)+'s';
+    pWrap.appendChild(p);
+  }
+}
+
+/* hero loop */
+const ph1=document.getElementById('ph1'),ph2=document.getElementById('ph2'),ph3=document.getElementById('ph3');
+const typed=document.getElementById('typed'),cur=document.getElementById('cur');
+const genLines=document.querySelectorAll('#genCode .ln');
+const app=document.getElementById('app');
+const stage=document.getElementById('stage'),copy=document.getElementById('copy');
+const REQ='受注から出荷まで、品物の流れをひとつの画面で管理したい。';
+
+function show(el){[ph1,ph2,ph3].forEach(p=>p.classList.remove('on'));el.classList.add('on')}
+function resetGen(){genLines.forEach(l=>l.classList.remove('on'))}
+function heroLoop(){
+  /* phase1 typing */
+  show(ph1);typed.textContent='';cur.style.display='inline-block';
+  let i=0;
+  const t=setInterval(()=>{
+    typed.textContent=REQ.slice(0,++i);
+    if(i>=REQ.length){
+      clearInterval(t);
+      setTimeout(()=>{cur.style.display='none';phase2()},700);
+    }
+  },55);
+}
+function phase2(){
+  show(ph2);resetGen();
+  genLines.forEach((l,idx)=>setTimeout(()=>l.classList.add('on'),200+idx*380));
+  setTimeout(phase3,200+genLines.length*380+900);
+}
+function phase3(){
+  show(ph3);app.parentElement.classList.remove('assembled');app.classList.remove('assembled');
+  const parts=[...app.querySelectorAll('.side b'),...app.querySelectorAll('.blk')];
+  parts.forEach(p=>{p.style.opacity=0;p.style.transform=p.classList.contains('blk')?'scale(.8)':'translateX(-10px)'});
+  parts.forEach((p,idx)=>setTimeout(()=>{p.style.opacity=1;p.style.transform='none'},250+idx*140));
+  const total=250+parts.length*140+1600;
+  setTimeout(heroLoop,total);
+}
+if(reduce){
+  [ph1,ph2,ph3].forEach(p=>p.classList.add('static'));
+  typed.textContent=REQ;cur.style.display='none';
+  genLines.forEach(l=>l.classList.add('on'));
+  copy.classList.add('on');
+}else{
+  stage.classList.add('dim');
+  setTimeout(()=>copy.classList.add('on'),450);
+  setTimeout(heroLoop,500);
+}
+
+/* header solid on scroll */
+const header=document.getElementById('header');
+addEventListener('scroll',()=>{header.classList.toggle('solid',scrollY>innerHeight*.7)},{passive:true});
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}
+}),{threshold:.18});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+
+
+/* freedom blocks: same parts, ever-changing forms */
+const fa=document.getElementById('freeAnim');
+if(fa){
+  const N=10;
+  for(let i=0;i<N;i++){const t=document.createElement('i');if(i%3===2)t.className='b';fa.appendChild(t)}
+  const tiles=[...fa.children];
+  const L=[
+    [[15,8,0],[58,8,0],[102,8,0],[15,51,0],[58,51,0],[102,51,0],[15,94,0],[58,94,0],[102,94,0],[145,51,0]],
+    [[77,8,0],[56,45,0],[99,45,0],[34,82,0],[77,82,0],[121,82,0],[12,120,0],[56,120,0],[99,120,0],[142,120,0]],
+    [[15,120,0],[58,120,0],[102,120,0],[145,120,0],[15,82,0],[15,45,0],[15,8,0],[58,82,0],[58,45,0],[102,82,0]],
+    [[21,14,-8],[118,9,6],[66,41,-4],[147,52,10],[10,71,5],[88,79,-10],[44,106,8],[133,105,-6],[78,124,4],[14,124,-12]]
+  ];
+  const apply=k=>tiles.forEach((t,i)=>{const[x,y,r]=L[k][i];t.style.transform=`translate(${x}px,${y}px) rotate(${r}deg)`});
+  apply(0);
+  const fio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;fio.unobserve(fa);
+    if(reduce)return;
+    let k=0;
+    setInterval(()=>{k=(k+1)%L.length;apply(k)},3000);
+  }),{threshold:.4});
+  fio.observe(fa);
+}
+
+/* company rows stagger-in */
+const cinfo=document.getElementById('cinfo');
+if(cinfo){
+  const cio2=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;cio2.unobserve(cinfo);
+    [...cinfo.querySelectorAll('.crow')].forEach((r,i)=>{
+      r.querySelectorAll('.cl,.cv').forEach(el=>el.style.transitionDelay=(reduce?0:.15+i*.18)+'s');
+    });
+    cinfo.classList.add('go');
+  }),{threshold:.35});
+  cio2.observe(cinfo);
+}
+
+/* bridge write-in + city growth */
+const bridge=document.querySelector('.bridge');
+if(bridge){
+  const bio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;bio.unobserve(bridge);
+    bridge.querySelectorAll('.city .c').forEach(el=>{
+      let d=0;
+      try{d=(el.getBBox().x/1200)*3}catch(err){}
+      el.style.transitionDelay=(reduce?0:d)+'s';
+    });
+    bridge.classList.add('on');
+  }),{threshold:.35});
+  bio.observe(bridge);
+}
+
+/* zerocoder accumulation animation */
+const zcStage=document.getElementById('zcStage');
+if(zcStage){
+  const stack=document.getElementById('zcStack');
+  for(let i=0;i<28;i++){const b=document.createElement('i');if(i%7===3)b.className='o';stack.appendChild(b)}
+  const chips=[...stack.children];
+  const zio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;zio.unobserve(zcStage);
+    chips.forEach((c,i)=>c.style.transitionDelay=(reduce?0:i*.05)+'s');
+    zcStage.querySelectorAll('.lk').forEach((l,i)=>l.style.transitionDelay=(reduce?0:.9+i*.12)+'s');
+    zcStage.querySelectorAll('.nd').forEach((n,i)=>n.style.transitionDelay=(reduce?0:.9+i*.1)+'s');
+    zcStage.querySelectorAll('.zc-app b').forEach((b,i)=>b.style.transitionDelay=(reduce?0:2.2+i*.13)+'s');
+    zcStage.classList.add('go');
+    const dEl=document.getElementById('zcDefs');
+    if(reduce){dEl.textContent='1,000,000+';return}
+    const dur=1700,t0=performance.now();
+    (function step(t){
+      const k=Math.min((t-t0)/dur,1),ez=1-Math.pow(1-k,3);
+      dEl.textContent=Math.round(1000000*ez).toLocaleString('ja-JP')+(k>=1?'+':'');
+      if(k<1)requestAnimationFrame(step);
+    })(t0);
+  }),{threshold:.35});
+  zio.observe(zcStage);
+}
+
+/* solar-system inflation on first view */
+const techBg=document.querySelector('.tech-bg');
+if(techBg){
+  const tio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){techBg.classList.add('born');tio.unobserve(e.target)}
+  }),{threshold:.25});
+  tio.observe(techBg.parentElement);
+}
+
+/* count-up */
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;cio.unobserve(e.target);
+  const el=e.target,goal=+el.dataset.count,dur=1400,t0=performance.now();
+  if(reduce){el.textContent=goal;return}
+  (function step(t){
+    const k=Math.min((t-t0)/dur,1);
+    el.textContent=Math.round(goal*(1-Math.pow(1-k,3)));
+    if(k<1)requestAnimationFrame(step);
+  })(t0);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* steps light up sequentially */
+const sio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;sio.unobserve(e.target);
+  const steps=e.target.querySelectorAll('.step');
+  steps.forEach((s,i)=>setTimeout(()=>s.classList.add('lit'),reduce?0:400+i*550));
+}),{threshold:.3});
+sio.observe(document.getElementById('steps'));
+</script>
+</body>
 </html>
