@@ -310,28 +310,75 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .rv.on .progressline i{width:100%}
 
 /* company info */
-.company{background:#F7F8FA;padding-bottom:0}
-.c2-label{font-family:var(--en);font-size:13px;font-weight:700;letter-spacing:.3em;color:#2A2F36;text-align:center;margin-bottom:36px}
-.cinfo{background:#fff;border:1px solid var(--line-l);border-radius:16px;padding:14px 34px;box-shadow:0 8px 26px rgba(14,17,22,.04)}
-.crow{display:grid;grid-template-columns:130px 1fr;gap:26px;padding:19px 0;position:relative;font-size:14.5px;line-height:1.9}
+.company{position:relative;overflow:hidden;background:linear-gradient(180deg,#FFFCF7 0%,#FBF1E1 100%);padding-bottom:180px}
+.cinfo{background:#fff;border:1px solid var(--line-l);border-radius:18px;padding:30px 40px 16px;box-shadow:0 12px 34px rgba(222,122,10,.1)}
+.ci-h{font-size:19px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.crow{display:grid;grid-template-columns:150px 1fr;gap:26px;padding:19px 0;position:relative;font-size:14.5px;line-height:1.9}
 .crow+.crow::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--line-l);transform:scaleX(0);transform-origin:left;transition:transform .9s ease}
 .cinfo.go .crow+.crow::before{transform:scaleX(1)}
 .cinfo.go .crow:nth-child(2)::before{transition-delay:.28s}
 .cinfo.go .crow:nth-child(3)::before{transition-delay:.46s}
 .cinfo.go .crow:nth-child(4)::before{transition-delay:.64s}
 .cinfo.go .crow:nth-child(5)::before{transition-delay:.82s}
-.crow .cl{font-weight:900;text-align:right;white-space:nowrap}
+.crow .cl{font-weight:700;color:var(--slate-d);text-align:left;white-space:nowrap}
+.crow .cv{font-weight:700;color:var(--ink)}
 .crow .cl,.crow .cv{opacity:0;transform:translateX(-14px);transition:opacity .6s ease,transform .6s ease}
 .cinfo.go .crow .cl,.cinfo.go .crow .cv{opacity:1;transform:none}
-@media(max-width:560px){.cinfo{padding:8px 20px}.crow{grid-template-columns:82px 1fr;gap:14px;font-size:13px}.crow .cl{text-align:left}}
+@media(max-width:560px){.cinfo{padding:22px 22px 10px}.crow{grid-template-columns:82px 1fr;gap:14px;font-size:13px}}
+
+/* company waves */
+.co-waves{position:absolute;left:0;right:0;bottom:55px;height:150px;pointer-events:none;overflow:hidden}
+.co-waves svg{position:absolute;left:0;bottom:0;width:200%;height:100%}
+.co-waves .w1{animation:coDrift 16s linear infinite}
+.co-waves .w2{animation:coDrift 24s linear infinite reverse;opacity:.55}
+.co-waves .w3{animation:coDrift 34s linear infinite;opacity:.35}
+@keyframes coDrift{to{transform:translateX(-50%)}}
+@media(max-width:760px){.company{padding-bottom:150px}.co-waves{height:110px;bottom:35px}}
 
 /* founder */
-.founder{background:#F7F8FA}
-.ftl{background:#fff;border:1px solid var(--line-l);border-radius:16px;padding:10px 30px;box-shadow:0 8px 26px rgba(14,17,22,.04)}
-.ftl .row{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:17px 0;border-bottom:1px solid var(--line-l);font-size:14.5px;line-height:1.9}
-.ftl .row:last-child{border-bottom:none}
-.ftl .y{font-weight:900;white-space:nowrap}
-@media(max-width:560px){.ftl{padding:6px 18px}.ftl .row{grid-template-columns:64px 1fr;gap:12px;font-size:13px}}
+.founder{background:#F7F8FA;overflow:hidden}
+.fplane{position:relative;left:50%;transform:translateX(-50%);width:100vw;height:104px;margin:2px 0 14px;pointer-events:none}
+.fplane svg{width:100%;height:100%;display:block}
+.fplane .route{stroke:rgba(232,131,12,.26);stroke-width:2;stroke-dasharray:2 9;fill:none;stroke-linecap:round}
+.fplane .plane{offset-path:path('M-60,68 C220,36 420,88 700,58 C980,28 1160,86 1460,48');offset-rotate:auto;animation:fplaneFly 11s linear infinite}
+@keyframes fplaneFly{0%{offset-distance:0%}100%{offset-distance:100%}}
+.fplane .puff{fill:var(--orange);opacity:0;animation:fpuff 11s linear infinite}
+.fplane .p2{animation-delay:3.6s}
+.fplane .p3{animation-delay:7.3s}
+@keyframes fpuff{0%,4%{opacity:0}8%{opacity:.5}20%{opacity:0}100%{opacity:0}}
+.fhead{display:flex;align-items:center;gap:24px;margin-bottom:34px}
+.avatar{width:92px;height:92px;border-radius:50%;background:linear-gradient(135deg,#FFE3BC,#F6A33E);display:grid;place-items:center;flex:none;box-shadow:0 8px 22px rgba(246,163,62,.3)}
+.avatar svg{width:52px;height:52px}
+.fnm{font-size:clamp(21px,3vw,27px);font-weight:900;letter-spacing:.04em;margin-top:2px}
+.fnm small{font-family:var(--en);font-size:12px;font-weight:600;color:var(--slate-d);letter-spacing:.18em;margin-left:12px}
+@media(max-width:560px){.fhead{gap:16px}.avatar{width:72px;height:72px}.avatar svg{width:42px;height:42px}.fnm small{display:block;margin:2px 0 0}}
+.fquote{margin-bottom:6px}
+.fquote blockquote{font-size:clamp(15px,2.1vw,18px);font-weight:700;line-height:2.2;letter-spacing:.02em;border-left:3px solid var(--orange);padding-left:22px;color:#333A42}
+.tl{position:relative;padding-left:34px;max-width:840px}
+.tl::before{content:"";position:absolute;left:8px;top:8px;bottom:16px;width:2px;background:linear-gradient(180deg,var(--orange),rgba(246,163,62,.15));transform:scaleY(0);transform-origin:top;transition:transform 1.7s ease .1s}
+.tl.go::before{transform:scaleY(1)}
+.tl .it{position:relative;padding-bottom:26px;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+.tl .it:last-child{padding-bottom:0}
+.tl.go .it{opacity:1;transform:none}
+.tl .it::before{content:"";position:absolute;left:-31px;top:8px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--orange);transform:scale(0);transition:transform .45s cubic-bezier(.34,1.5,.6,1)}
+.tl.go .it::before{transform:scale(1)}
+.tl .it.mv::before{background:var(--orange);box-shadow:0 0 0 5px rgba(246,163,62,.18)}
+.tl .ty{font-family:var(--en);font-size:13px;font-weight:800;color:var(--orange-d);letter-spacing:.06em}
+.tl .tt{font-size:14.5px;font-weight:700;color:#333A42;margin-top:2px}
+.tl.go .it:nth-child(1){transition-delay:0.25s}
+.tl.go .it:nth-child(1)::before{transition-delay:0.32s}
+.tl.go .it:nth-child(2){transition-delay:0.47s}
+.tl.go .it:nth-child(2)::before{transition-delay:0.54s}
+.tl.go .it:nth-child(3){transition-delay:0.69s}
+.tl.go .it:nth-child(3)::before{transition-delay:0.76s}
+.tl.go .it:nth-child(4){transition-delay:0.91s}
+.tl.go .it:nth-child(4)::before{transition-delay:0.98s}
+.tl.go .it:nth-child(5){transition-delay:1.13s}
+.tl.go .it:nth-child(5)::before{transition-delay:1.20s}
+.tl.go .it:nth-child(6){transition-delay:1.35s}
+.tl.go .it:nth-child(6)::before{transition-delay:1.42s}
+.tl.go .it:nth-child(7){transition-delay:1.57s}
+.tl.go .it:nth-child(7)::before{transition-delay:1.64s}
 
 /* cta + footer */
 .contact{background:linear-gradient(160deg,#FFF3E0 0%,#FFD9A0 45%,#F6A33E 100%);text-align:center;padding:76px 24px 84px}
@@ -339,7 +386,6 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .c-lead{color:#3A2A12;font-size:clamp(16px,2.4vw,20px);font-weight:700;letter-spacing:.1em;margin:16px 0 36px}
 .c-btn{display:inline-block;background:#E8830C;color:#fff;font-weight:700;font-size:15px;padding:15px 46px;border-radius:99px;transition:transform .15s ease,box-shadow .15s ease}
 .c-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(232,131,12,.4)}
-footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:var(--slate-d);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -349,6 +395,8 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
   .kx .kt::after{transform:none}
   .crow .cl,.crow .cv{opacity:1;transform:none}
   .crow+.crow::before{transform:none}
+  .tl::before,.tl .it,.tl .it::before{opacity:1;transform:none}
+  .fplane .plane,.fplane .puff{animation:none}
   .city .c{transform:none}
   .citysun{animation:none}
   .tech-bg::before{opacity:1}
@@ -816,8 +864,9 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
 <!-- ================= COMPANY ================= -->
 <section class="company" id="company">
   <div class="wrap">
-    <p class="c2-label rv">- COMPANY -</p>
+    <p class="k rv">COMPANY — 会社情報</p>
     <div class="cinfo rv d1" id="cinfo">
+      <h3 class="ci-h">会社概要</h3>
       <div class="crow"><span class="cl">会社名</span><span class="cv">株式会社 UNITARY</span></div>
       <div class="crow"><span class="cl">所在地</span><span class="cv">〒150-0021　東京都渋谷区恵比寿西2丁目4番8号　ウィンド恵比寿ビル 8F</span></div>
       <div class="crow"><span class="cl">代表取締役</span><span class="cv">中原 華奈</span></div>
@@ -825,19 +874,45 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
       <div class="crow"><span class="cl">事業内容</span><span class="cv">ITソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</span></div>
     </div>
   </div>
+  <div class="co-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0,120 C150,95 300,145 450,120 C600,95 750,145 900,120 C1050,95 1200,145 1350,120 C1500,95 1650,145 1800,120 C1950,95 2100,145 2250,120 L2400,120" stroke="rgba(232,131,12,.5)" stroke-width="2.5" fill="none"/></svg>
+    <svg class="w2" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0,135 C200,115 400,152 600,135 C800,118 1000,152 1200,135 C1400,118 1600,152 1800,135 C2000,118 2200,152 2400,135" stroke="rgba(246,163,62,.6)" stroke-width="2" fill="none"/></svg>
+    <svg class="w3" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0,105 C120,88 240,120 360,105 C480,90 600,120 720,105 C840,90 960,120 1080,105 C1200,90 1320,120 1440,105 C1560,90 1680,120 1800,105 C1920,90 2040,120 2160,105 L2400,105" stroke="rgba(109,168,230,.5)" stroke-width="2" fill="none"/></svg>
+  </div>
 </section>
 
 <section class="founder" id="founder">
   <div class="wrap">
     <p class="k rv">FOUNDER — 代表紹介</p>
-    <div class="ftl rv d1">
-      <div class="row"><span class="y">1996年</span><span>神奈川県鎌倉市にて生まれる</span></div>
-      <div class="row"><span class="y">2018年</span><span>東京工業大学（現東京科学大学）理学部物理学科　卒業</span></div>
-      <div class="row"><span class="y">2020年</span><span>東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</span></div>
-      <div class="row"><span class="y">2020年</span><span>日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</span></div>
-      <div class="row"><span class="y">2023年</span><span>コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</span></div>
-      <div class="row"><span class="y">2024年</span><span>30歳未満の若手MVP賞を受賞</span></div>
-      <div class="row"><span class="y">2024年</span><span>株式会社 UNITARY を立ち上げる</span></div>
+    <div class="fhead rv d1">
+      <div class="avatar" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" fill="#fff"/><path d="M8 46c3-11 10-16 18-16s15 5 18 16" fill="#fff"/></svg></div>
+      <div>
+        <p class="fnm">中原 華奈<small>KANA NAKAHARA</small></p>
+      </div>
+    </div>
+    <div class="fquote rv d2">
+      <blockquote>学生時代、問題の解き方が分かっても「もっと美しい解き方があるはずだ」と常に考え続けてきました。<br>システムも同じです。動くだけの仕組みではなく、業務の構造まで美しい仕組みを。<br>実装をAIに任せられる今だからこそ、私たちは御社に寄り添う設計と提案——人にしかできない仕事に、すべての時間を使うことができます。</blockquote>
+    </div>
+    <div class="fplane" aria-hidden="true">
+      <svg viewBox="0 0 1400 110" preserveAspectRatio="xMidYMid slice">
+        <path class="route" d="M-60,68 C220,36 420,88 700,58 C980,28 1160,86 1460,48"/>
+        <circle class="puff p1" cx="300" cy="55" r="3"/>
+        <circle class="puff p2" cx="720" cy="57" r="3"/>
+        <circle class="puff p3" cx="1120" cy="66" r="3"/>
+        <g class="plane">
+          <path d="M0,0 L-24,8 L-17,0 L-24,-8 Z" fill="#E8830C"/>
+          <path d="M-17,0 L-24,8 L-20,0 Z" fill="#F6A33E"/>
+        </g>
+      </svg>
+    </div>
+    <div class="tl rv d3" id="ftl">
+      <div class="it"><p class="ty">1996</p><p class="tt">神奈川県鎌倉市にて生まれる</p></div>
+      <div class="it mv"><p class="ty">2018</p><p class="tt">東京工業大学（現東京科学大学）理学部物理学科　卒業</p></div>
+      <div class="it mv"><p class="ty">2020</p><p class="tt">東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</p></div>
+      <div class="it"><p class="ty">2020</p><p class="tt">日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</p></div>
+      <div class="it"><p class="ty">2023</p><p class="tt">コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</p></div>
+      <div class="it"><p class="ty">2024</p><p class="tt">30歳未満の若手MVP賞を受賞</p></div>
+      <div class="it mv"><p class="ty">2024</p><p class="tt">株式会社 UNITARY を立ち上げる</p></div>
     </div>
   </div>
 </section>
@@ -849,9 +924,6 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
   <a class="c-btn" href="mailto:info@unitary.jp">info@unitary.jp</a>
 </section>
 
-<div class="wrap"><footer>
-  <span>© UNITARY Inc.</span><span>Ebisu, Shibuya, Tokyo</span>
-</footer></div>
 
 <script>
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -949,6 +1021,15 @@ if(fa){
     setInterval(()=>{k=(k+1)%L.length;apply(k)},3000);
   }),{threshold:.4});
   fio.observe(fa);
+}
+
+/* founder timeline draw */
+const ftl=document.getElementById('ftl');
+if(ftl){
+  const fio2=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ftl.classList.add('go');fio2.unobserve(ftl)}
+  }),{threshold:.25});
+  fio2.observe(ftl);
 }
 
 /* company rows stagger-in */
