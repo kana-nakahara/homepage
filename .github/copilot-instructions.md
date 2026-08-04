@@ -4,7 +4,8 @@
 - 静的な 1 ページのコーポレートサイト。UI フレームワークは使用していない。
 - ページの実体は [index.html](index.html) のみ。HTML・CSS（`<style>`）・JS（`<script>`）をすべて 1 ファイルに内包している。
 - Vite はバンドラーではなく開発サーバー / 静的ビルドとしてのみ利用（[vite.config.js](vite.config.js)、`base: "/"`）。
-- そのまま配信する静的ファイルは [public/](public/)（favicon、サービス資料 PDF）。`/favicon.png` のようにルート絶対パスで参照する。
+- そのまま配信する静的ファイルは [public/](public/)（favicon、サービス資料 PDF、SaaS 製品資料ページ）。`/favicon.png` のようにルート絶対パスで参照する。
+- SaaS 製品の資料ページは [public/saas/](public/saas/) に 1 ファイル完結の HTML として置き、トップの SaaS セクションのカードから `/saas/*.html` でリンクする。トップと同じ CSS 変数・トーンを踏襲するが、ファイルは独立している（共通化していない）。
 - [src/assets/](src/assets/) は旧 React 版で使っていた画像素材で、現在はどこからも参照していない。
 
 ## Key workflows

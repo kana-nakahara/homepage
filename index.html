@@ -261,6 +261,41 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .rv.on .mini b:nth-child(3){transition-delay:.54s}.rv.on .mini b:nth-child(4){transition-delay:.66s}
 .rv.on .mini b:nth-child(5){transition-delay:.78s}.rv.on .mini b:nth-child(6){transition-delay:.9s}
 
+/* saas products */
+#saas{background:#F7F8FA}
+.pcards{display:grid;gap:22px;margin-top:48px}
+.pcard{display:grid;grid-template-columns:1fr .92fr;gap:38px;align-items:center;background:#fff;border:1.5px solid var(--line-l);border-radius:18px;padding:34px 34px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.pcard:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:0 16px 38px rgba(246,163,62,.16)}
+.pcard .cat{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--orange-d)}
+.pcard h3{font-size:clamp(20px,2.6vw,25px);font-weight:900;line-height:1.5;margin:10px 0 12px}
+.pcard h3 small{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--slate-d);margin-top:6px}
+.pcard .pc-desc{font-size:13.5px;color:#333A42}
+.pc-tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pc-tags li{font-size:11.5px;font-weight:700;color:var(--orange-d);background:#FFF6E8;border:1px solid rgba(246,163,62,.32);border-radius:99px;padding:5px 13px}
+.pc-go{display:inline-flex;align-items:center;gap:10px;margin-top:24px;font-size:13px;font-weight:700;color:var(--orange-d)}
+.pc-go i{position:relative;display:block;width:20px;height:1px;background:var(--orange-d);transition:width .25s ease}
+.pc-go i::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid var(--orange-d);border-right:1px solid var(--orange-d);transform:rotate(45deg)}
+.pcard:hover .pc-go i{width:32px}
+/* product window mock */
+.pc-mock{background:#fff;border:1px solid var(--line-l);border-radius:12px;overflow:hidden;box-shadow:0 14px 34px rgba(14,17,22,.09)}
+.pc-mock .pm-bar{height:32px;background:#F2F5F9;border-bottom:1px solid var(--line-l);display:flex;align-items:center;gap:6px;padding:0 12px}
+.pc-mock .pm-bar i{width:8px;height:8px;border-radius:50%;background:#D5DBE3}
+.pc-mock .pm-bar span{font-family:var(--mono);font-size:10px;color:var(--slate-d);margin-left:6px}
+.pc-mock .pm-body{display:grid;grid-template-columns:58px 1fr;min-height:200px}
+.pc-mock .pm-side{background:#0F1B30;padding:12px 9px;display:flex;flex-direction:column;gap:7px}
+.pc-mock .pm-side b{height:9px;border-radius:3px;background:rgba(255,255,255,.1)}
+.pc-mock .pm-side b.hl{background:var(--orange)}
+.pc-mock .pm-main{padding:14px 14px 16px;display:flex;flex-direction:column;gap:7px}
+.pc-mock .pm-row{display:grid;grid-template-columns:1.5fr 1fr 1fr .8fr;gap:7px}
+.pc-mock .pm-row s{height:9px;border-radius:3px;background:#EDF0F4;display:block}
+.pc-mock .pm-row.head s{background:#D9E0E9}
+.pc-mock .pm-row s.o{background:rgba(246,163,62,.6)}
+.pc-mock .pm-row s.b{background:rgba(109,168,230,.5)}
+.pc-mock .pm-chart{margin-top:auto;display:flex;align-items:flex-end;gap:6px;height:46px;padding-top:10px;border-top:1px solid var(--line-l)}
+.pc-mock .pm-chart u{flex:1;border-radius:3px 3px 0 0;background:rgba(109,168,230,.45);height:var(--h)}
+.pc-mock .pm-chart u.o{background:rgba(246,163,62,.7)}
+@media(max-width:860px){.pcard{grid-template-columns:1fr;gap:26px;padding:28px 24px}}
+
 /* flow steps */
 .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
 @media(max-width:760px){.steps{grid-template-columns:1fr}}
@@ -340,6 +375,7 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
       <li><a href="#tech">AI駆動開発</a></li>
       <li><a href="#value">自由と美しさ</a></li>
       <li><a href="#works">開発事例</a></li>
+      <li><a href="#saas">SaaS</a></li>
       <li><a href="#flow">導入の流れ</a></li>
       <li><a href="#founder">代表紹介</a></li>
     </ul></nav>
@@ -717,6 +753,44 @@ footer{border-top:1px solid var(--line-l);padding:38px 0;font-size:12px;color:va
         <p>顧客・案件管理に通話の自動文字起こしと帳票OCRを組み込み、営業記録の入力コストを大幅に削減しました。</p>
         <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAAS ================= -->
+<section id="saas">
+  <div class="wrap">
+    <p class="k rv kx"><span class="kt">SAAS — プロダクト</span></p>
+    <h2 class="rv d1">そのまま使える、<span class="em-o">SaaSプロダクト</span></h2>
+    <p class="subhead rv d2">業種ごとの業務を<span class="mk">標準機能まで作り込んだ</span>製品</p>
+    <div class="prose rv d3"><p>20年分の開発で積み上げた業務ノウハウを、はじめから使えるかたちにしたパッケージです。カスタマイズ前提ではなく、<strong>現場の業務がそのまま回るところまで標準機能として提供</strong>します。</p></div>
+
+    <div class="pcards">
+      <a class="pcard rv d1" href="/saas/sales-management.html">
+        <div class="pc-body">
+          <p class="cat">SALES MANAGEMENT SYSTEM</p>
+          <h3>販売管理システム<small>製品卸売業向け</small></h3>
+          <p class="pc-desc">仕入から販売・請求・入金消込まで、製品ごとの履歴とお金の流れをひとつの画面系で管理します。売掛金・買掛金の残高集計、案件別の利益率の自動算出、請求と入金を突合する自動入金消込までを標準機能として提供。AIが明細書の取り込みと売上分析を肩代わりします。</p>
+          <ul class="pc-tags">
+            <li>売上・仕入管理</li><li>売掛金・買掛金管理</li><li>利益率の自動算出</li><li>自動入金消込</li><li>AI明細書解析</li>
+          </ul>
+          <span class="pc-go">サービス資料を見る<i></i></span>
+        </div>
+        <div class="pc-mock" aria-hidden="true">
+          <div class="pm-bar"><i></i><i></i><i></i><span>unitary://sales-management</span></div>
+          <div class="pm-body">
+            <div class="pm-side"><b></b><b class="hl"></b><b></b><b></b><b></b><b></b></div>
+            <div class="pm-main">
+              <div class="pm-row head"><s></s><s></s><s></s><s></s></div>
+              <div class="pm-row"><s></s><s></s><s></s><s class="o"></s></div>
+              <div class="pm-row"><s></s><s></s><s></s><s class="o"></s></div>
+              <div class="pm-row"><s></s><s class="b"></s><s></s><s class="o"></s></div>
+              <div class="pm-row"><s></s><s></s><s></s><s class="o"></s></div>
+              <div class="pm-chart"><u style="--h:38%"></u><u style="--h:62%"></u><u style="--h:47%"></u><u class="o" style="--h:88%"></u><u style="--h:55%"></u><u style="--h:70%"></u></div>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </section>

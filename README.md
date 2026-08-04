@@ -4,8 +4,9 @@
 
 ## 構成
 
-- [index.html](index.html) — ページ全体（HTML / CSS / JS をすべて内包）
-- [public/](public/) — そのまま配信される静的ファイル（favicon、サービス資料 PDF）
+- [index.html](index.html) — トップページ全体（HTML / CSS / JS をすべて内包）
+- [public/saas/sales-management.html](public/saas/sales-management.html) — 販売管理システムのサービス資料ページ（トップの SaaS セクションからリンク）
+- [public/](public/) — そのまま配信される静的ファイル（favicon、サービス資料 PDF、SaaS 資料ページ）
 - [src/assets/](src/assets/) — 旧デザインで使用していた画像素材（現在は未使用）
 
 外部依存は Google Fonts（Noto Sans JP / Inter / JetBrains Mono）のみです。
