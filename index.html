@@ -172,6 +172,15 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .prose p{margin-bottom:1.4em}
 .prose strong{color:var(--ink)}
 
+/* value cards — 柔らかい矩形で囲う */
+.vcard{position:relative;background:linear-gradient(180deg,#FFFDFA,#FFF8EF);border:1px solid rgba(246,163,62,.22);border-radius:26px 26px 26px 10px;padding:38px 40px 40px 44px;overflow:hidden}
+.vcard::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 6px 6px 0;background:linear-gradient(180deg,var(--orange),rgba(246,163,62,.15))}
+.vcard+.vcard{margin-top:24px;background:linear-gradient(180deg,#FCFDFF,#F2F7FD);border-color:rgba(109,168,230,.22);border-radius:26px 26px 10px 26px}
+.vcard+.vcard::before{background:linear-gradient(180deg,var(--blue),rgba(109,168,230,.15))}
+.vcard .subhead,.vcard .subhead.sub2{margin-top:0}
+.vcard .prose p:last-child{margin-bottom:0}
+@media(max-width:700px){.vcard{padding:30px 22px 32px 26px;border-radius:20px 20px 20px 8px}.vcard+.vcard{border-radius:20px 20px 8px 20px}}
+
 /* faint geometric signature (from Candidate A) */
 #tech{position:relative;overflow:hidden;padding-bottom:48px}
 #value{padding-top:48px;background:#F7F8FA}
@@ -348,10 +357,10 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 @keyframes fpuff{0%,4%{opacity:0}8%{opacity:.5}20%{opacity:0}100%{opacity:0}}
 .fhead{display:flex;align-items:center;gap:24px;margin-bottom:34px}
 .avatar{width:92px;height:92px;border-radius:50%;background:linear-gradient(135deg,#FFE3BC,#F6A33E);display:grid;place-items:center;flex:none;box-shadow:0 8px 22px rgba(246,163,62,.3)}
-.avatar svg{width:52px;height:52px}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .fnm{font-size:clamp(21px,3vw,27px);font-weight:900;letter-spacing:.04em;margin-top:2px}
 .fnm small{font-family:var(--en);font-size:12px;font-weight:600;color:var(--slate-d);letter-spacing:.18em;margin-left:12px}
-@media(max-width:560px){.fhead{gap:16px}.avatar{width:72px;height:72px}.avatar svg{width:42px;height:42px}.fnm small{display:block;margin:2px 0 0}}
+@media(max-width:560px){.fhead{gap:16px}.avatar{width:72px;height:72px}.fnm small{display:block;margin:2px 0 0}}
 .fquote{margin-bottom:6px}
 .fquote blockquote{font-size:clamp(15px,2.1vw,18px);font-weight:700;line-height:2.2;letter-spacing:.02em;border-left:3px solid var(--orange);padding-left:22px;color:#333A42}
 .tl{position:relative;padding-left:34px;margin-left:56px;max-width:840px}
@@ -495,7 +504,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= BRIDGE / MISSION ================= -->
 <section class="bridge" id="mission">
   <div class="wrap">
-    <p class="bridge-line l1"><span>弊社UNITARYは、真のAI駆動開発を実現したことにより</span></p>
+    <p class="bridge-line l1"><span>弊社UNITARYは、<b class="em-o">真のAI駆動開発</b>を実現したことにより</span></p>
     <p class="bridge-line l2"><span>システム開発でも<b class="em-o">自由と美しさ</b>を追求できるようになりました</span></p>
   </div>
     <div class="city" aria-hidden="true">
@@ -707,7 +716,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <p class="subhead rv d2">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
       <div class="prose rv d3">
       <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong>20年以上多種多様なシステムを作り続けてきました</strong>。</p>
-      <p>その過程で蓄積された<strong>100万件を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk">一般論からの推測ではなく<strong>稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
+      <p>その過程で蓄積された<strong>100万件を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk">一般論からの推論ではなく<strong>稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
       </div>
     </div>
 
@@ -745,7 +754,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
         <div class="zc-col">
           <p class="zc-cap"><b>OUTPUT</b> — 生成</p>
           <div class="zc-app" id="zcApp" aria-hidden="true"><b class="hl"></b><b></b><b></b><b></b><b class="bl"></b><b></b></div>
-          <p class="zc-count" style="margin-top:10px"><small>AI駆動生成</small></p>
+          <p class="zc-count" style="margin-top:10px"><small>一般論からの推論ではない<br>標準化されたシステム</small></p>
         </div>
       </div>
     </div>
@@ -763,18 +772,20 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   <div class="wrap">
     <p class="k rv kx"><span class="kt">VALUE — 自由と美しさ</span></p>
     <h2 class="rv d1">システム開発で表現する<span class="em-o">自由と美しさ</span></h2>
-    <p class="subhead rv d2">ノーコードなのに<span class="mk">フルスクラッチ並の自由度</span></p>
-    <div class="free-grid rv d3">
-      <div class="prose">
-        <p>ZeroCoderは<strong>900以上の定義項目</strong>を組み合わせることで<span class="mk"><strong>フルスクラッチ開発と同等の自由度</strong></span>を実現し、多種多様なお客様の要望を叶えてきました。</p>
-        <p>ノーコードなのに<span class="mk">テンプレートの型に嵌めることなく</span>、<strong>自由なアイディアを表現</strong>します。</p>
+    <div class="vcard rv d2">
+      <p class="subhead">ノーコードなのに<span class="mk">フルスクラッチ並の自由度</span></p>
+      <div class="free-grid">
+        <div class="prose">
+          <p>ZeroCoderは<strong>900以上の定義項目</strong>を組み合わせることで<span class="mk"><strong>フルスクラッチ開発と同等の自由度</strong></span>を実現し、多種多様なお客様の要望を叶えてきました。</p>
+          <p>ノーコードなのに<span class="mk">テンプレートの型に嵌めることなく</span>、<strong>自由なアイディアを表現</strong>します。</p>
+        </div>
+        <div class="free-anim" id="freeAnim" aria-label="同じ部品の組み合わせが、さまざまな形に組み変わる図"></div>
       </div>
-      <div class="free-anim" id="freeAnim" aria-label="同じ部品の組み合わせが、さまざまな形に組み変わる図"></div>
     </div>
 
-    <div class="beauty-wrap">
-      <p class="subhead sub2 rv"><span class="mk">美しさ</span>を追求する</p>
-      <div class="prose rv d1">
+    <div class="vcard rv d1">
+      <p class="subhead sub2"><span class="mk">美しさ</span>を追求する</p>
+      <div class="prose">
         <p>システム開発には緻密な設計が欠かせません。<br>UNITARYはAI駆動開発によって短縮された工数分、綿密なヒアリングと検証により<span class="mk"><strong>あるべき姿</strong></span>を実現することができます。</p>
         <p>エンジンの仕組みだけでなく、<strong>自由な発想でシステムがどうあるべきなのかを常に考え、<span class="mk">美しさにこだわる</span>。</strong><br>それが<strong>UNITARYの強み</strong>です。</p>
       </div>
@@ -886,7 +897,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   <div class="wrap">
     <p class="k rv">FOUNDER — 代表紹介</p>
     <div class="fhead rv d1">
-      <div class="avatar" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="19" r="10" fill="#fff"/><path d="M8 46c3-11 10-16 18-16s15 5 18 16" fill="#fff"/></svg></div>
+      <div class="avatar"><img src="/profile.jpg" width="320" height="320" alt="代表取締役 中原 華奈" loading="lazy"></div>
       <div>
         <p class="fnm">中原 華奈<small>KANA NAKAHARA</small></p>
       </div>
