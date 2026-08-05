@@ -27,6 +27,7 @@ a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,border-color .4s ease}
 header.solid{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l)}
 .hd{display:flex;align-items:center;justify-content:space-between;height:64px}
+.hd-l{display:flex;align-items:center;gap:10px}
 .logo{font-family:var(--en);font-weight:800;letter-spacing:.16em;font-size:16px;color:#fff;transition:color .4s}
 header.solid .logo{color:var(--ink)}
 nav ul{display:flex;gap:28px;list-style:none;font-size:13px;font-weight:500}
@@ -34,7 +35,29 @@ nav a{color:rgba(255,255,255,.75);transition:color .3s}
 header.solid nav a{color:var(--slate-d)}
 nav a:hover{color:var(--orange)}
 .hd .cta-s{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:9px 22px;border-radius:6px}
-@media(max-width:760px){nav{display:none}}
+
+/* hamburger (narrow screens) */
+.mnav-btn{display:none;position:relative;width:36px;height:36px;margin-left:-8px;padding:0;border:0;background:none;cursor:pointer}
+.mnav-btn i{position:absolute;left:8px;width:20px;height:2px;border-radius:2px;background:#fff;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .2s ease,background .4s ease}
+.mnav-btn i:nth-child(1){top:12px}
+.mnav-btn i:nth-child(2){top:17px}
+.mnav-btn i:nth-child(3){top:22px}
+header.solid .mnav-btn i,header.mopen .mnav-btn i{background:var(--ink)}
+header.mopen .mnav-btn i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+header.mopen .mnav-btn i:nth-child(2){opacity:0}
+header.mopen .mnav-btn i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+@media(max-width:940px){
+  .mnav-btn{display:block}
+  header.mopen{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l)}
+  header.mopen .logo{color:var(--ink)}
+  nav{position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l);box-shadow:0 16px 34px rgba(14,17,22,.1);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .28s ease,transform .28s ease,visibility .28s}
+  header.mopen nav{opacity:1;visibility:visible;transform:none}
+  nav ul{flex-direction:column;gap:0;padding:4px 24px 12px;font-size:14px}
+  nav li+li{border-top:1px solid var(--line-l)}
+  header.mopen nav a{display:block;padding:15px 2px;color:var(--slate-d);font-weight:700}
+  header.mopen nav a:hover{color:var(--orange)}
+}
 
 /* ========== HERO ========== */
 .hero{position:relative;height:100svh;min-height:600px;background:radial-gradient(1200px 700px at 50% 30%,#16233E 0%,var(--deep) 62%);color:#fff;overflow:hidden}
@@ -428,14 +451,19 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 
 <header id="header">
   <div class="wrap hd">
-    <a class="logo" href="#">UNITARY</a>
-    <nav aria-label="主要メニュー"><ul>
+    <div class="hd-l">
+      <button class="mnav-btn" id="mnavBtn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
+      <a class="logo" href="#">UNITARY</a>
+    </div>
+    <nav id="mnav" aria-label="主要メニュー"><ul>
       <li><a href="#tech">AI駆動開発</a></li>
       <li><a href="#value">自由と美しさ</a></li>
       <li><a href="#works">開発事例</a></li>
       <li><a href="#saas">SaaS</a></li>
       <li><a href="#flow">導入の流れ</a></li>
+      <li><a href="#company">会社情報</a></li>
       <li><a href="#founder">代表紹介</a></li>
+      <li><a href="#contact">無料相談</a></li>
     </ul></nav>
     <a class="cta-s" href="#contact">無料相談</a>
   </div>
@@ -716,7 +744,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <p class="subhead rv d2">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
       <div class="prose rv d3">
       <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong>20年以上多種多様なシステムを作り続けてきました</strong>。</p>
-      <p>その過程で蓄積された<strong>100万件を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk">一般論からの推論ではなく<strong>稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
+      <p>その過程で蓄積された<strong>100万件を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk"><strong>一般論からの推論ではなく稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
       </div>
     </div>
 
@@ -1003,6 +1031,19 @@ if(reduce){
 /* header solid on scroll */
 const header=document.getElementById('header');
 addEventListener('scroll',()=>{header.classList.toggle('solid',scrollY>innerHeight*.7)},{passive:true});
+
+/* mobile menu */
+const mnavBtn=document.getElementById('mnavBtn');
+if(mnavBtn){
+  const setMenu=open=>{
+    header.classList.toggle('mopen',open);
+    mnavBtn.setAttribute('aria-expanded',String(open));
+    mnavBtn.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');
+  };
+  mnavBtn.addEventListener('click',()=>setMenu(!header.classList.contains('mopen')));
+  document.querySelectorAll('#mnav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+}
 
 /* reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{
