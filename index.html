@@ -463,7 +463,6 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <li><a href="#flow">導入の流れ</a></li>
       <li><a href="#company">会社情報</a></li>
       <li><a href="#founder">代表紹介</a></li>
-      <li><a href="#contact">無料相談</a></li>
     </ul></nav>
     <a class="cta-s" href="#contact">無料相談</a>
   </div>
@@ -1067,13 +1066,11 @@ if(fa){
   ];
   const apply=k=>tiles.forEach((t,i)=>{const[x,y,r]=L[k][i];t.style.transform=`translate(${x}px,${y}px) rotate(${r}deg)`});
   apply(0);
-  const fio=new IntersectionObserver(es=>es.forEach(e=>{
-    if(!e.isIntersecting)return;fio.unobserve(fa);
-    if(reduce)return;
+  /* 画面外でも回し続け、スクロールで見えたときには既に動いている状態にする */
+  if(!reduce){
     let k=0;
     setInterval(()=>{k=(k+1)%L.length;apply(k)},3000);
-  }),{threshold:.4});
-  fio.observe(fa);
+  }
 }
 
 /* founder timeline draw */
