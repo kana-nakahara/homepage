@@ -68,7 +68,9 @@ h2{font-size:clamp(24px,3.2vw,34px);font-weight:900;letter-spacing:.02em;line-he
 /* screen blocks */
 .screen{border-top:1px solid var(--line-l)}
 .screen.alt{background:#F7F9FC}
-.shead{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.shead{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:18px}
+.shead>div{display:contents}
+.shead h2{grid-column:1/-1;margin-top:6px}
 .snum{font-family:var(--en);font-weight:800;font-size:15px;color:var(--blue-d);letter-spacing:.1em}
 .spoints{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .spoint{font-size:12.5px;font-weight:700;color:var(--slate-d);background:#EFF3F8;border:1px solid var(--line-l);border-radius:999px;padding:5px 14px}
@@ -153,10 +155,10 @@ footer .logo{display:block;margin-bottom:10px}
   <div class="hero-in">
     <div class="k">SALES MANAGEMENT SYSTEM — FOR PRODUCT WHOLESALERS</div>
     <h1><span class="thin">製品卸売業向け</span>販売管理システム</h1>
-    <p class="lead">製品の仕入から販売・請求・入金消込まで、商品ごとの履歴とお金の流れをひとつの画面系で。卸売の現場に合わせた販売管理を、カスタマイズ不要の標準機能として提供します。掲載例は印刷アイテムの卸売です。</p>
+    <p class="lead">製品の仕入から支払・販売・請求・入金消込、製品ごとの受払履歴まで、卸売の現場に合わせた販売管理をカスタマイズ不要の標準機能として提供します。掲載例は印刷アイテムの卸売です。</p>
     <div class="chips">
-      <span class="chip"><b>01</b>売上・仕入管理</span>
-      <span class="chip"><b>02</b>売掛金・買掛金管理</span>
+      <span class="chip"><b>01</b>仕入・売上管理</span>
+      <span class="chip"><b>02</b>買掛金・売掛金管理</span>
       <span class="chip"><b>03</b>利益率の自動算出</span>
       <span class="chip"><b>04</b>自動入金消込</span>
       <span class="chip"><b>AI</b>明細書解析・売上解析</span>
@@ -167,32 +169,32 @@ footer .logo{display:block;margin-bottom:10px}
 
 <section class="must" id="must">
   <div class="wrap">
-    <div class="k">REQUIREMENTS COVERAGE</div>
-    <h2>ご要望の4要件は、すべて標準機能で対応</h2>
-    <p class="sec-lead" style="color:var(--slate)">カスタマイズ提案ではなく、下記すべてを本システムの機能として提供します。</p>
+    <div class="k">STANDARD FEATURES</div>
+    <h2>標準機能</h2>
+    <p class="sec-lead" style="color:var(--slate)">下記機能はすべて、本システムの標準機能として提供しております。</p>
     <div class="mcards">
       <div class="mcard reveal">
         <div class="cat">01 / TRADING</div>
-        <h3>売上・仕入の管理</h3>
+        <h3>仕入・売上の管理</h3>
         <p>仕入登録→製品在庫→販売までをロット単位で追跡。品名・サイズ・用紙・色数などの仕様情報と、いつ・どこに販売したかの履歴を製品ごとに保持します。</p>
         <span class="ok">✓ 標準機能</span>
       </div>
       <div class="mcard reveal">
-        <div class="cat">02 / RECEIVABLE & PAYABLE</div>
-        <h3>売掛金・買掛金管理</h3>
-        <p>請求と入金予定から売掛残高を、仕入と支払予定から買掛残高を自動集計。回収・支払の状況をステータスで一覧管理します。</p>
+        <div class="cat">02 / PAYABLE & RECEIVABLE</div>
+        <h3>買掛金・売掛金管理</h3>
+        <p>仕入と支払予定から買掛残高を、請求と入金予定から売掛残高を自動集計。回収・支払の状況をステータスで一覧管理します。</p>
         <span class="ok">✓ 標準機能</span>
       </div>
       <div class="mcard reveal">
         <div class="cat">03 / PROFITABILITY</div>
         <h3>利益率の算出</h3>
-        <p>販売金額と仕入原価から粗利・利益率を案件別/製品別に自動算出。一覧上でそのまま比較でき、値付けの判断を支援します。</p>
+        <p>販売金額と仕入原価から粗利・利益率を案件別/製品別に自動算出。一覧上で比較でき、値付けの判断を支援します。</p>
         <span class="ok">✓ 標準機能</span>
       </div>
       <div class="mcard reveal">
         <div class="cat">04 / AUTO RECONCILE</div>
         <h3>自動入金消込</h3>
-        <p>請求済みデータと入金データ(金額・振込名義)を突合し、合致した入金を自動で消し込み。名義ゆらぎの名寄せ、金額差異の検知にも対応します。</p>
+        <p>請求済みデータと入金データ(金額・振込名義)を突合し、合致した入金を自動で消し込み。名義ゆらぎの名寄せ、金額差異の検知にも対応。</p>
         <span class="ok">✓ 標準機能</span>
       </div>
     </div>
@@ -202,7 +204,7 @@ footer .logo{display:block;margin-bottom:10px}
 <section class="screen" id="s1">
   <div class="wrap">
     <div class="shead"><span class="snum">SCREEN 01</span><div><div class="k">PRODUCT LEDGER</div><h2>製品台帳 — 仕様と販売状況を製品ごとに</h2></div></div>
-    <p class="sec-lead">メーカー・品名・カテゴリ・サイズ・用紙・色数・入数・ロット番号までを製品ごとに台帳管理。在庫ステータスで「いまどの製品が売れるのか」が一目で分かります。掲載例は印刷アイテムですが、品目・仕様の定義は業種に合わせて自由に設定できます。</p>
+    <p class="sec-lead">メーカー・品名・カテゴリ・サイズ・用紙・色数・入数・ロット番号を製品ごとに台帳管理。在庫ステータスで「いまどの製品が売れるのか」が一目で分かります。掲載例は印刷アイテムですが、品目・仕様の定義は業種に合わせて自由に設定できます。</p>
     <div class="spoints">
       <span class="spoint hot">品名・仕様(サイズ/用紙/色数)・ロット管理</span>
       <span class="spoint">在庫ステータス(入荷済み/引当済み/出荷済み/販売済み…)</span>

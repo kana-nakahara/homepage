@@ -180,6 +180,7 @@ section{padding:110px 0}
 .kx.on .kt::after{transform:scaleX(1)}
 h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spacing:.01em;margin-bottom:24px}
 .em-o{color:var(--orange-d)}
+.em-big,.prose strong.em-big{color:var(--orange-d);font-size:1.35em;font-weight:900;letter-spacing:.01em}
 .subhead{font-size:clamp(14px,2vw,18px);font-weight:900;line-height:1.9;letter-spacing:.02em;margin:-14px 0 28px;position:relative;padding-left:24px}
 .subhead::before{content:"";position:absolute;left:5px;top:.95em;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--orange);z-index:1}
 .subhead::after{content:"";position:absolute;left:5px;top:.95em;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,rgba(246,163,62,.4),rgba(246,163,62,.14) 55%,transparent 72%)}
@@ -206,6 +207,10 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 
 /* faint geometric signature (from Candidate A) */
 #tech{position:relative;overflow:hidden;padding-bottom:48px}
+/* リード文まわりの余白を詰める */
+#tech .tech-head .subhead{margin-bottom:14px}
+#tech .tech-head .prose p{margin-bottom:.75em}
+#tech .tech-head .prose p:last-child{margin-bottom:0}
 #value{padding-top:48px;background:#F7F8FA}
 
 /* reveal system */
@@ -214,7 +219,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.48s}
 
 /* zerocoder accumulation → AI → generation */
-.zc-stage{background:var(--deep);border-radius:20px;padding:46px 38px 42px;margin:56px 0 10px;color:#fff;position:relative;overflow:hidden}
+.zc-stage{background:var(--deep);border-radius:20px;padding:46px 38px 42px;margin:30px 0 10px;color:#fff;position:relative;overflow:hidden}
 .zc-stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(109,168,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(109,168,230,.05) 1px,transparent 1px);background-size:44px 44px}
 .zc-inner{position:relative;display:grid;grid-template-columns:1fr 58px 1fr 58px 1fr;align-items:center}
 .zc-col{text-align:center}
@@ -273,8 +278,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .num .l{font-size:13px;color:var(--slate-d);margin-top:6px}
 
 /* general AI vs UNITARY AI comparison */
-.cmp{margin-top:64px}
-.cmp-lead{text-align:center;font-size:clamp(16px,2.3vw,19px);font-weight:700;line-height:1.8;margin-bottom:30px}
+.cmp{margin-top:72px}
 .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
 @media(max-width:860px){.cmp-grid{grid-template-columns:1fr}}
 .cmp-card{position:relative;overflow:hidden;border-radius:16px;padding:30px 28px 26px;display:flex;flex-direction:column}
@@ -293,7 +297,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .cmp-note{margin-top:auto;padding-top:18px;font-size:13.5px;font-weight:700;letter-spacing:.04em;color:#8A96A6}
 .cmp-card.uni .cmp-note{color:var(--orange)}
 
-.cmp-anim{margin:22px 0 4px;border-radius:12px;padding:16px 14px;display:grid;grid-template-columns:66px 30px 1fr;align-items:center;gap:10px}
+.cmp-anim{margin:22px 0 4px;border-radius:12px;padding:16px 14px;display:grid;align-items:center}
 .cmp-card.gen .cmp-anim{background:#fff;border:1px solid #E2E6EC}
 .cmp-card.uni .cmp-anim{background:#0A1322;border:1px solid var(--line)}
 .cmp-src{font-family:var(--mono);font-size:10px;line-height:1.6;text-align:center;border-radius:8px;padding:9px 4px}
@@ -301,6 +305,22 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .cmp-card.uni .cmp-src{background:rgba(109,168,230,.12);border:1px solid rgba(109,168,230,.3);color:var(--blue)}
 .cmp-src b{display:block;font-family:var(--en);font-size:13px;font-weight:800;color:#6B7684}
 .cmp-card.uni .cmp-src b{color:#fff}
+.cmp-src b.sym{font-family:'Segoe UI Symbol','Noto Sans Symbols 2','Apple Symbols',sans-serif;font-size:17px;line-height:1.3}
+/* UNITARY側は「指示 → 定義文 → 出力」の2段階。左右で出力画面の幅を揃える */
+.cmp-anim{grid-template-columns:54px 24px 62px 26px 1fr;gap:8px}
+.cmp-card.gen .cmp-rays{grid-column:2/5}
+.cmp-card.gen .cmp-rays i{--tx:118px}
+.cmp-card.uni .cmp-src.ask{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--slate)}
+.cmp-card.uni .cmp-src.ask b{color:var(--pale)}
+.cmp-card.uni .cmp-rays i{--tx:26px}
+.cmp-card.uni .cmp-rays.q i{--tx:24px;background:var(--blue);box-shadow:0 0 8px rgba(109,168,230,.8);animation-delay:0s}
+.cmp-card.uni .cmp-rays.q i:nth-child(2){animation-delay:.6s}
+.cmp-card.uni .cmp-rays.q i:nth-child(3){animation-delay:1.2s}
+.cmp-card.uni .cmp-rays.q::before{background:rgba(109,168,230,.25)}
+.cmp-card.uni .cmp-rays:not(.q) i:nth-child(1){animation-delay:.3s}
+.cmp-card.uni .cmp-rays:not(.q) i:nth-child(2){animation-delay:.9s}
+.cmp-card.uni .cmp-rays:not(.q) i:nth-child(3){animation-delay:1.5s}
+@media(max-width:520px){.cmp-anim{grid-template-columns:48px 18px 56px 20px 1fr;gap:6px}.cmp-card.gen .cmp-rays i{--tx:96px}}
 .cmp-rays{position:relative;height:34px}
 .cmp-rays i{position:absolute;left:0;top:16px;width:6px;height:6px;border-radius:50%}
 .cmp-card.gen .cmp-rays i{background:#C7CED8}
@@ -310,8 +330,8 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .cmp-rays i:nth-child(3){animation-delay:1.2s}
 .cmp-card.gen .cmp-rays i{animation:cmpScatter 1.8s linear infinite}
 .cmp-card.uni .cmp-rays i{animation:cmpBeam 1.8s linear infinite}
-@keyframes cmpScatter{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(30px,var(--sy,0px))}}
-@keyframes cmpBeam{0%{opacity:0;transform:translateX(0)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(30px)}}
+@keyframes cmpScatter{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--tx,30px),var(--sy,0px))}}
+@keyframes cmpBeam{0%{opacity:0;transform:translateX(0)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(var(--tx,30px))}}
 .cmp-rays i:nth-child(1){--sy:-13px}
 .cmp-rays i:nth-child(2){--sy:12px}
 .cmp-rays i:nth-child(3){--sy:-4px}
@@ -352,7 +372,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 @keyframes cmpStd{0%{opacity:0;transform:translateY(5px)}12%{opacity:1;transform:none}86%{opacity:1}94%{opacity:0}100%{opacity:0}}
 .cmp-cap{margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--slate)}
 .cmp-card.uni .cmp-cap{color:var(--blue)}
-@media(max-width:420px){.cmp-anim{grid-template-columns:58px 24px 1fr;padding:14px 10px}}
+@media(max-width:420px){.cmp-anim{padding:14px 10px}}
 
 /* works */
 .works{background:var(--deep);color:#fff}
@@ -830,8 +850,8 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <h2 class="rv d1">UNITARYの<span class="em-o">AI駆動開発</span></h2>
       <p class="subhead rv d2">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
       <div class="prose rv d3">
-      <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong><span class="mk">20年以上</span>多種多様なシステムを作り続けてきました</strong>。</p>
-      <p>その過程で蓄積された<strong><span class="mk">100万件</span>を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk"><strong>一般論からの推論ではなく稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong>「真のAI駆動開発」</strong>です。</p>
+      <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong><span class="em-big">20年以上</span>多種多様なシステムを作り続けてきました</strong>。</p>
+      <p>その過程で蓄積された<strong><span class="em-big">100万件</span>を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk"><strong>一般論からの推論ではなく稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong class="em-big">「真のAI駆動開発」</strong>です。</p>
       </div>
     </div>
 
@@ -881,15 +901,15 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
     </div>
 
     <div class="cmp">
-      <p class="cmp-lead rv">UNITARYのAI駆動開発が<span class="mk">一般的なAI駆動開発と異なる理由</span></p>
+      <p class="subhead rv">UNITARYのAI駆動開発が<span class="mk">一般的なAI駆動開発と異なる理由</span></p>
       <div class="cmp-grid">
 
         <div class="cmp-card gen rv d1">
           <p class="cmp-tag">GENERAL — 一般的なAI駆動開発</p>
           <h3 class="cmp-h">一般論からの<span>推論</span></h3>
-          <p class="cmp-p">学習元は<strong>Web上の一般的な情報</strong>。一般論から推論するため、同じ指示でも出てくる画面・帳票・ロジックは毎回変わります。</p>
+          <p class="cmp-p">学習元は<strong>出典もばらばらな不特定多数の公開情報</strong>。一般論から推論するため、同じ指示でも出てくる画面・帳票・ロジックが毎回変わります。</p>
           <div class="cmp-anim" role="img" aria-label="同じ指示から毎回異なる結果が生成される様子を示すアニメーション">
-            <div class="cmp-src">同じ指示<b>?</b></div>
+            <div class="cmp-src">同じ指示<b class="sym">☞</b></div>
             <div class="cmp-rays" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="cmp-outs" aria-hidden="true">
               <div class="scr"><b></b><b class="a"></b><b></b><b></b></div>
@@ -897,15 +917,17 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
               <div class="scr"><b class="a"></b><b></b><b></b><b></b></div>
             </div>
           </div>
-          <p class="cmp-cap">OUTPUT — 毎回ちがう</p>
-          <p class="cmp-note">結果がランダム＝品質にブレが生じる</p>
+          <p class="cmp-cap">OUTPUT — 毎回異なる</p>
+          <p class="cmp-note">結果がランダム＝品質にブレが生じる ＋ 保守が困難</p>
         </div>
 
         <div class="cmp-card uni rv d2">
           <p class="cmp-tag">UNITARY — 真のAI駆動開発</p>
           <h3 class="cmp-h">実データからの<span>定義生成</span></h3>
           <p class="cmp-p">学習元は画面・帳票・業務ロジックを究極に抽象化した<strong>定義文100万件</strong>。実績データから定義を生成するため、<strong>ブレのない標準化されたシステム</strong>になります。</p>
-          <div class="cmp-anim" role="img" aria-label="定義文の学習により毎回同じ標準化された結果が生成される様子を示すアニメーション">
+          <div class="cmp-anim" role="img" aria-label="同じ指示が定義文100万件に渡り、毎回同じ標準化された結果が生成される様子を示すアニメーション">
+            <div class="cmp-src ask">同じ指示<b class="sym">☞</b></div>
+            <div class="cmp-rays q" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="cmp-src">定義文<b>100万件</b></div>
             <div class="cmp-rays" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="cmp-outs" aria-hidden="true">
