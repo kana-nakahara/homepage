@@ -432,6 +432,11 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .pc-mock .pm-gantt em{position:relative;display:block;height:9px;border-radius:3px;background:#F1F4F8}
 .pc-mock .pm-gantt em::after{content:"";position:absolute;top:0;bottom:0;left:var(--x);width:var(--w);border-radius:3px;background:rgba(109,168,230,.55)}
 .pc-mock .pm-gantt em.o::after{background:rgba(246,163,62,.7)}
+.pc-mock .pm-flow{margin-top:auto;display:flex;align-items:center;gap:5px;padding-top:11px;border-top:1px solid var(--line-l)}
+.pc-mock .pm-flow em{flex:1;height:12px;border-radius:3px;background:#EDF0F4}
+.pc-mock .pm-flow em.b{background:rgba(109,168,230,.45)}
+.pc-mock .pm-flow em.o{background:rgba(246,163,62,.6)}
+.pc-mock .pm-flow i{flex:none;width:5px;height:5px;border-top:1.5px solid #C7CED8;border-right:1.5px solid #C7CED8;transform:rotate(45deg)}
 @media(max-width:860px){.pcard{grid-template-columns:1fr;gap:26px;padding:28px 24px}}
 
 /* flow steps */
@@ -1004,7 +1009,32 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
     <div class="prose rv d3"><p>20年分の開発で積み上げた業務ノウハウを、はじめから使えるかたちにしたパッケージです。カスタマイズ前提ではなく、<strong>現場の業務がそのまま回るところまで標準機能として提供</strong>します。</p></div>
 
     <div class="pcards">
-      <a class="pcard rv d1" href="/saas/sales-management.html">
+      <a class="pcard rv d1" href="/saas/erp.html">
+        <div class="pc-body">
+          <p class="cat">ERP — BACK OFFICE SUITE</p>
+          <h3>バックオフィス統合管理システム<small>全社の管理部門向け</small></h3>
+          <p class="pc-desc">稟議・発注・検収・支払、出張申請・経費精算、商談・契約・請求・入金消込までを、ひとつながりの記録として管理します。前の伝票を根拠にしないと次の伝票を作れない構造のため、決裁のない発注や根拠のない支払が起きません。承認されると支払伝票が自動で立ち、承認履歴・契約・支払・仕訳データに集約。仕訳はCSVで会計ソフトへそのまま渡せます。</p>
+          <ul class="pc-tags">
+            <li>稟議・承認ワークフロー</li><li>発注・検収</li><li>出張・経費精算</li><li>契約・請求・入金消込</li><li>支払管理</li><li>仕訳データCSV出力</li>
+          </ul>
+          <span class="pc-go">サービス資料を見る<i></i></span>
+        </div>
+        <div class="pc-mock" aria-hidden="true">
+          <div class="pm-bar"><i></i><i></i><i></i><span>unitary://back-office</span></div>
+          <div class="pm-body">
+            <div class="pm-side"><b class="hl"></b><b></b><b></b><b></b><b></b><b></b></div>
+            <div class="pm-main">
+              <div class="pm-row head"><s></s><s></s><s></s><s></s></div>
+              <div class="pm-row"><s></s><s></s><s></s><s class="o"></s></div>
+              <div class="pm-row"><s></s><s></s><s class="b"></s><s class="o"></s></div>
+              <div class="pm-row"><s></s><s></s><s></s><s class="o"></s></div>
+              <div class="pm-flow"><em class="b"></em><i></i><em></em><i></i><em></em><i></i><em class="o"></em></div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="pcard rv d2" href="/saas/sales-management.html">
         <div class="pc-body">
           <p class="cat">SALES MANAGEMENT SYSTEM</p>
           <h3>販売管理システム<small>製品卸売業向け</small></h3>
@@ -1030,7 +1060,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
         </div>
       </a>
 
-      <a class="pcard rv d2" href="/saas/order-management.html">
+      <a class="pcard rv d3" href="/saas/order-management.html">
         <div class="pc-body">
           <p class="cat">ORDERING &amp; INVENTORY SYSTEM</p>
           <h3>受発注管理システム<small>ホテルアメニティ向け</small></h3>
@@ -1056,7 +1086,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
         </div>
       </a>
 
-      <a class="pcard rv d3" href="/saas/sfa.html">
+      <a class="pcard rv d4" href="/saas/sfa.html">
         <div class="pc-body">
           <p class="cat">SALES FORCE AUTOMATION — SFA</p>
           <h3>案件管理システム<small>営業部門向け</small></h3>
