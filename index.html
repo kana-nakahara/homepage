@@ -329,17 +329,19 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .cx-cloud .art b{position:absolute;left:0;right:0;top:36px;font-size:15px;font-weight:700;color:var(--slate);letter-spacing:.06em}
 @keyframes cxFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(9px,-6px) scale(1.06)}}
 
-/* ビッグデータ */
-.cx-db{width:104px;text-align:center}
-.cx-db .art{position:relative;width:70px;height:52px;margin:0 auto}
-.cx-db .art i{position:absolute;width:60px;height:24px;border-radius:4px;border:2px solid rgba(109,168,230,.6);background:rgba(109,168,230,.12)}
-.cx-db .art i:nth-child(1){left:0;top:22px}
-.cx-db .art i:nth-child(2){left:5px;top:11px}
-.cx-db .art i:nth-child(3){left:10px;top:0;border-color:var(--blue)}
-
-/* AI */
-.cx-ai{width:74px;text-align:center}
-.cx-ai .art{width:54px;height:54px;margin:0 auto;border-radius:10px;border:2px solid var(--blue);background:rgba(109,168,230,.12);display:flex;align-items:center;justify-content:center;font-family:var(--en);font-weight:600;font-size:17px;color:var(--blue);letter-spacing:.08em}
+/* ビッグデータ × AI（学習済みモデル） */
+.cx-model{width:212px;text-align:center}
+.cx-model .art{display:flex;align-items:center;justify-content:center;gap:10px;height:66px;padding:0 14px;border:1px solid rgba(109,168,230,.32);border-radius:10px;background:rgba(109,168,230,.07)}
+.cx-model .db{position:relative;width:52px;height:44px;flex:none}
+.cx-model .db i{position:absolute;width:44px;height:18px;border-radius:3px;border:2px solid rgba(109,168,230,.6);background:rgba(109,168,230,.12)}
+.cx-model .db i:nth-child(1){left:0;top:18px}
+.cx-model .db i:nth-child(2){left:4px;top:9px}
+.cx-model .db i:nth-child(3){left:8px;top:0;border-color:var(--blue)}
+.cx-model .lnk{position:relative;flex:none;width:18px;height:2px;background:rgba(109,168,230,.45)}
+.cx-model .lnk::after{content:"";position:absolute;right:-1px;top:-4px;border-left:6px solid rgba(109,168,230,.6);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.cx-model .lnk::before{content:"";position:absolute;left:0;top:-2.5px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px rgba(109,168,230,.8);opacity:0;animation:cxFeed 2.2s linear infinite}
+@keyframes cxFeed{0%{opacity:0;transform:translateX(0)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateX(12px)}}
+.cx-model .ai{flex:none;width:44px;height:44px;border-radius:9px;border:2px solid var(--blue);background:rgba(109,168,230,.12);display:flex;align-items:center;justify-content:center;font-family:var(--en);font-weight:600;font-size:15px;color:var(--blue);letter-spacing:.08em}
 
 /* 定義文（タイプライター） */
 .cx-def{width:232px;border:1px solid var(--line);border-radius:6px;background:#0E1116;padding:10px 12px;position:relative}
@@ -569,6 +571,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   .zc-core .nd.c{fill:var(--orange)}
   .zc-flow i{display:none}
   .cx-ar i{display:none}
+  .cx-model .lnk::before{display:none}
   .cx-rnd .b{opacity:0}
   .cx-sys i{opacity:1;transform:none}
   .cx-def .code span{clip-path:none}
@@ -969,21 +972,20 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
             </div>
           </div>
 
-          <div class="lane uni" role="img" aria-label="UNITARYのAI駆動開発：同じ指示が20年分のビッグデータで学習したAIに渡り、定義文が生成され、ZeroCoderエンジンが毎回同じ標準化されたシステムを組み立てる図">
+          <div class="lane uni" role="img" aria-label="UNITARYのAI駆動開発：同じ指示が20年分の実績データで学習したAIモデルに渡り、定義文が生成され、ZeroCoderエンジンが毎回同じ標準化されたシステムを組み立てる図">
             <p class="lane-k">UNITARY — 真のAI駆動開発</p>
             <div class="lane-row">
               <div class="cx-chip">同じ指示<span class="sym">☞</span></div>
               <div class="cx-ar" style="width:34px" aria-hidden="true"><i style="--tx:16px"></i></div>
-              <div class="cx-db">
-                <div class="art" aria-hidden="true"><i></i><i></i><i></i></div>
-                <p class="nd-t">ビッグデータ</p>
+              <div class="cx-model">
+                <div class="art" aria-hidden="true">
+                  <div class="db"><i></i><i></i><i></i></div>
+                  <span class="lnk"></span>
+                  <div class="ai">AI</div>
+                </div>
+                <p class="nd-t">実績データで学習したAIモデル</p>
                 <p class="nd-n">20年+ ／ 100万件+</p>
                 <p class="nd-s">実績が凝縮された定義データ</p>
-              </div>
-              <div class="cx-ar" style="width:28px" aria-hidden="true"><i style="--tx:10px"></i></div>
-              <div class="cx-ai">
-                <div class="art" aria-hidden="true">AI</div>
-                <p class="nd-s">実績データで<br>学習したモデル</p>
               </div>
               <div class="cx-ar" style="width:28px" aria-hidden="true"><i style="--tx:10px"></i></div>
               <div class="cx-def">
