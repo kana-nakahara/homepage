@@ -398,7 +398,8 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 .works .k{color:var(--orange)}
 .works .prose{color:#B9C4D6}
 .works .prose strong{color:#fff}
-.wcards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:48px}
+.wcards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+@media(max-width:1040px){.wcards{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.wcards{grid-template-columns:1fr}}
 .wcard{background:var(--deep2);border:1px solid var(--line);border-radius:16px;padding:30px 28px;transition:transform .25s ease,border-color .25s ease}
 .wcard:hover{transform:translateY(-4px);border-color:var(--blue-d)}
@@ -1078,7 +1079,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   <div class="wrap">
     <p class="k rv">WORKS — 開発事例</p>
     <h2 class="rv d1">基幹業務を、オーダーメイドで。</h2>
-    <div class="prose rv d2"><p>AIが実装を担うから、オーダーメイド開発を現実的な価格とスピードで。どちらの事例も、要件定義から運用保守まで一気通貫で伴走しています。</p></div>
+    <div class="prose rv d2"><p>AIが実装を担うから、オーダーメイド開発を現実的な価格とスピードで。いずれの事例も、要件定義から運用保守まで一気通貫で伴走しています。</p></div>
     <div class="wcards">
       <a class="wcard rv d1" href="/product/warehouse-management.html">
         <p class="cat">WHOLESALE / RETAIL</p>
@@ -1092,6 +1093,12 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
         <p>顧客・案件管理に通話の自動文字起こしと帳票OCRを組み込み、営業記録の入力コストを大幅に削減しました。</p>
         <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
       </div>
+      <a class="wcard rv d3" href="/product/travel.html">
+        <p class="cat">TRAVEL AGENCY</p>
+        <h3>旅行台帳管理システム</h3>
+        <p>団体旅行の引合から見積・行程・手配・催行・精算までを一元管理。行程を1回入れるだけで手配と原価・粗利が自動で動きます。</p>
+        <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+      </a>
     </div>
   </div>
 </section>
