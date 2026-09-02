@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITARY 物流システム — システム概要</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --deep:#0B1220; --ink:#0E1116; --white:#FFFFFF; --pale:#EAF0F8;
+  --slate:#8A96A6; --slate-d:#55606B; --line:#233149; --line-l:#E7EAEE; --wash:#F4F7FB;
+  --orange:#F6A33E; --orange-d:#E8830C; --blue:#6DA8E6; --blue-d:#3E77B8;
+  --sans:'Noto Sans JP','Inter',sans-serif; --en:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ---------- header / hero ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(11,18,32,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--en);font-weight:800;letter-spacing:.16em;font-size:16px;color:#fff}
+.logo small{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--slate);margin-left:14px}
+header nav ul{display:flex;gap:18px;list-style:none;font-size:12.5px;font-weight:500;white-space:nowrap}
+header nav a{color:rgba(255,255,255,.72);transition:color .3s}
+header nav a:hover{color:var(--orange)}
+.hd .tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--blue);border:1px solid var(--line);border-radius:6px;padding:6px 14px}
+@media(max-width:900px){header nav{display:none}}
+.hero{position:relative;background:radial-gradient(1200px 700px at 50% 30%,#16233E 0%,var(--deep) 62%);color:#fff;overflow:hidden;display:grid;place-items:center;padding:150px 0 100px}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(109,168,230,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(109,168,230,.06) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%)}
+.hero-in{position:relative;text-align:center;max-width:920px;padding:0 24px}
+.hero .k{font-family:var(--en);font-size:12px;font-weight:600;letter-spacing:.3em;color:var(--orange)}
+.hero h1{font-size:clamp(27px,4vw,44px);font-weight:900;line-height:1.4;margin:20px 0 8px}
+.hero h1 .thin{font-weight:700;font-size:.5em;display:block;color:var(--pale);letter-spacing:.14em;margin-bottom:12px}
+.hero p.lead{color:var(--slate);font-size:15.5px;margin:22px auto 0;max-width:740px}
+.hero p.lead b{color:var(--pale)}
+.hero .note{margin-top:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--slate)}
+
+/* ---------- section ---------- */
+section{padding:96px 0}
+.k{font-family:var(--en);font-size:12px;font-weight:600;letter-spacing:.24em;color:var(--orange-d);margin-bottom:14px}
+h2{font-size:clamp(23px,3vw,32px);font-weight:900;letter-spacing:.02em;line-height:1.5}
+.shead{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.snum{font-family:var(--en);font-size:12px;font-weight:800;letter-spacing:.18em;color:#fff;background:var(--deep);border-radius:6px;padding:8px 14px;white-space:nowrap}
+.sec-lead{color:var(--slate-d);font-size:14.5px;margin-top:16px;max-width:900px}
+.sec-lead b{color:var(--ink)}
+
+/* ---------- ① 業務フロー図 ---------- */
+.flowfig{margin-top:40px;background:var(--deep);border-radius:14px;padding:28px 22px;overflow-x:auto}
+.flowfig svg{display:block;width:100%;min-width:960px;height:auto}
+
+/* ---------- ② 追跡 ---------- */
+.track{margin-top:70px;background:var(--wash);border-radius:16px;padding:38px 34px 42px}
+.track-h{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.track-n{font-family:var(--en);font-size:12px;font-weight:800;letter-spacing:.14em;color:#fff;background:var(--blue-d);border-radius:999px;padding:5px 14px}
+.track-h h3{font-size:21px;font-weight:900}
+.track-h .who{font-size:12.5px;color:var(--slate-d);font-weight:700;background:#fff;border:1px solid var(--line-l);border-radius:999px;padding:4px 13px}
+.track > p.lead{color:var(--slate-d);font-size:14.5px;margin-top:14px;max-width:900px}
+.track > p.lead b{color:var(--ink)}
+
+/* 操作の1ステップ */
+.op{margin-top:30px;padding-left:60px;position:relative}
+.op::before{content:attr(data-n);position:absolute;left:0;top:2px;width:38px;height:38px;border-radius:50%;
+  background:#fff;border:2px solid var(--blue-d);color:var(--blue-d);font-family:var(--en);font-weight:800;font-size:15px;
+  display:grid;place-items:center}
+.op::after{content:"";position:absolute;left:18px;top:44px;bottom:-30px;width:2px;background:var(--line-l)}
+.op:last-of-type::after{display:none}
+.op h4{font-size:16.5px;font-weight:800;letter-spacing:.01em}
+.op h4 em{font-style:normal;font-family:var(--mono);font-size:12.5px;color:var(--blue-d);margin-left:10px;letter-spacing:.04em}
+.op p{font-size:14px;color:var(--slate-d);margin-top:8px;max-width:900px}
+.op p b{color:var(--ink)}
+.browser{margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid var(--line-l);box-shadow:0 14px 32px rgba(14,24,48,.10);background:#fff}
+.bbar{display:flex;align-items:center;gap:7px;background:#1B2942;padding:8px 13px}
+.bbar i{width:9px;height:9px;border-radius:50%;background:#3E4C66;flex:none}
+.bbar span{margin-left:11px;font-size:11px;color:var(--slate);font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.browser img{display:block;width:100%}
+.cap{font-size:13px;color:var(--slate-d);margin-top:10px;max-width:960px}
+.cap b{color:var(--ink)}
+
+/* 自動で起きたこと */
+.auto{margin-top:18px;background:#fff;border:1px solid var(--orange);border-left:4px solid var(--orange);border-radius:10px;padding:16px 20px}
+.auto .lbl{font-family:var(--en);font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--orange-d)}
+.auto p{margin-top:6px;font-size:13.5px;color:var(--slate-d)}
+.auto b{color:var(--ink)}
+
+/* ---------- ③ 完了 ---------- */
+.done{margin-top:70px;background:var(--deep);color:#fff;border-radius:16px;padding:40px 36px}
+.done .k{color:var(--orange)}
+.done h3{font-size:23px;font-weight:900;line-height:1.5}
+.done p{color:var(--slate);font-size:14.5px;margin-top:16px;max-width:900px}
+.done p b{color:var(--pale)}
+.donegrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:30px}
+.donecard{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:16px 16px 18px}
+.donecard .t{font-size:12px;color:var(--slate);letter-spacing:.04em}
+.donecard .id{font-family:var(--mono);font-size:13px;color:var(--blue);margin-top:6px;word-break:break-all}
+.donecard .s{font-size:12px;color:var(--pale);margin-top:8px;font-weight:700}
+.donecard.auto2{border-color:var(--orange)}
+.donecard.auto2 .id{color:var(--orange)}
+@media(max-width:900px){.donegrid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- ④ トレーサビリティ(小さく) ---------- */
+.trace{margin-top:70px;border-top:1px solid var(--line-l);padding-top:44px}
+.trace h3{font-size:18px;font-weight:900}
+.trace p.lead{font-size:13.5px;color:var(--slate-d);margin-top:12px;max-width:900px}
+.trace p.lead b{color:var(--ink)}
+.tracegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:22px}
+.tracegrid figure{margin:0}
+.tracegrid .browser{margin-top:0;box-shadow:0 8px 18px rgba(14,24,48,.08)}
+.tracegrid .browser img{width:100%}
+.tracegrid .bbar{padding:8px 12px}
+.tracegrid .bbar i{width:8px;height:8px}
+.tracegrid .bbar span{font-size:11px}
+.tracegrid figcaption{font-size:13px;color:var(--slate-d);margin-top:12px;line-height:1.7}
+.tracegrid figcaption b{color:var(--ink)}
+@media(max-width:900px){.tracegrid{grid-template-columns:1fr}}
+
+/* ---------- 全体像 ---------- */
+.ov{padding:96px 0 84px}
+.ovitem{margin-top:46px}
+.ovitem:first-of-type{margin-top:34px}
+.ovitem>h3{font-size:19px;font-weight:900;letter-spacing:.02em;display:flex;align-items:center;gap:12px}
+.ovitem>h3 .n{font-family:var(--en);font-size:12px;font-weight:800;letter-spacing:.14em;color:#fff;background:var(--orange-d);border-radius:6px;padding:5px 9px;flex:none}
+.ovitem>p.sec-lead{margin-top:12px}
+.shotpair{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:22px}
+.shotpair figure{margin:0}
+.shotpair .browser{margin-top:0;box-shadow:0 8px 18px rgba(14,24,48,.08)}
+.shotpair .browser img{width:auto;max-width:100%;margin:0}
+.shotpair .bbar{padding:8px 12px}
+.shotpair .bbar i{width:8px;height:8px}
+.shotpair .bbar span{font-size:11px}
+.shotpair figcaption{font-size:13px;color:var(--slate-d);margin-top:10px;line-height:1.7}
+.shotpair figcaption b{color:var(--ink)}
+@media(max-width:900px){.shotpair{grid-template-columns:1fr}}
+
+
+/* 目次 */
+.toc{background:var(--wash);border-bottom:1px solid var(--line-l);padding:52px 0 56px}
+.toc-k{font-family:var(--en);font-size:12px;font-weight:600;letter-spacing:.24em;color:var(--orange-d);margin-bottom:26px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:34px 46px}
+.toc-flow{min-width:0}
+.toc-f{display:flex;align-items:baseline;gap:12px;font-size:19px;font-weight:900;letter-spacing:.01em;padding-bottom:12px;border-bottom:2px solid var(--deep);transition:color .2s}
+.toc-f .n{font-family:var(--en);font-size:11px;font-weight:800;letter-spacing:.16em;color:#fff;background:var(--deep);border-radius:5px;padding:5px 9px;flex:none}
+.toc-s{display:flex;align-items:baseline;gap:10px;font-size:14.5px;font-weight:700;margin-top:16px;transition:color .2s}
+.toc-s .n{font-family:var(--en);font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--blue-d);border:1px solid var(--blue-d);border-radius:999px;padding:2px 8px;flex:none}
+.toc-ops{display:flex;flex-direction:column;gap:3px;margin:7px 0 0 12px;padding-left:14px;border-left:1px solid var(--line-l)}
+.toc-ops a{display:flex;align-items:baseline;gap:7px;font-size:13px;color:var(--slate-d);transition:color .2s}
+.toc-ops .m{color:var(--orange-d);font-weight:700;flex:none}
+.toc a:hover,.toc-ops a:hover{color:var(--orange-d)}
+section[id],.track[id],.op[id]{scroll-margin-top:84px}
+
+
+
+footer{background:var(--deep);color:var(--slate);padding:56px 0;font-size:12.5px;margin-top:96px}
+footer .wrap{display:flex;flex-direction:column;gap:6px}
+footer b{color:var(--pale)}
+
+/* 部分ショット(フロー帯・状態欄)は等倍で置く */
+.browser img{width:auto;max-width:100%;margin:0 auto}
+p a[href^="#"], p a[href^="#"] b{color:var(--blue-d);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.hero p a[href^="#"], .hero p a[href^="#"] b{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <div class="logo">UNITARY<small>物流システム</small></div>
+    <nav><ul><li><a href="#overview">全体像</a></li><li><a href="#order">FLOW 01 受注</a></li><li><a href="#ship">FLOW 02 引当と出荷</a></li><li><a href="#stock">FLOW 03 在庫</a></li><li><a href="#appendix">付録 CSV連携</a></li></ul></nav>
+    <div class="tag">SYSTEM OVERVIEW</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-in">
+    <div class="k">SYSTEM OVERVIEW</div>
+    <h1><span class="thin">物流システム</span>受注の取込・賞味期限を見た引当・出荷と伝票・在庫を一元管理</h1>
+    <p class="lead"><b>受注の受付から出荷・伝票発行・在庫の記録まで</b>をシステムで一元的に扱います。<br>
+      CSVで受注を起こし、<b>賞味期限と納品期限ルールを見ながら在庫(ロット)を引き当て</b>、出荷を確定して納品書を出します。<br>
+      本書は、1本のCSVから起きた受注が出荷・伝票・在庫まで通る様子を実機の画面で順に追います。<br>
+      出荷もCSVから取り込めます。CSV連携は<a href="#appendix"><b>付録</b></a>で扱います。</p>
+    <div class="note">記載の社名・店舗名・商品名・数量はすべて架空のサンプルデータです</div>
+  </div>
+</div>
+
+<section class="ov" id="overview">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">OVERVIEW</span>
+      <div>
+        <div class="k">このシステムの土台</div>
+      </div>
+    </div>
+
+
+    <div class="ovitem">
+      <h3><span class="n">01</span>データの構造とトレーサビリティ</h3>
+      <p class="sec-lead">このシステムが扱うのは<b>「受注」</b>・<b>「出荷」</b>・<b>「ロット(在庫)」</b>の3つです。<br>
+        受注は明細ごとに<b>賞味期限指定</b>を持ち、引当でロットが決まり、出荷が確定すると<b>在庫受払</b>に1行ずつ記録が残ります。
+        在庫はその受払の集計で、<b>数字の持ち主は1箇所</b>です。受注・出荷・受払は伝票番号で相互にたどれます。</p>
+      <div class="flowfig">
+        <svg viewBox="0 0 1180 430" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="エンティティ概念図。CSVから受注が起き、受注明細は賞味期限指定と納品期限ルールで引当され、出荷が確定すると在庫受払に出庫が記録される。ロット在庫は受払の集計で、入庫からも作られる。">
+          <defs>
+            <marker id="vm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#6DA8E6"/></marker>
+            <marker id="va" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#F6A33E"/></marker>
+            <marker id="vg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#8A96A6"/></marker>
+          </defs>
+
+          <g><rect x="20" y="128" width="170" height="76" rx="10" fill="#2A2013" stroke="#F6A33E" stroke-width="1.8"/>
+            <text x="105" y="158" fill="#FFFFFF" font-size="15" font-weight="700" text-anchor="middle">受注CSV</text>
+            <text x="105" y="181" fill="#F6A33E" font-size="10.5" text-anchor="middle">受注データ</text></g>
+          <text x="212" y="152" fill="#F6A33E" font-size="11" font-weight="700" text-anchor="middle">CSV取込</text>
+          <line x1="190" y1="166" x2="232" y2="166" stroke="#F6A33E" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#va)"/>
+
+          <g><rect x="240" y="102" width="230" height="128" rx="11" fill="#1B2942" stroke="#3E77B8" stroke-width="1.8"/>
+            <text x="355" y="132" fill="#FFFFFF" font-size="17" font-weight="700" text-anchor="middle">受注</text>
+            <text x="355" y="154" fill="#6DA8E6" font-family="JetBrains Mono,monospace" font-size="12.5" text-anchor="middle">PO-260905-001</text>
+            <text x="355" y="177" fill="#8A96A6" font-size="10.5" text-anchor="middle">得意先 / 出荷先 / 希望納品日</text>
+            <text x="355" y="196" fill="#8A96A6" font-size="10.5" text-anchor="middle">明細: 商品・ケース数・売単価</text>
+            <text x="355" y="215" fill="#F6A33E" font-size="10.5" text-anchor="middle">明細ごとの 賞味期限指定</text></g>
+
+          <polyline points="470,166 520,166" fill="none" stroke="#6DA8E6" stroke-width="1.8"/>
+          <line x1="520" y1="166" x2="574" y2="166" stroke="#6DA8E6" stroke-width="1.8" marker-end="url(#vm)"/>
+          <rect x="474" y="126" width="98" height="24" rx="6" fill="#0B1220" stroke="#F6A33E"/>
+          <text x="523" y="143" fill="#F6A33E" font-size="11.5" font-weight="800" text-anchor="middle">引当 (FEFO)</text>
+          <text x="523" y="196" fill="#8A96A6" font-size="10" text-anchor="middle">納品期限ルール ×</text>
+          <text x="523" y="211" fill="#8A96A6" font-size="10" text-anchor="middle">賞味期限指定</text>
+
+          <g><rect x="580" y="102" width="250" height="128" rx="10" fill="#2A2013" stroke="#F6A33E" stroke-width="1.8"/>
+            <text x="705" y="132" fill="#FFFFFF" font-size="15" font-weight="700" text-anchor="middle">出荷</text>
+            <text x="705" y="154" fill="#F6A33E" font-family="JetBrains Mono,monospace" font-size="12" text-anchor="middle">SC26090047</text>
+            <text x="705" y="177" fill="#8A96A6" font-size="10.5" text-anchor="middle">明細: 受注明細 × ロット</text>
+            <text x="705" y="196" fill="#8A96A6" font-size="10.5" text-anchor="middle">出荷確定で在庫が動く</text>
+            <text x="705" y="215" fill="#6DA8E6" font-size="10.5" text-anchor="middle">納品書 DN26090017 を発行</text></g>
+
+          <line x1="830" y1="166" x2="884" y2="166" stroke="#6DA8E6" stroke-width="1.8" marker-end="url(#vm)"/>
+          <g><rect x="890" y="102" width="250" height="128" rx="10" fill="#1B2942" stroke="#3E77B8" stroke-width="1.5"/>
+            <text x="1015" y="132" fill="#FFFFFF" font-size="15" font-weight="700" text-anchor="middle">在庫受払(元帳)</text>
+            <text x="1015" y="155" fill="#8A96A6" font-size="10.5" text-anchor="middle">入庫 +／出庫 −／棚卸調整</text>
+            <text x="1015" y="174" fill="#8A96A6" font-size="10.5" text-anchor="middle">伝票番号つきで1行ずつ残る</text>
+            <text x="1015" y="196" fill="#6DA8E6" font-size="10.5" text-anchor="middle">追記だけ・書き換えない</text>
+            <text x="1015" y="215" fill="#6DA8E6" font-size="10.5" text-anchor="middle">在庫 = この集計</text></g>
+
+          <g><rect x="20" y="300" width="170" height="76" rx="10" fill="#1B2942" stroke="#3E77B8" stroke-width="1.5"/>
+            <text x="105" y="330" fill="#FFFFFF" font-size="15" font-weight="700" text-anchor="middle">入庫</text>
+            <text x="105" y="353" fill="#8A96A6" font-size="10.5" text-anchor="middle">仕入 / 製造 / 返品</text></g>
+          <line x1="190" y1="338" x2="232" y2="338" stroke="#6DA8E6" stroke-width="1.8" marker-end="url(#vm)"/>
+          <g><rect x="240" y="286" width="230" height="104" rx="11" fill="#1B2942" stroke="#3E77B8" stroke-width="1.8"/>
+            <text x="355" y="316" fill="#FFFFFF" font-size="17" font-weight="700" text-anchor="middle">ロット(在庫)</text>
+            <text x="355" y="338" fill="#6DA8E6" font-family="JetBrains Mono,monospace" font-size="12.5" text-anchor="middle">LB0065  2027/03/21</text>
+            <text x="355" y="361" fill="#8A96A6" font-size="10.5" text-anchor="middle">商品 × 倉庫 × ロット番号 × 賞味期限</text>
+            <text x="355" y="380" fill="#8A96A6" font-size="10.5" text-anchor="middle">期限区分: 正常 / 期限間近 / 期限切れ</text></g>
+          <polyline points="470,338 705,338 705,236" fill="none" stroke="#8A96A6" stroke-width="1.4" stroke-dasharray="5 5" marker-end="url(#vg)"/>
+          <polyline points="1015,236 1015,338 476,338" fill="none" stroke="#6DA8E6" stroke-width="1.6"/>
+          <rect x="720" y="348" width="300" height="26" rx="6" fill="#0B1220" stroke="#233149"/>
+          <text x="870" y="366" fill="#EAF0F8" font-size="11.5" text-anchor="middle">受注 →「出荷データへ」→ 出荷 →「参照」→ 受払・ロット</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ovitem">
+      <h3><span class="n">02</span>視覚的な状態管理</h3>
+      <p class="sec-lead">受注・出荷・CSV取込のステータスは、画面のいちばん上に<b>視覚的なフロー</b>で出ます。
+        いまクリックできる操作だけが青いボタンで並び、クリックするとステータスが自動で進みます。</p>
+      <div class="shotpair">
+        <figure>
+          <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>受注 — 受注ステータス</span></div><img src="shots_260902/X05_flow_2x.png" alt="受注ステータスのフロー(一部引当)"></div>
+          <figcaption><b>受注ステータス</b>:受付 → 一部引当 → 引当済 → 一部出荷 → 出荷済。1行が引き当てられなかったので「一部引当」で止まっています。</figcaption>
+        </figure>
+        <figure>
+          <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>出荷 — 出荷ステータス</span></div><img src="shots_260902/X09_flow_2x.png" alt="出荷ステータスのフロー(出荷済)"></div>
+          <figcaption><b>出荷ステータス</b>:予定 → 出荷済。確定すると「伝票を発行する」だけが残ります。</figcaption>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<nav class="toc" aria-label="目次"><div class="wrap"><div class="toc-k">CONTENTS</div><div class="toc-grid">
+<div class="toc-flow"><a class="toc-f" href="#order"><span class="n">FLOW 01</span>受注の受付</a><a class="toc-s" href="#f1-s1"><span class="n">STEP 1</span>受注CSVを取り込む</a><div class="toc-ops"><a href="#f1-s1-op1"><span class="m">①</span>「CSVを取り込む」を開く</a><a href="#f1-s1-op2"><span class="m">②</span>登録してCSVを添付する</a><a href="#f1-s1-op3"><span class="m">③</span>「CSVから明細を取り込む」をクリックする</a><a href="#f1-s1-op4"><span class="m">④</span>取り込んだ行を確認する</a></div><a class="toc-s" href="#f1-s2"><span class="n">STEP 2</span>受注を起こす</a><div class="toc-ops"><a href="#f1-s2-op1"><span class="m">①</span>「この内容で受注を起こす」をクリックする</a><a href="#f1-s2-op2"><span class="m">②</span>受注が生まれ、受注画面が開く</a><a href="#f1-s2-op3"><span class="m">③</span>起票された受注を一覧で確認する</a></div></div>
+<div class="toc-flow"><a class="toc-f" href="#ship"><span class="n">FLOW 02</span>引当と出荷</a><a class="toc-s" href="#f2-s1"><span class="n">STEP 3</span>引当する→賞味期限の判定</a><div class="toc-ops"><a href="#f2-s1-op1"><span class="m">①</span>「引当する」をクリックする</a><a href="#f2-s1-op2"><span class="m">②</span>明細で「期限不足」を確認する</a></div><a class="toc-s" href="#f2-s2"><span class="n">STEP 4</span>出荷を起こす→出荷画面へ</a><div class="toc-ops"><a href="#f2-s2-op1"><span class="m">①</span>「出荷を起こす」をクリックする</a><a href="#f2-s2-op2"><span class="m">②</span>「出荷データへ」で出荷画面を開く</a><a href="#f2-s2-op3"><span class="m">③</span>「出荷を確定する」をクリックする</a></div><a class="toc-s" href="#f2-s3"><span class="n">STEP 5</span>伝票を発行する</a><div class="toc-ops"><a href="#f2-s3-op1"><span class="m">①</span>「伝票を発行する」をクリックする</a><a href="#f2-s3-op2"><span class="m">②</span>納品書が開く</a></div></div>
+<div class="toc-flow"><a class="toc-f" href="#stock"><span class="n">FLOW 03</span>在庫の確認</a><a class="toc-s" href="#f3-s1"><span class="n">STEP 6</span>在庫受払(元帳)を見る</a><div class="toc-ops"><a href="#f3-s1-op1"><span class="m">①</span>「在庫受払一覧」を開く</a></div><a class="toc-s" href="#f3-s2"><span class="n">STEP 7</span>ロット在庫一覧を見る</a><div class="toc-ops"><a href="#f3-s2-op1"><span class="m">①</span>「ロット在庫一覧」を開く</a></div></div>
+<div class="toc-flow"><a class="toc-f" href="#appendix"><span class="n">APPENDIX</span>付録</a><a class="toc-s" href="#f4-s1"><span class="n">付録</span>CSV連携(出荷もCSVから)</a></div>
+</div></div></nav>
+
+<section id="order">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">FLOW 01</span>
+      <div>
+        <div class="k">受注の受付</div>
+        <h2>CSVを取り込む→内容を確認→受注を起こす</h2>
+      </div>
+    </div>
+    <p class="sec-lead">受注を受け付ける側の流れです。CSVを添付して取り込むと<b>1行ずつ検証され</b>、問題なければ先方伝票番号ごとに受注が起きます。<br>
+      ここで使うCSVは<b>3伝票・6行</b>。うち<b>1行だけ賞味期限の指定が厳しく、在庫のロットでは満たせない</b>ようにしてあります(受注は手入力でも作れます)。</p>
+
+    <div class="track" id="f1-s1">
+      <div class="track-h"><span class="track-n">STEP 1</span><h3>受注CSVを取り込む</h3><span class="who">受注担当</span></div>
+      <p class="lead">上部メニュー<b>「受注管理」</b>の CSV連携 から始めます。ここでは<b>CSVの行が取込明細になるまで</b>を追います。</p>
+
+      <div class="op" id="f1-s1-op1" data-n="1">
+        <h4>「CSVを取り込む」を開く<em>受注管理 › CSV連携</em></h4>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>CSV取込 — 開いた直後</span></div><img src="shots_260902/C01_csv_new.png" alt="CSV取込の新規画面"></div>
+      </div>
+
+      <div class="op" id="f1-s1-op2" data-n="2">
+        <h4>登録してCSVを添付する<em>CSVデータ</em></h4>
+        <p><b>「登録」</b>で取込を1件起こし、<b>CSVデータ</b>の欄にファイルを添付します(ドラッグ&amp;ドロップでも構いません)。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>CSV取込 — CSVを添付した状態</span></div><img src="shots_260902/C01b_attached.png" alt="CSVを添付した状態"></div>
+      </div>
+
+      <div class="op" id="f1-s1-op3" data-n="3">
+        <h4>「CSVから明細を取り込む」をクリックする<em>取込情報タブ</em></h4>
+        <p>添付したCSVをレイアウトどおりに読み、<b>取引先コード・出荷先コード・商品コードをマスタと突き合わせ</b>ます。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>CSV取込 — 取込済</span></div><img src="shots_260902/C02_parsed.png" alt="取込済になったCSV取込"></div>
+      </div>
+
+      <div class="op" id="f1-s1-op4" data-n="4">
+        <h4>取り込んだ行を確認する<em>取り込んだ行タブ</em></h4>
+        <p>1行ごとに<b>結果とエラー内容</b>が残ります。一部の行に不備があっても、正常な行だけ先へ進められます。
+          同じ先方伝票番号の受注が既にある行は<b>「重複スキップ」</b>になり、伝票は増えません。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>取り込んだ行 — 6行すべて成功</span></div><img src="shots_260902/C03_rows.png" alt="取り込んだ行の一覧"></div>
+      </div>
+    </div>
+
+    <div class="track" id="f1-s2">
+      <div class="track-h"><span class="track-n">STEP 2</span><h3>受注を起こす</h3><span class="who">受注担当</span></div>
+      <p class="lead">取り込んだ行の内容で受注を作ります。ここでは<b>1本のCSVから受注が3件生まれるまで</b>を追います。</p>
+
+      <div class="op" id="f1-s2-op1" data-n="1">
+        <h4>「この内容で受注を起こす」をクリックする<em>取り込んだ行タブ</em></h4>
+        <p>先方伝票番号が変わるごとに受注ヘッダが起き、行はその明細になります。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>取り込んだ行 — 「この内容で受注を起こす」</span></div><img src="shots_260902/Z02_order_button_2x.png" alt="この内容で受注を起こすボタン"></div>
+      </div>
+
+      <div class="op" id="f1-s2-op2" data-n="2">
+        <h4>受注が生まれ、受注画面が開く<em>受注(自動で開く・3件すべて)</em></h4>
+        <div class="auto"><div class="lbl">AUTO</div>
+          <p>受注が<b>3件(明細6行)</b>起き、<b>3件すべてが別タブで開きました</b>(タブ 受注[OC26090001]〜[OC26090003])。先頭の <b>PO-260905-001 サンプルストア 本店</b> を見ると、得意先・出荷先・希望納品日・<b>納品期限ルール(2分の1ルール)</b>は出荷先マスタから入り、ステータスは<b>「受付」</b>。まだ引当していないので「引当できない明細」は 2 です。</p></div>
+        <div class="browser" style="margin-top:14px"><div class="bbar"><i></i><i></i><i></i><span>受注 PO-260905-001 — 3件が別タブで開いた状態</span></div><img src="shots_260902/Y04_order_new_2x.png" alt="起票直後の受注画面"></div>
+      </div>
+
+      <div class="op" id="f1-s2-op3" data-n="3">
+        <h4>起票された受注を一覧で確認する<em>CSV取込 › 起票された受注タブ</em></h4>
+        <p>取込が<b>「完了」</b>になると「起票された受注」タブが現れ、この取込から作られた受注が並びます。右端の<b>参照</b>から各受注へ移動できます。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>CSV取込 — 起票された受注</span></div><img src="shots_260902/X14_csv_done_2x.png" alt="起票された受注の一覧"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ship">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">FLOW 02</span>
+      <div>
+        <div class="k">引当と出荷</div>
+        <h2>引当(賞味期限の判定)→出荷を起こす→出荷確定・伝票発行</h2>
+      </div>
+    </div>
+    <p class="sec-lead">出す在庫を決めて、出荷する側の流れです。<b>「引当する」</b>をクリックすると賞味期限の早いロットから順に、
+      <b>納品期限ルールと賞味期限指定の両方を満たすロットだけ</b>が割り当たります。<br>
+      引当が付いた分で出荷を起こし、<b>「出荷を確定する」</b>で在庫が動き、納品書を発行します。</p>
+
+    <div class="track" id="f2-s1">
+      <div class="track-h"><span class="track-n">STEP 3</span><h3>引当する→賞味期限の判定</h3><span class="who">出荷担当</span></div>
+      <p class="lead">受注画面から始めます。この受注は2行あり、1行目のフィナンシェには<b>「2027/01/31 より後の賞味期限で納めてほしい」という指定</b>が付いています。<br>        <b>「引当する」</b>をクリックすると、システムが在庫のロットを賞味期限の早い順に調べ、<b>その指定と出荷先の納品期限ルールを両方満たすロットだけ</b>を割り当てます。<br>        条件に合うロットが1本も無ければ、その行は割り当てずに<b>「期限不足」という理由を残して残します</b>。ここでは、その様子を追います。</p>
+
+      <div class="op" id="f2-s1-op1" data-n="1">
+        <h4>「引当する」をクリックする<em>受注情報タブ</em></h4>
+        <div class="auto"><div class="lbl">AUTO</div>
+          <p>2行のうち<b>1行が引き当てられず</b>、ステータスは<b>「一部引当」</b>。処理結果に内訳(全量 1／引当できず 1)が出て、<b>「出荷を起こす」</b>ボタンが現れました。</p></div>
+        <div class="browser" style="margin-top:14px"><div class="bbar"><i></i><i></i><i></i><span>受注 — 一部引当</span></div><img src="shots_260902/X05_allocated_2x.png" alt="一部引当になった受注"></div>
+      </div>
+
+      <div class="op" id="f2-s1-op2" data-n="2">
+        <h4>明細で「期限不足」を確認する<em>明細タブ</em></h4>
+        <p>明細には、行ごとに<b>「有効下限」</b>が出ます。これは<b>この行に出せるロットの賞味期限の下限</b>で、
+          <b>出荷先の納品期限ルール</b>と<b>受注時の賞味期限指定</b>の<b>厳しいほうが採られます</b>。</p>
+        <p>この出荷先は<b>2分の1ルール</b>です。フィナンシェは賞味期間120日なので、納品予定日 2026/09/11 に賞味期限が半分の60日以上残っていること、
+          つまり<b>2026/11/10 より後</b>がルール上の下限です。ここに受注時の<b>賞味期限指定 2027/01/31</b> が重なり、厳しいほうの
+          <b>2027/01/31 が有効下限</b>になりました。在庫のロットは最も新しいもので 2026/12/19 なので届かず、この行は<b>「期限不足」</b>で残ります。</p>
+        <p>フルーツキャンディは指定が無いため、ルールだけで有効下限 2027/03/13 が決まり、これを満たすロットがあったので引当済です。</p>
+        <p>「期限切れ」とは違い、<b>ロットは正常だが、この出荷先の条件に届かない</b>状態です。納品日をずらす・新しいロットの入庫を待つ・指定を緩めてもらう、のいずれかで解決でき、理由が明細に残るので、後からでも確認することができます。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>受注明細 — 引当不可理由「期限不足」</span></div><img src="shots_260902/C06_lines.png" alt="期限不足が出た受注明細"></div>
+      </div>
+    </div>
+
+    <div class="track" id="f2-s2">
+      <div class="track-h"><span class="track-n">STEP 4</span><h3>出荷を起こす→出荷画面へ→出荷確定</h3><span class="who">出荷担当</span></div>
+      <p class="lead">引当が付いた分だけで出荷伝票を作ります。ここでは<b>受注から出荷へ移動し、在庫が動くまで</b>を追います。</p>
+
+      <div class="op" id="f2-s2-op1" data-n="1">
+        <h4>「出荷を起こす」をクリックする<em>受注情報タブ</em></h4>
+        <div class="auto"><div class="lbl">AUTO</div>
+          <p>出荷 <b>SC26090047</b> が起き、受注の「状態」に出荷番号が入りました。<b>「出荷データへ」</b>ボタンがクリックできるようになります。</p></div>
+        <div class="browser" style="margin-top:14px"><div class="bbar"><i></i><i></i><i></i><span>受注 — 状態(出荷番号が入った)</span></div><img src="shots_260902/Y07_state_2x.png" alt="出荷番号が入った受注の状態"></div>
+      </div>
+
+      <div class="op" id="f2-s2-op2" data-n="2">
+        <h4>「出荷データへ」で出荷画面を開く<em>出荷</em></h4>
+        <p>得意先・出荷先・出荷元倉庫・伝票様式は受注から引き継がれています。ステータスは<b>「予定」</b>で、まだ在庫は動いていません。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>出荷 — 予定</span></div><img src="shots_260902/Y08_ship_planned_2x.png" alt="予定の出荷画面"></div>
+      </div>
+
+      <div class="op" id="f2-s2-op3" data-n="3">
+        <h4>「出荷を確定する」をクリックする<em>出荷情報タブ</em></h4>
+        <p>確定の直前に <b>①実在庫 ②受注数量 ③賞味期限が納品条件を満たすか</b> をもう一度検査し、1つでも外れれば理由つきで止まります。</p>
+        <div class="auto"><div class="lbl">AUTO</div>
+          <p>ロットの在庫が<b>80 減り</b>、受注側のステータスも<b>「一部出荷」</b>へ進みました。出荷ステータスは<b>「出荷済」</b>、ボタンは<b>「伝票を発行する」</b>に変わります。</p></div>
+        <div class="browser" style="margin-top:14px"><div class="bbar"><i></i><i></i><i></i><span>出荷 — 出荷済</span></div><img src="shots_260902/X09_confirmed_2x.png" alt="出荷済になった出荷画面"></div>
+      </div>
+    </div>
+
+    <div class="track" id="f2-s3">
+      <div class="track-h"><span class="track-n">STEP 5</span><h3>伝票を発行する</h3><span class="who">出荷担当 / 事務</span></div>
+      <p class="lead">菓子伝票(納品書)を出します。ここでは<b>伝票番号が採番され、納品書が開くまで</b>を追います。</p>
+
+      <div class="op" id="f2-s3-op1" data-n="1">
+        <h4>「伝票を発行する」をクリックする<em>出荷情報タブ</em></h4>
+        <p>発行は何度でもできます。同じ出荷は<b>同じ伝票番号</b>で、発行の履歴がすべて残ります。</p>
+      </div>
+
+      <div class="op" id="f2-s3-op2" data-n="2">
+        <h4>納品書が開く<em>納品伝票(自動で開く)</em></h4>
+        <div class="auto"><div class="lbl">AUTO</div>
+          <p>伝票番号 <b>DN26090017</b> が採番され、納品書がシステム内のタブで開きました。出荷先の様式(<b>菓子統一伝票／チェーンストア統一伝票／自社伝票</b>)に応じて見出しが変わります。</p></div>
+        <div class="browser" style="margin-top:14px"><div class="bbar"><i></i><i></i><i></i><span>納品伝票 SC26090047</span></div><img src="shots_260902/X10_denpyo_2x.png" alt="納品書"></div>
+        <p style="margin-top:12px">※ 統一伝票はプレプリント用紙の枠に合わせて印字するため、<b>用紙の現物をお預かりしてから</b>印字レイアウト(PDF または連続用紙)を仕上げます。本書の時点では画面表示までです。</p>
+      </div>
+    </div>
+
+    <div class="done">
+      <div class="k">FLOW COMPLETE</div>
+      <h3>CSV取込→受注(3件)→引当(1行が期限不足)→出荷→確定→伝票発行</h3>
+      <div class="donegrid">
+        <div class="donecard"><div class="t">STEP 1 CSV取込</div><div class="id">CI2609020001</div><div class="s">完了 / 6行</div></div>
+        <div class="donecard"><div class="t">STEP 2 受注</div><div class="id">PO-260905-001</div><div class="s">一部出荷 / 明細2行</div></div>
+        <div class="donecard"><div class="t">STEP 3 引当</div><div class="id">フィナンシェ</div><div class="s">期限不足 / キャンディは引当済</div></div>
+        <div class="donecard auto2"><div class="t">STEP 4 出荷</div><div class="id">SC26090047</div><div class="s">出荷済 / 80 出庫</div></div>
+        <div class="donecard auto2"><div class="t">STEP 5 納品書</div><div class="id">DN26090017</div><div class="s">チェーンストア統一伝票</div></div>
+      </div>
+    </div>
+
+    <div class="trace">
+      <div class="k">TRACEABILITY</div>
+      <h3>受注からも出荷からも、いつでも相互にたどれる</h3>
+      <p class="lead">受注の「状態」には<b>出荷番号と「出荷データへ」</b>が、出荷の備考には<b>元の受注番号</b>が残ります。どちらの画面からでも相手側を開けます。</p>
+      <div class="tracegrid">
+        <figure>
+          <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>受注 — 状態</span></div><img src="shots_260902/Y07_state_2x.png" alt="受注の状態(出荷番号)"></div>
+          <figcaption><b>受注から出荷へ</b>:出荷済数量・出荷番号・「出荷データへ」が並びます。</figcaption>
+        </figure>
+        <figure>
+          <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>出荷 — 出荷情報</span></div><img src="shots_260902/Y08_ship_planned_2x.png" alt="出荷に残る受注番号"></div>
+          <figcaption><b>出荷から受注へ</b>:備考に「受注 … から起票」と元の受注番号が残ります。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stock">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">FLOW 03</span>
+      <div>
+        <div class="k">在庫の確認</div>
+        <h2>在庫受払(元帳)で動きを確認→ロット在庫一覧で残と期限を確認</h2>
+      </div>
+    </div>
+    <p class="sec-lead">在庫を確認する側の流れです。在庫が動いた記録はすべて<b>在庫受払</b>に残り、ロットの残はその集計で常に最新です。
+      どちらの一覧も列見出しの▼で絞り込み、<b>CSVに出力</b>できます(在庫帳票)。</p>
+
+    <div class="track" id="f3-s1">
+      <div class="track-h"><span class="track-n">STEP 6</span><h3>在庫受払(元帳)を見る</h3><span class="who">全ユーザー</span></div>
+      <p class="lead">上部メニュー<b>「在庫管理」</b>を開きます。ここでは<b>いま確定した出荷の出庫が記録されていること</b>を追います。</p>
+      <div class="op" id="f3-s1-op1" data-n="1">
+        <h4>「在庫受払一覧」を開く<em>在庫管理 › 元帳(在庫が動いた記録)</em></h4>
+        <p>入庫・出庫・棚卸調整のどれも1行ずつ、<b>伝票番号つき</b>で残ります。先頭に、確定した出荷 <b>SC26090047</b> の出庫(80)が記録されています。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>在庫受払一覧</span></div><img src="shots_260902/C11_ledger.png" alt="在庫受払一覧"></div>
+      </div>
+    </div>
+
+    <div class="track" id="f3-s2">
+      <div class="track-h"><span class="track-n">STEP 7</span><h3>ロット在庫一覧を見る</h3><span class="who">全ユーザー</span></div>
+      <p class="lead">ロットごとの残と賞味期限を確認します。ここでは<b>期限区分の色分け</b>を追います。</p>
+      <div class="op" id="f3-s2-op1" data-n="1">
+        <h4>「ロット在庫一覧」を開く<em>在庫管理 › 在庫</em></h4>
+        <p>実在庫・引当数量・引当可能数量が並び、賞味期限の残日数から<b>期限区分(正常／期限間近／期限切れ)</b>がピルで色分けされます。期限切れだけの一覧、期限別在庫一覧表、商品別在庫サマリも同じメニューにあります。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>ロット在庫一覧【在庫あり】</span></div><img src="shots_260902/C12_lots.png" alt="ロット在庫一覧"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="appendix">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">APPENDIX</span>
+      <div>
+        <div class="k">付録</div>
+        <h2>CSV連携 — 出荷もCSVから取り込める</h2>
+      </div>
+    </div>
+
+    <div class="track" id="f4-s1">
+      <div class="track-h"><span class="track-n">付録</span><h3>CSV連携 — 出荷もCSVから取り込める</h3><span class="who">出荷担当</span></div>
+      <p class="lead">外部システムとは<b>CSVファイル</b>で連携します。受注と同じ画面で、<b>出荷</b>も取り込めます。</p>
+
+      <div class="op" id="f4-s1-op1" data-n="1">
+        <h4>「出荷管理」の CSV連携 から開く<em>出荷管理 › CSVを取り込む</em></h4>
+        <p>取込種別が<b>出荷</b>、レイアウトが<b>出荷取込(標準)</b>で開きます。外部システムから「どの受注をいつどのロットで出したか」を受け取り、出荷伝票を起こします。ここから先(取り込む → 出荷を起こす → 確定 → 伝票)は本編と同じです。</p>
+        <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>CSV取込(出荷) — 開いた直後</span></div><img src="shots_260902/Y13_shipcsv_2x.png" alt="出荷CSV取込の新規画面"></div>
+      </div>
+
+      <div class="op" id="f4-s1-op2" data-n="2">
+        <h4>レイアウトはマスタで管理する<em>マスタ › CSVレイアウト</em></h4>
+        <p>列の並び・文字コード・日付書式・ヘッダ行数は<b>「CSVレイアウト」マスタ</b>に持ちます。連携先の仕様変更には画面から追随でき、開発は要りません。
+          本システムから外部へは、受注・出荷・在庫の各一覧を<b>CSV出力</b>で渡します(専用レイアウトは仕様確定後に追加)。</p>
+        <p>※ 出荷CSVは、先方伝票番号で受注を引き当てて出荷を起こす仮仕様で動いています。実際のCSV仕様をいただき次第、レイアウトと突合方法を確定します。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b>UNITARY 物流システム</b> — システム概要(FLOW 01 受注の受付 / FLOW 02 引当と出荷 / FLOW 03 在庫の確認 / 付録 CSV連携)</div>
+    <div>掲載の画面はすべて実機の実データ(2026-09-02 時点)。社名・店舗名・商品名・数量は架空のサンプルです。</div>
+  </div>
+</footer>
+
+</body>
+</html>
