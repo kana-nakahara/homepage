@@ -86,6 +86,16 @@ h2{font-size:clamp(23px,3vw,32px);font-weight:900;letter-spacing:.02em;line-heig
 .card p b{color:var(--ink)}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
 
+
+/* rule → item figure */
+:root{--c-kotei:#64748B;--c-over:#2563EB;--c-week:#0E7490;--c-night:#7C3AED;--c-holi:#DC2626;--c-holi2:#F59E0B;--c-iv:#15803D;--card-2:#FBFCFD}
+.rulefig{margin-top:22px;background:#fff;border:1px solid var(--line-l);border-radius:12px;padding:22px 24px;overflow-x:auto}
+.rulefig svg{display:block;width:100%;min-width:860px;height:auto}
+.svg-lbl-s{font-family:var(--mono);font-size:9.5px;fill:var(--slate-d)}
+.svg-box-t{font-family:var(--sans);font-size:11.5px;font-weight:500;fill:#fff}
+.svg-item-t{font-family:var(--sans);font-size:11.5px;font-weight:500;fill:var(--ink)}
+.rulefig .cap{margin-top:12px}
+
 /* mapping table */
 .tbl{margin-top:22px;background:#fff;border:1px solid var(--line-l);border-radius:12px;overflow:hidden}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
@@ -232,7 +242,91 @@ footer{padding:36px 0;font-size:12px;color:var(--slate-d);border-top:1px solid v
     </div>
 
     <div class="ovitem">
-      <h3><span class="n">03</span>7つの項目は、どこで・何を見て決まるか</h3>
+      <h3><span class="n">03</span>ルールを当てて、7つの項目が決まる</h3>
+      <p class="sec-lead">どの1分がどの項目になるかは、<b>事業所の設定と雇用契約</b>が決めます。プログラムの中に数字を埋め込んでいないので、事業所ごと・契約ごとにルールが違っても同じ道を通ります。</p>
+      <div class="rulefig">
+        <svg viewBox="0 0 880 268" role="img" aria-label="ルールと集計項目の対応図">
+          <text x="0" y="16" class="svg-lbl-s">ルール（設定値）</text>
+
+          <!-- rules -->
+          <g>
+            <rect x="8" y="26" width="118" height="42" rx="6" fill="var(--c-kotei)"/>
+            <text x="67" y="44" class="svg-box-t" text-anchor="middle">勤務分割しきい分</text>
+            <text x="67" y="59" class="svg-box-t" text-anchor="middle">労働日帰属方式</text>
+
+            <rect x="134" y="26" width="118" height="42" rx="6" fill="var(--c-over)"/>
+            <text x="193" y="44" class="svg-box-t" text-anchor="middle">労働時間制</text>
+            <text x="193" y="59" class="svg-box-t" text-anchor="middle">日枠判定方式</text>
+
+            <rect x="260" y="26" width="118" height="42" rx="6" fill="var(--c-night)"/>
+            <text x="319" y="44" class="svg-box-t" text-anchor="middle">深夜開始時刻</text>
+            <text x="319" y="59" class="svg-box-t" text-anchor="middle">深夜終了時刻</text>
+
+            <rect x="386" y="26" width="118" height="42" rx="6" fill="var(--c-holi)"/>
+            <text x="445" y="51" class="svg-box-t" text-anchor="middle">法定休日特定方式</text>
+
+            <rect x="512" y="26" width="118" height="42" rx="6" fill="var(--c-holi2)"/>
+            <text x="571" y="44" class="svg-box-t" text-anchor="middle">所定休日曜日</text>
+            <text x="571" y="59" class="svg-box-t" text-anchor="middle">祝日休日フラグ</text>
+
+            <rect x="638" y="26" width="118" height="42" rx="6" fill="var(--c-week)"/>
+            <text x="697" y="44" class="svg-box-t" text-anchor="middle">週起算曜日</text>
+            <text x="697" y="59" class="svg-box-t" text-anchor="middle">週枠判定方式</text>
+
+            <rect x="764" y="26" width="112" height="42" rx="6" fill="var(--c-iv)"/>
+            <text x="820" y="51" class="svg-box-t" text-anchor="middle">インターバル下限分</text>
+          </g>
+
+          <!-- connectors -->
+          <g fill="none" stroke-width="1.6" opacity="0.85">
+            <path d="M67 68 C 67 130, 62 140, 62 196" stroke="var(--c-kotei)"/>
+            <path d="M193 68 C 193 130, 172 140, 172 196" stroke="var(--c-over)"/>
+            <path d="M319 68 C 319 120, 282 140, 282 196" stroke="var(--c-night)"/>
+            <path d="M319 68 C 319 120, 612 140, 612 196" stroke="var(--c-night)"/>
+            <path d="M445 68 C 445 120, 392 140, 392 196" stroke="var(--c-holi)"/>
+            <path d="M445 68 C 445 120, 612 140, 612 196" stroke="var(--c-holi)"/>
+            <path d="M571 68 C 571 130, 502 140, 502 196" stroke="var(--c-holi2)"/>
+            <path d="M697 68 C 697 130, 722 140, 722 196" stroke="var(--c-week)"/>
+            <path d="M820 68 C 820 130, 832 140, 832 196" stroke="var(--c-iv)"/>
+          </g>
+
+          <!-- items -->
+          <text x="0" y="188" class="svg-lbl-s">自動で決まる集計項目</text>
+          <g>
+            <rect x="8" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-kotei)" stroke-width="1.6"/>
+            <text x="62" y="217" class="svg-item-t" text-anchor="middle">実労働時間</text>
+
+            <rect x="118" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-over)" stroke-width="1.6"/>
+            <text x="172" y="212" class="svg-item-t" text-anchor="middle">日次</text>
+            <text x="172" y="225" class="svg-item-t" text-anchor="middle">時間外労働</text>
+
+            <rect x="228" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-night)" stroke-width="1.6"/>
+            <text x="282" y="217" class="svg-item-t" text-anchor="middle">平日深夜労働</text>
+
+            <rect x="338" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-holi)" stroke-width="1.6"/>
+            <text x="392" y="212" class="svg-item-t" text-anchor="middle">休日労働</text>
+            <text x="392" y="225" class="svg-item-t" text-anchor="middle">（法定）</text>
+
+            <rect x="448" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-holi2)" stroke-width="1.6"/>
+            <text x="502" y="212" class="svg-item-t" text-anchor="middle">休日労働</text>
+            <text x="502" y="225" class="svg-item-t" text-anchor="middle">（法定外）</text>
+
+            <rect x="558" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-night)" stroke-width="1.6"/>
+            <text x="612" y="217" class="svg-item-t" text-anchor="middle">休日深夜労働</text>
+
+            <rect x="668" y="196" width="108" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-week)" stroke-width="1.6"/>
+            <text x="722" y="212" class="svg-item-t" text-anchor="middle">週次</text>
+            <text x="722" y="225" class="svg-item-t" text-anchor="middle">時間外労働</text>
+
+            <rect x="778" y="196" width="98" height="34" rx="6" fill="var(--card-2)" stroke="var(--c-iv)" stroke-width="1.6"/>
+            <text x="827" y="212" class="svg-item-t" text-anchor="middle">勤務間</text>
+            <text x="827" y="225" class="svg-item-t" text-anchor="middle">インターバル</text>
+          </g>
+          <text x="8" y="256" class="svg-lbl-s">休日深夜労働は「深夜」と「法定休日」の2つのルールが同時に立ったチャンク＝割増率は合算済み（0.60）</text>
+        </svg>
+        <p class="cap">線の色は、その項目を決めているルールの色です。ルールはすべて事業所の設定か雇用契約にあります。休日深夜労働は「深夜」と「法定休日」の2つのルールが同時に立った1分で、割増率は合わせて付きます。</p>
+      </div>
+      <p class="sec-lead">表にすると次のとおりです。</p>
       <div class="tbl"><table>
         <thead><tr><th>項目</th><th>どこで決まるか</th><th>何を見て決めるか</th></tr></thead>
         <tbody>
