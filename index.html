@@ -6,6 +6,10 @@
 <title>UNITARY — AIで世界に、自由と美しさを。</title>
 <meta name="description" content="株式会社UNITARYは、自社製ノーコードフレームワーク「ZeroCoder」と100万件超の定義文を学習したAIによる真のAI駆動開発で、基幹業務システムをオーダーメイドで開発します。">
 <link rel="icon" type="image/png" href="/favicon.png">
+<script>
+/* Language is decided by URL before first paint: /en/ (path) or ?lang=en (query). Default: ja */
+(function(){var q=new URLSearchParams(location.search).get('lang');var en=q?q==='en':/^\/en(\/|$)/.test(location.pathname);var l=en?'en':'ja';document.documentElement.lang=l;document.documentElement.dataset.lang=l;})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -34,7 +38,32 @@ nav ul{display:flex;gap:28px;list-style:none;font-size:13px;font-weight:500}
 nav a{color:rgba(255,255,255,.75);transition:color .3s}
 header.solid nav a{color:var(--slate-d)}
 nav a:hover{color:var(--orange)}
-.hd .cta-s{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:9px 22px;border-radius:6px}
+.hd-r{display:flex;align-items:center;gap:18px}
+.hd .cta-s{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:9px 22px;border-radius:6px;white-space:nowrap}
+/* language switcher */
+.lang{display:flex;align-items:center;gap:7px;font-family:var(--en);font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.55);transition:color .4s}
+header.solid .lang,header.mopen .lang{color:var(--slate)}
+.lang a{color:inherit;transition:color .3s}
+.lang a:hover{color:var(--orange)}
+.lang a.on{color:#fff;font-weight:800}
+header.solid .lang a.on,header.mopen .lang a.on{color:var(--ink)}
+/* English page: hide until the dictionary has been applied (avoids a Japanese flash) */
+html[data-lang="en"]:not([data-i18n-ready]) body{visibility:hidden}
+html[lang="en"] .cx-def{width:266px}
+html[lang="en"] .copy h1{font-size:clamp(30px,6.2vw,64px)}
+/* English labels are longer: switch to the hamburger menu earlier */
+@media(max-width:1200px){
+  html[lang="en"] .mnav-btn{display:block}
+  html[lang="en"] header.mopen{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l)}
+  html[lang="en"] header.mopen .logo{color:var(--ink)}
+  html[lang="en"] nav{position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-l);box-shadow:0 16px 34px rgba(14,17,22,.1);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .28s ease,transform .28s ease,visibility .28s}
+  html[lang="en"] header.mopen nav{opacity:1;visibility:visible;transform:none}
+  html[lang="en"] nav ul{flex-direction:column;gap:0;padding:4px 24px 12px;font-size:14px}
+  html[lang="en"] nav li+li{border-top:1px solid var(--line-l)}
+  html[lang="en"] header.mopen nav a{display:block;padding:15px 2px;color:var(--slate-d);font-weight:700}
+  html[lang="en"] header.mopen nav a:hover{color:var(--orange)}
+}
+@media(max-width:560px){.hd-r{gap:12px}.hd .cta-s{padding:8px 14px}}
 
 /* hamburger (narrow screens) */
 .mnav-btn{display:none;position:relative;width:36px;height:36px;margin-left:-8px;padding:0;border:0;background:none;cursor:pointer}
@@ -583,26 +612,30 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   .app .side b,.app .blk{opacity:1;transform:none}
 }
 </style>
+<noscript><style>body{visibility:visible!important}</style></noscript>
 </head>
 <body>
 
 <header id="header">
   <div class="wrap hd">
     <div class="hd-l">
-      <button class="mnav-btn" id="mnavBtn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
+      <button class="mnav-btn" id="mnavBtn" type="button" aria-label="メニューを開く" data-i18n-attr="aria-label:menu.open" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
       <a class="logo" href="#">UNITARY</a>
     </div>
-    <nav id="mnav" aria-label="主要メニュー"><ul>
-      <li><a href="#tech">AI駆動開発</a></li>
-      <li><a href="#diff">一般的なAI駆動開発との違い</a></li>
-      <li><a href="#value">自由と美しさ</a></li>
-      <li><a href="#works">開発事例</a></li>
-      <li><a href="#saas">SaaS</a></li>
-      <li><a href="#flow">導入の流れ</a></li>
-      <li><a href="#company">会社情報</a></li>
-      <li><a href="#founder">代表紹介</a></li>
+    <nav id="mnav" aria-label="主要メニュー" data-i18n-attr="aria-label:nav.label"><ul>
+      <li><a href="#tech" data-i18n="nav.tech">AI駆動開発</a></li>
+      <li><a href="#diff" data-i18n="nav.diff">一般的なAI駆動開発との違い</a></li>
+      <li><a href="#value" data-i18n="nav.value">自由と美しさ</a></li>
+      <li><a href="#works" data-i18n="nav.works">開発事例</a></li>
+      <li><a href="#saas" data-i18n="nav.saas">SaaS</a></li>
+      <li><a href="#flow" data-i18n="nav.flow">導入の流れ</a></li>
+      <li><a href="#company" data-i18n="nav.company">会社情報</a></li>
+      <li><a href="#founder" data-i18n="nav.founder">代表紹介</a></li>
     </ul></nav>
-    <a class="cta-s" href="#contact">無料相談</a>
+    <div class="hd-r">
+      <div class="lang" aria-label="Language"><a href="/" data-lang-link="ja" hreflang="ja" lang="ja">JA</a><span aria-hidden="true">/</span><a href="/en/" data-lang-link="en" hreflang="en" lang="en">EN</a></div>
+      <a class="cta-s" href="#contact" data-i18n="nav.cta">無料相談</a>
+    </div>
   </div>
 </header>
 
@@ -616,38 +649,38 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 
       <!-- PHASE 1 : human input -->
       <div class="ph" id="ph1">
-        <p class="ph-label">01 — HUMAN INPUT｜やりたいことを、話す</p>
+        <p class="ph-label" data-i18n="hero.ph1">01 — HUMAN INPUT｜やりたいことを、話す</p>
         <div class="chat">
-          <div class="who"><i><svg width="13" height="13" viewBox="0 0 13 13"><circle cx="6.5" cy="4" r="2.6" fill="#fff"/><path d="M1.5 12c.8-3 2.8-4.5 5-4.5s4.2 1.5 5 4.5" fill="#fff"/></svg></i>お客様</div>
+          <div class="who"><i><svg width="13" height="13" viewBox="0 0 13 13"><circle cx="6.5" cy="4" r="2.6" fill="#fff"/><path d="M1.5 12c.8-3 2.8-4.5 5-4.5s4.2 1.5 5 4.5" fill="#fff"/></svg></i><span data-i18n="hero.who">お客様</span></div>
           <p class="txt"><span id="typed"></span><span class="cursor" id="cur"></span></p>
         </div>
       </div>
 
       <!-- PHASE 2 : AI generates definitions -->
       <div class="ph" id="ph2">
-        <p class="ph-label o">02 — AI GENERATES｜100万件の蓄積から、定義文を生成</p>
+        <p class="ph-label o" data-i18n="hero.ph2">02 — AI GENERATES｜100万件の蓄積から、定義文を生成</p>
         <div class="gen-code" id="genCode">
-          <div class="ln"><span class="cm"># ZeroCoder 定義文 — auto-generated</span></div>
-          <div class="ln"><span class="kw">画面</span> <span class="st">"受注一覧"</span> { 検索: 得意先, 受注日, 状態 }</div>
-          <div class="ln"><span class="kw">画面</span> <span class="st">"入出荷登録"</span> { 入力: 品番, 数量, 倉庫 }</div>
-          <div class="ln"><span class="kw">帳票</span> <span class="st">"納品書"</span> ← 受注明細 × 得意先マスタ</div>
-          <div class="ln"><span class="kw">集計</span> <span class="st">"在庫推移"</span> { 軸: 品目, 期間: 月次 }</div>
-          <div class="ln"><span class="kw">権限</span> { 営業: 閲覧/登録, 管理: 承認 }</div>
+          <div class="ln" data-i18n="hero.gen1"><span class="cm"># ZeroCoder 定義文 — auto-generated</span></div>
+          <div class="ln" data-i18n="hero.gen2"><span class="kw">画面</span> <span class="st">"受注一覧"</span> { 検索: 得意先, 受注日, 状態 }</div>
+          <div class="ln" data-i18n="hero.gen3"><span class="kw">画面</span> <span class="st">"入出荷登録"</span> { 入力: 品番, 数量, 倉庫 }</div>
+          <div class="ln" data-i18n="hero.gen4"><span class="kw">帳票</span> <span class="st">"納品書"</span> ← 受注明細 × 得意先マスタ</div>
+          <div class="ln" data-i18n="hero.gen5"><span class="kw">集計</span> <span class="st">"在庫推移"</span> { 軸: 品目, 期間: 月次 }</div>
+          <div class="ln" data-i18n="hero.gen6"><span class="kw">権限</span> { 営業: 閲覧/登録, 管理: 承認 }</div>
           <div class="scanline"></div>
         </div>
       </div>
 
       <!-- PHASE 3 : system assembles -->
       <div class="ph" id="ph3">
-        <p class="ph-label">03 — SYSTEM BUILDS｜定義が、そのまま動き出す</p>
+        <p class="ph-label" data-i18n="hero.ph3">03 — SYSTEM BUILDS｜定義が、そのまま動き出す</p>
         <div class="app" id="app">
           <div class="abar"><i></i><i></i><i></i><span>unitary://your-system</span></div>
           <div class="abody">
             <div class="side"><b class="hl"></b><b></b><b></b><b></b><b></b></div>
             <div class="main">
-              <div class="blk w2 hl" data-l="受注一覧"></div><div class="blk" data-l="検索"></div>
-              <div class="blk" data-l="登録"></div><div class="blk ch w2" data-l="在庫推移"></div>
-              <div class="blk" data-l="帳票"></div><div class="blk" data-l="承認"></div><div class="blk" data-l="権限"></div>
+              <div class="blk w2 hl" data-l="受注一覧" data-i18n-attr="data-l:hero.blk.orders"></div><div class="blk" data-l="検索" data-i18n-attr="data-l:hero.blk.search"></div>
+              <div class="blk" data-l="登録" data-i18n-attr="data-l:hero.blk.entry"></div><div class="blk ch w2" data-l="在庫推移" data-i18n-attr="data-l:hero.blk.stock"></div>
+              <div class="blk" data-l="帳票" data-i18n-attr="data-l:hero.blk.report"></div><div class="blk" data-l="承認" data-i18n-attr="data-l:hero.blk.approve"></div><div class="blk" data-l="権限" data-i18n-attr="data-l:hero.blk.roles"></div>
             </div>
           </div>
         </div>
@@ -659,7 +692,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   <!-- catch copy -->
   <div class="copy" id="copy">
     <div>
-      <h1><span class="l1">AIで世界に</span><br><span class="l2"><span class="o">自由と美しさ</span>を</span></h1>
+      <h1 data-i18n="hero.h1"><span class="l1">AIで世界に</span><br><span class="l2"><span class="o">自由と美しさ</span>を</span></h1>
     </div>
   </div>
 
@@ -669,8 +702,8 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= BRIDGE / MISSION ================= -->
 <section class="bridge" id="mission">
   <div class="wrap">
-    <p class="bridge-line l1"><span>弊社UNITARYは、<b class="em-o">真のAI駆動開発</b>を実現したことにより</span></p>
-    <p class="bridge-line l2"><span>システム開発でも<b class="em-o">自由と美しさ</b>を追求できるようになりました</span></p>
+    <p class="bridge-line l1"><span data-i18n="bridge.l1">弊社UNITARYは、<b class="em-o">真のAI駆動開発</b>を実現したことにより</span></p>
+    <p class="bridge-line l2"><span data-i18n="bridge.l2">システム開発でも<b class="em-o">自由と美しさ</b>を追求できるようになりました</span></p>
   </div>
     <div class="city" aria-hidden="true">
     <span class="citysun"></span>
@@ -876,25 +909,25 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
   <div class="wrap">
     <div class="tech-head">
       <div class="tech-bg" aria-hidden="true"><span class="sun"></span><div class="osc o1"><div class="orbit"><i></i></div></div><div class="osc o2"><div class="orbit"><i></i></div></div><div class="osc o3"><div class="orbit"><i></i></div></div><div class="osc o4"><div class="orbit"><i></i></div></div></div>
-      <p class="k rv kx"><span class="kt">TECHNOLOGY — ZeroCoder × AI</span></p>
-      <h2 class="rv d1">UNITARYの<span class="em-o">AI駆動開発</span></h2>
-      <p class="subhead rv d2">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
+      <p class="k rv kx"><span class="kt" data-i18n="tech.k">TECHNOLOGY — ZeroCoder × AI</span></p>
+      <h2 class="rv d1" data-i18n="tech.h2">UNITARYの<span class="em-o">AI駆動開発</span></h2>
+      <p class="subhead rv d2" data-i18n="tech.subhead">自社製ノーコードフレームワーク <span class="mk">ZeroCoder</span><span class="x">✕</span>AI学習モデル</p>
       <div class="prose rv d3">
-      <p>自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong><span class="em-big">20年以上</span>多種多様なシステムを作り続けてきました</strong>。</p>
-      <p>その過程で蓄積された<strong><span class="em-big">100万件</span>を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk"><strong>一般論からの推論ではなく稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong class="em-big">「真のAI駆動開発」</strong>です。</p>
+      <p data-i18n="tech.p1">自社製ノーコードフレームワーク「ZeroCoder」は、画面・帳票・業務ロジックを<span class="mk"><strong>独自の「定義文」を記述する</strong></span>方法で、<strong><span class="em-big">20年以上</span>多種多様なシステムを作り続けてきました</strong>。</p>
+      <p data-i18n="tech.p2">その過程で蓄積された<strong><span class="em-big">100万件</span>を超える定義文—やりたいことを定義した実データ—</strong>をAIに学習させることで、<span class="mk"><strong>一般論からの推論ではなく稼働実績のあるデータから直接定義を生成</strong></span>することができるようになりました。<br>これが、私たちが考える<strong class="em-big">「真のAI駆動開発」</strong>です。</p>
       </div>
     </div>
 
-    <div class="zc-stage rv d2" id="zcStage" aria-label="20年分の定義文データがAI学習モデルと掛け合わさり、AI駆動開発が実現する図">
+    <div class="zc-stage rv d2" id="zcStage" aria-label="20年分の定義文データがAI学習モデルと掛け合わさり、AI駆動開発が実現する図" data-i18n-attr="aria-label:tech.zc.aria">
       <div class="zc-inner">
         <div class="zc-col">
-          <p class="zc-cap"><b>DATA</b> — 20年の蓄積</p>
+          <p class="zc-cap" data-i18n="tech.zc.data"><b>DATA</b> — 20年の蓄積</p>
           <div class="zc-stack" id="zcStack" aria-hidden="true"></div>
-          <p class="zc-count"><b id="zcDefs">0</b> 件<small>独自の定義文（開発データ）</small></p>
+          <p class="zc-count" data-i18n="tech.zc.count"><b id="zcDefs">0</b> 件<small>独自の定義文（開発データ）</small></p>
         </div>
         <div class="zc-flow in" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="zc-col">
-          <p class="zc-cap o"><b>AI MODEL</b> — 学習</p>
+          <p class="zc-cap o" data-i18n="tech.zc.ai"><b>AI MODEL</b> — 学習</p>
           <div class="zc-core" aria-hidden="true">
             <svg viewBox="0 0 150 150">
               <circle class="ring" cx="75" cy="75" r="52"/>
@@ -913,43 +946,43 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
               <circle class="nd c" cx="75" cy="75" r="10"/>
             </svg>
           </div>
-          <p class="zc-count" style="margin-top:10px"><small>実績データで学習したAIモデル</small></p>
+          <p class="zc-count" style="margin-top:10px" data-i18n="tech.zc.aiNote"><small>実績データで学習したAIモデル</small></p>
         </div>
         <div class="zc-flow out" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="zc-col">
-          <p class="zc-cap"><b>OUTPUT</b> — 生成</p>
+          <p class="zc-cap" data-i18n="tech.zc.out"><b>OUTPUT</b> — 生成</p>
           <div class="zc-app" id="zcApp" aria-hidden="true"><b class="hl"></b><b></b><b></b><b></b><b class="bl"></b><b></b></div>
-          <p class="zc-count" style="margin-top:10px"><small>一般論からの推論ではない<br>標準化されたシステム</small></p>
+          <p class="zc-count" style="margin-top:10px" data-i18n="tech.zc.outNote"><small>一般論からの推論ではない<br>標準化されたシステム</small></p>
         </div>
       </div>
     </div>
 
     <div class="nums">
-      <div class="num rv d1"><p class="v"><span data-count="20">0</span><small>年+</small></p><p class="l">フレームワーク改良と実装の歴史</p></div>
-      <div class="num rv d2"><p class="v"><span data-count="100">0</span><small>万件+</small></p><p class="l">AIが学習する独自定義文</p></div>
-      <div class="num rv d3"><p class="v">1/<span data-count="10">0</span></p><p class="l">定義生成による実装工数（当社比）</p></div>
+      <div class="num rv d1"><p class="v" data-i18n="tech.num1.v"><span data-count="20">0</span><small>年+</small></p><p class="l" data-i18n="tech.num1.l">フレームワーク改良と実装の歴史</p></div>
+      <div class="num rv d2"><p class="v" data-i18n="tech.num2.v"><span data-count="100">0</span><small>万件+</small></p><p class="l" data-i18n="tech.num2.l">AIが学習する独自定義文</p></div>
+      <div class="num rv d3"><p class="v" data-i18n="tech.num3.v">1/<span data-count="10">0</span></p><p class="l" data-i18n="tech.num3.l">定義生成による実装工数（当社比）</p></div>
     </div>
 
     <div class="cmp">
       <div class="cmpx rv" id="diff">
         <div class="cmpx-head">
-          <p class="cmp-lead">AIが『コード』を書くのではなく、AIが<span class="em-o">『定義文』</span>を書き、実績あるエンジンがシステムを組み立てる</p>
+          <p class="cmp-lead" data-i18n="cmp.lead">AIが『コード』を書くのではなく、AIが<span class="em-o">『定義文』</span>を書き、実績あるエンジンがシステムを組み立てる</p>
         </div>
         <div class="cmpx-scroll">
         <div class="cmpx-in">
 
-          <div class="lane gen" role="img" aria-label="一般的なAI駆動開発：同じ指示から一般論で推論するため、出力が毎回異なる図">
-            <p class="lane-k">GENERAL — 一般的なAI駆動開発</p>
+          <div class="lane gen" role="img" aria-label="一般的なAI駆動開発：同じ指示から一般論で推論するため、出力が毎回異なる図" data-i18n-attr="aria-label:cmp.gen.aria">
+            <p class="lane-k" data-i18n="cmp.gen.k">GENERAL — 一般的なAI駆動開発</p>
             <div class="lane-row">
-              <div class="cx-chip">同じ指示<span class="sym">☞</span></div>
+              <div class="cx-chip" data-i18n="cmp.chip">同じ指示<span class="sym">☞</span></div>
               <div class="cx-ar dash f" aria-hidden="true"><i style="--tx:120px"></i></div>
               <div class="cx-cloud">
-                <div class="art" aria-hidden="true"><i></i><i></i><i></i><b>一般論からの推論</b></div>
-                <p class="nd-s">学習元は出典もばらばらな<br>不特定多数の公開情報</p>
+                <div class="art" aria-hidden="true"><i></i><i></i><i></i><b data-i18n="cmp.gen.cloud">一般論からの推論</b></div>
+                <p class="nd-s" data-i18n="cmp.gen.src">学習元は出典もばらばらな<br>不特定多数の公開情報</p>
               </div>
               <div class="cx-ar dash f" aria-hidden="true"><i style="--tx:120px"></i></div>
               <div class="cx-out">
-                <p class="k">OUTPUT — 毎回異なる</p>
+                <p class="k" data-i18n="cmp.gen.outK">OUTPUT — 毎回異なる</p>
                 <div class="cx-rnd" aria-hidden="true">
                   <div class="a">
                     <i style="left:8px;top:9px;width:74px;height:20px"></i>
@@ -968,15 +1001,15 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
                     <i style="left:75px;top:3px;width:36px;height:22px"></i>
                   </div>
                 </div>
-                <p class="note">結果がランダム＝品質にブレ ＋ 保守が困難</p>
+                <p class="note" data-i18n="cmp.gen.note">結果がランダム＝品質にブレ ＋ 保守が困難</p>
               </div>
             </div>
           </div>
 
-          <div class="lane uni" role="img" aria-label="UNITARYのAI駆動開発：同じ指示が20年分の実績データで学習したAIモデルに渡り、定義文が生成され、ZeroCoderエンジンが毎回同じ標準化されたシステムを組み立てる図">
-            <p class="lane-k">UNITARY — 真のAI駆動開発</p>
+          <div class="lane uni" role="img" aria-label="UNITARYのAI駆動開発：同じ指示が20年分の実績データで学習したAIモデルに渡り、定義文が生成され、ZeroCoderエンジンが毎回同じ標準化されたシステムを組み立てる図" data-i18n-attr="aria-label:cmp.uni.aria">
+            <p class="lane-k" data-i18n="cmp.uni.k">UNITARY — 真のAI駆動開発</p>
             <div class="lane-row">
-              <div class="cx-chip">同じ指示<span class="sym">☞</span></div>
+              <div class="cx-chip" data-i18n="cmp.chip">同じ指示<span class="sym">☞</span></div>
               <div class="cx-ar" style="width:34px" aria-hidden="true"><i style="--tx:16px"></i></div>
               <div class="cx-model">
                 <div class="art" aria-hidden="true">
@@ -984,19 +1017,19 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
                   <span class="lnk"></span>
                   <div class="ai">AI</div>
                 </div>
-                <p class="nd-t">実績データで学習したAIモデル</p>
-                <p class="nd-n">20年+ ／ 100万件+</p>
-                <p class="nd-s">実績が凝縮された定義データ</p>
+                <p class="nd-t" data-i18n="cmp.uni.model">実績データで学習したAIモデル</p>
+                <p class="nd-n" data-i18n="cmp.uni.modelN">20年+ ／ 100万件+</p>
+                <p class="nd-s" data-i18n="cmp.uni.modelS">実績が凝縮された定義データ</p>
               </div>
               <div class="cx-ar" style="width:28px" aria-hidden="true"><i style="--tx:10px"></i></div>
               <div class="cx-def">
-                <p class="k">ZeroCoder 定義文 — AUTO-GENERATED</p>
-                <div class="code" aria-hidden="true">
+                <p class="k" data-i18n="cmp.uni.defK">ZeroCoder 定義文 — AUTO-GENERATED</p>
+                <div class="code" aria-hidden="true" data-i18n="cmp.uni.code">
                   <span>画面 "受注一覧" { 検索: 得意先, 受注日 }</span>
                   <span>帳票 "納品書" ← 受注明細 × 得意先マスタ</span>
                   <span>権限 { 営業: 閲覧/登録, 管理: 承認 }</span>
                 </div>
-                <p class="cap">定義文＝データ</p>
+                <p class="cap" data-i18n="cmp.uni.cap">定義文＝データ</p>
               </div>
               <div class="cx-ar" style="width:28px" aria-hidden="true"><i style="--tx:10px"></i></div>
               <div class="cx-gear">
@@ -1016,12 +1049,12 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
                     </g>
                   </g>
                 </svg>
-                <p class="nd-t">ZeroCoderエンジン</p>
-                <p class="nd-s">定義文をシステムに変換</p>
+                <p class="nd-t" data-i18n="cmp.uni.gear">ZeroCoderエンジン</p>
+                <p class="nd-s" data-i18n="cmp.uni.gearS">定義文をシステムに変換</p>
               </div>
               <div class="cx-ar" style="width:26px" aria-hidden="true"><i style="--tx:8px"></i></div>
               <div class="cx-out">
-                <p class="k">OUTPUT — いつも同じ</p>
+                <p class="k" data-i18n="cmp.uni.outK">OUTPUT — いつも同じ</p>
                 <div class="cx-sys" aria-hidden="true">
                   <div class="bar"><u></u><u></u><span>unitary://your-system</span></div>
                   <div class="win">
@@ -1034,14 +1067,14 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
                     <i style="left:152px;top:72px;width:52px;height:20px;animation-delay:.72s"></i>
                   </div>
                 </div>
-                <p class="note">結果がブレない＝標準化された品質</p>
+                <p class="note" data-i18n="cmp.uni.note">結果がブレない＝標準化された品質</p>
               </div>
             </div>
           </div>
 
         </div>
         </div>
-        <p class="cmpx-hint">← 図は横にスクロールできます →</p>
+        <p class="cmpx-hint" data-i18n="cmp.hint">← 図は横にスクロールできます →</p>
       </div>
     </div>
   </div>
@@ -1050,22 +1083,22 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= VALUE ================= -->
 <section id="value">
   <div class="wrap">
-    <p class="k rv kx"><span class="kt">VALUE — 自由と美しさ</span></p>
-    <h2 class="rv d1">システム開発で表現する<span class="em-o">自由と美しさ</span></h2>
+    <p class="k rv kx"><span class="kt" data-i18n="value.k">VALUE — 自由と美しさ</span></p>
+    <h2 class="rv d1" data-i18n="value.h2">システム開発で表現する<span class="em-o">自由と美しさ</span></h2>
     <div class="vcard rv d2">
-      <p class="subhead">ノーコードなのに<span class="mk">フルスクラッチ並の自由度</span></p>
+      <p class="subhead" data-i18n="value.sub1">ノーコードなのに<span class="mk">フルスクラッチ並の自由度</span></p>
       <div class="free-grid">
-        <div class="prose">
+        <div class="prose" data-i18n="value.p1">
           <p>ZeroCoderは<strong><span class="mk">900以上</span>の定義項目</strong>を組み合わせることで<span class="mk"><strong>フルスクラッチ開発と同等の自由度</strong></span>を実現し、多種多様なお客様の要望を叶えてきました。</p>
           <p>ノーコードなのに<span class="mk">テンプレートの型に嵌めることなく</span>、<strong>自由なアイディアを表現</strong>します。</p>
         </div>
-        <div class="free-anim" id="freeAnim" aria-label="同じ部品の組み合わせが、さまざまな形に組み変わる図"></div>
+        <div class="free-anim" id="freeAnim" aria-label="同じ部品の組み合わせが、さまざまな形に組み変わる図" data-i18n-attr="aria-label:value.anim.aria"></div>
       </div>
     </div>
 
     <div class="vcard rv d1">
-      <p class="subhead sub2"><span class="mk">美しさ</span>を追求する</p>
-      <div class="prose">
+      <p class="subhead sub2" data-i18n="value.sub2"><span class="mk">美しさ</span>を追求する</p>
+      <div class="prose" data-i18n="value.p2">
         <p>システム開発には緻密な設計が欠かせません。<br>UNITARYはAI駆動開発によって短縮された工数分、綿密なヒアリングと検証により<span class="mk"><strong>あるべき姿</strong></span>を実現することができます。</p>
         <p>エンジンの仕組みだけでなく、<strong>自由な発想でシステムがどうあるべきなのかを常に考え、<span class="mk">美しさにこだわる</span>。</strong><br>それが<strong>UNITARYの強み</strong>です。</p>
       </div>
@@ -1077,26 +1110,26 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= WORKS ================= -->
 <section class="works" id="works">
   <div class="wrap">
-    <p class="k rv">WORKS — 開発事例</p>
-    <h2 class="rv d1">基幹業務を、オーダーメイドで。</h2>
-    <div class="prose rv d2"><p>AIが実装を担うから、オーダーメイド開発を現実的な価格とスピードで。いずれの事例も、要件定義から運用保守まで一気通貫で伴走しています。</p></div>
+    <p class="k rv" data-i18n="works.k">WORKS — 開発事例</p>
+    <h2 class="rv d1" data-i18n="works.h2">基幹業務を、オーダーメイドで。</h2>
+    <div class="prose rv d2"><p data-i18n="works.p">AIが実装を担うから、オーダーメイド開発を現実的な価格とスピードで。いずれの事例も、要件定義から運用保守まで一気通貫で伴走しています。</p></div>
     <div class="wcards">
       <a class="wcard rv d1" href="/product/warehouse-management.html">
         <p class="cat">WHOLESALE / RETAIL</p>
-        <h3>入出荷・在庫管理システム</h3>
-        <p>仕入から出荷まで品物台帳を一元化。バーコード運用・帳票出力に対応し、棚卸と転記の工数を削減しました。</p>
+        <h3 data-i18n="works.c1.h">入出荷・在庫管理システム</h3>
+        <p data-i18n="works.c1.p">仕入から出荷まで品物台帳を一元化。バーコード運用・帳票出力に対応し、棚卸と転記の工数を削減しました。</p>
         <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
       </a>
       <div class="wcard rv d2">
         <p class="cat">MEDIA / SALES</p>
-        <h3>CRM / SFAシステム</h3>
-        <p>顧客・案件管理に通話の自動文字起こしと帳票OCRを組み込み、営業記録の入力コストを大幅に削減しました。</p>
+        <h3 data-i18n="works.c2.h">CRM / SFAシステム</h3>
+        <p data-i18n="works.c2.p">顧客・案件管理に通話の自動文字起こしと帳票OCRを組み込み、営業記録の入力コストを大幅に削減しました。</p>
         <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
       </div>
       <a class="wcard rv d3" href="/product/travel.html">
         <p class="cat">TRAVEL AGENCY</p>
-        <h3>旅行台帳管理システム</h3>
-        <p>団体旅行の引合から見積・行程・手配・催行・精算までを一元管理。行程を1回入れるだけで手配と原価・粗利が自動で動きます。</p>
+        <h3 data-i18n="works.c3.h">旅行台帳管理システム</h3>
+        <p data-i18n="works.c3.p">団体旅行の引合から見積・行程・手配・催行・精算までを一元管理。行程を1回入れるだけで手配と原価・粗利が自動で動きます。</p>
         <div class="mini" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></div>
       </a>
     </div>
@@ -1106,21 +1139,21 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= SAAS ================= -->
 <section id="saas">
   <div class="wrap">
-    <p class="k rv kx"><span class="kt">SAAS — プロダクト</span></p>
-    <h2 class="rv d1">そのまま使える、<span class="em-o">SaaSプロダクト</span></h2>
-    <p class="subhead rv d2">業種ごとの業務を<span class="mk">標準機能まで作り込んだ</span>製品</p>
-    <div class="prose rv d3"><p>20年分の開発で積み上げた業務ノウハウを、はじめから使えるかたちにしたパッケージです。カスタマイズ前提ではなく、<strong>現場の業務がそのまま回るところまで標準機能として提供</strong>します。</p></div>
+    <p class="k rv kx"><span class="kt" data-i18n="saas.k">SAAS — プロダクト</span></p>
+    <h2 class="rv d1" data-i18n="saas.h2">そのまま使える、<span class="em-o">SaaSプロダクト</span></h2>
+    <p class="subhead rv d2" data-i18n="saas.subhead">業種ごとの業務を<span class="mk">標準機能まで作り込んだ</span>製品</p>
+    <div class="prose rv d3"><p data-i18n="saas.p">20年分の開発で積み上げた業務ノウハウを、はじめから使えるかたちにしたパッケージです。カスタマイズ前提ではなく、<strong>現場の業務がそのまま回るところまで標準機能として提供</strong>します。</p></div>
 
     <div class="pcards">
       <a class="pcard rv d1" href="/saas/erp.html">
         <div class="pc-body">
           <p class="cat">ERP — BACK OFFICE SUITE</p>
-          <h3>バックオフィス統合管理システム<small>全社の管理部門向け</small></h3>
-          <p class="pc-desc">稟議・発注・検収・支払、出張申請・経費精算、商談・契約・請求・入金消込までを、ひとつながりの記録として管理します。前の伝票を根拠にしないと次の伝票を作れない構造のため、決裁のない発注や根拠のない支払が起きません。承認されると支払伝票が自動で立ち、承認履歴・契約・支払・仕訳データに集約。仕訳はCSVで会計ソフトへそのまま渡せます。</p>
-          <ul class="pc-tags">
+          <h3 data-i18n="saas.erp.h">バックオフィス統合管理システム<small>全社の管理部門向け</small></h3>
+          <p class="pc-desc" data-i18n="saas.erp.p">稟議・発注・検収・支払、出張申請・経費精算、商談・契約・請求・入金消込までを、ひとつながりの記録として管理します。前の伝票を根拠にしないと次の伝票を作れない構造のため、決裁のない発注や根拠のない支払が起きません。承認されると支払伝票が自動で立ち、承認履歴・契約・支払・仕訳データに集約。仕訳はCSVで会計ソフトへそのまま渡せます。</p>
+          <ul class="pc-tags" data-i18n="saas.erp.tags">
             <li>稟議・承認ワークフロー</li><li>発注・検収</li><li>出張・経費精算</li><li>契約・請求・入金消込</li><li>支払管理</li><li>仕訳データCSV出力</li>
           </ul>
-          <span class="pc-go">サービス資料を見る<i></i></span>
+          <span class="pc-go" data-i18n="saas.go.doc">サービス資料を見る<i></i></span>
         </div>
         <div class="pc-mock" aria-hidden="true">
           <div class="pm-bar"><i></i><i></i><i></i><span>unitary://back-office</span></div>
@@ -1140,12 +1173,12 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <a class="pcard rv d2" href="/saas/sales-management.html">
         <div class="pc-body">
           <p class="cat">SALES MANAGEMENT SYSTEM</p>
-          <h3>販売管理システム<small>製品卸売業向け</small></h3>
-          <p class="pc-desc">仕入から販売・請求・入金消込まで、製品ごとの履歴とお金の流れをひとつの画面系で管理します。売掛金・買掛金の残高集計、案件別の利益率の自動算出、請求と入金を突合する自動入金消込までを標準機能として提供。AIが明細書の取り込みと売上分析を肩代わりします。</p>
-          <ul class="pc-tags">
+          <h3 data-i18n="saas.sales.h">販売管理システム<small>製品卸売業向け</small></h3>
+          <p class="pc-desc" data-i18n="saas.sales.p">仕入から販売・請求・入金消込まで、製品ごとの履歴とお金の流れをひとつの画面系で管理します。売掛金・買掛金の残高集計、案件別の利益率の自動算出、請求と入金を突合する自動入金消込までを標準機能として提供。AIが明細書の取り込みと売上分析を肩代わりします。</p>
+          <ul class="pc-tags" data-i18n="saas.sales.tags">
             <li>売上・仕入管理</li><li>売掛金・買掛金管理</li><li>利益率の自動算出</li><li>自動入金消込</li><li>AI明細書解析</li>
           </ul>
-          <span class="pc-go">サービス資料を見る<i></i></span>
+          <span class="pc-go" data-i18n="saas.go.doc">サービス資料を見る<i></i></span>
         </div>
         <div class="pc-mock" aria-hidden="true">
           <div class="pm-bar"><i></i><i></i><i></i><span>unitary://sales-management</span></div>
@@ -1166,12 +1199,12 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <a class="pcard rv d3" href="/saas/order/index.html">
         <div class="pc-body">
           <p class="cat">AI ORDER ENTRY &amp; SHIPPING MANAGEMENT</p>
-          <h3>受発注管理システム<small>受注・出荷部門向け</small></h3>
-          <p class="pc-desc">得意先ごとに様式の違う発注書（Excel・CSV・PDF・FAX画像）をAIが解析し、取引先・希望納期・出荷先・明細を読み取って受注を起こします。先方の品名・コードは商品名寄せで自社の商品コードへ補正し、人が選び直した商品も次回から自動で突合。確定した受注は出荷指示から出荷伝票・配送伝票・配達完了・取引完了まで一本の流れでつながり、出荷と同時に在庫が減ります。受注⇄出荷⇄配送は画面のボタンで相互に行き来でき、在庫の増減1件ごとに伝票番号が付くため、どの数字も元の発注書まで遡れます。</p>
-          <ul class="pc-tags">
+          <h3 data-i18n="saas.order.h">受発注管理システム<small>受注・出荷部門向け</small></h3>
+          <p class="pc-desc" data-i18n="saas.order.p">得意先ごとに様式の違う発注書（Excel・CSV・PDF・FAX画像）をAIが解析し、取引先・希望納期・出荷先・明細を読み取って受注を起こします。先方の品名・コードは商品名寄せで自社の商品コードへ補正し、人が選び直した商品も次回から自動で突合。確定した受注は出荷指示から出荷伝票・配送伝票・配達完了・取引完了まで一本の流れでつながり、出荷と同時に在庫が減ります。受注⇄出荷⇄配送は画面のボタンで相互に行き来でき、在庫の増減1件ごとに伝票番号が付くため、どの数字も元の発注書まで遡れます。</p>
+          <ul class="pc-tags" data-i18n="saas.order.tags">
             <li>発注書のAI解析（PDF・FAX画像）</li><li>商品名寄せによる自動突合</li><li>受注・出荷・配送の一元管理</li><li>出荷連動の在庫更新</li><li>伝票トレーサビリティ</li><li>納品実績ダッシュボード</li>
           </ul>
-          <span class="pc-go">資料・動画を見る<i></i></span>
+          <span class="pc-go" data-i18n="saas.go.video">資料・動画を見る<i></i></span>
         </div>
         <div class="pc-mock" aria-hidden="true">
           <div class="pm-bar"><i></i><i></i><i></i><span>unitary://order-management</span></div>
@@ -1192,12 +1225,12 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <a class="pcard rv d4" href="/saas/sfa.html">
         <div class="pc-body">
           <p class="cat">SALES FORCE AUTOMATION — SFA</p>
-          <h3>案件管理システム<small>営業部門向け</small></h3>
-          <p class="pc-desc">案件の状況・受注確度（30／50／90%）・期間・担当者をひとつの台帳に集約し、確度加重見込額を自動で算出。商談ログとタスクで「誰と会って何が決まったか」を案件に残し、担当者別ガントで要員の負荷と空きを1画面に可視化します。期限超過・まもなく期限・停滞・タスク期限超過はシステムが自動で抽出。スマートフォンのブラウザからPCと同じデータを読み書きでき、現場での更新がそのまま集計に反映されます。</p>
-          <ul class="pc-tags">
+          <h3 data-i18n="saas.sfa.h">案件管理システム<small>営業部門向け</small></h3>
+          <p class="pc-desc" data-i18n="saas.sfa.p">案件の状況・受注確度（30／50／90%）・期間・担当者をひとつの台帳に集約し、確度加重見込額を自動で算出。商談ログとタスクで「誰と会って何が決まったか」を案件に残し、担当者別ガントで要員の負荷と空きを1画面に可視化します。期限超過・まもなく期限・停滞・タスク期限超過はシステムが自動で抽出。スマートフォンのブラウザからPCと同じデータを読み書きでき、現場での更新がそのまま集計に反映されます。</p>
+          <ul class="pc-tags" data-i18n="saas.sfa.tags">
             <li>案件・確度管理</li><li>確度加重見込額</li><li>商談ログ・タスク</li><li>担当者別ガント</li><li>自動リマインド</li><li>スマホブラウザ対応</li>
           </ul>
-          <span class="pc-go">サービス資料を見る<i></i></span>
+          <span class="pc-go" data-i18n="saas.go.doc">サービス資料を見る<i></i></span>
         </div>
         <div class="pc-mock" aria-hidden="true">
           <div class="pm-bar"><i></i><i></i><i></i><span>unitary://sfa</span></div>
@@ -1225,14 +1258,14 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= FLOW ================= -->
 <section id="flow">
   <div class="wrap">
-    <p class="k rv">FLOW — 導入の流れ</p>
-    <h2 class="rv d1">UNITARYの開発フロー</h2>
+    <p class="k rv" data-i18n="flow.k">FLOW — 導入の流れ</p>
+    <h2 class="rv d1" data-i18n="flow.h2">UNITARYの開発フロー</h2>
     <div class="rv d2">
       <div class="steps" id="steps">
-        <div class="step"><p class="no">STEP 01</p><h3>ヒアリング</h3><p>現状の業務フロー・課題をじっくりお聞きします。</p></div>
-        <div class="step"><p class="no">STEP 02</p><h3>あるべき姿の設計</h3><p>型に嵌めず、御社に最適な業務を設計。</p></div>
-        <div class="step"><p class="no">STEP 03</p><h3>ZeroCoderで開発</h3><p>自社フレームワークで高速にシステム構築。</p></div>
-        <div class="step"><p class="no">STEP 04</p><h3>導入後も継続支援</h3><p>運用後も「あるべき姿」を考え続け、柔軟に改善し続けます。</p></div>
+        <div class="step"><p class="no">STEP 01</p><h3 data-i18n="flow.s1.h">ヒアリング</h3><p data-i18n="flow.s1.p">現状の業務フロー・課題をじっくりお聞きします。</p></div>
+        <div class="step"><p class="no">STEP 02</p><h3 data-i18n="flow.s2.h">あるべき姿の設計</h3><p data-i18n="flow.s2.p">型に嵌めず、御社に最適な業務を設計。</p></div>
+        <div class="step"><p class="no">STEP 03</p><h3 data-i18n="flow.s3.h">ZeroCoderで開発</h3><p data-i18n="flow.s3.p">自社フレームワークで高速にシステム構築。</p></div>
+        <div class="step"><p class="no">STEP 04</p><h3 data-i18n="flow.s4.h">導入後も継続支援</h3><p data-i18n="flow.s4.p">運用後も「あるべき姿」を考え続け、柔軟に改善し続けます。</p></div>
       </div>
       <div class="progressline"><i></i></div>
     </div>
@@ -1243,14 +1276,14 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= COMPANY ================= -->
 <section class="company" id="company">
   <div class="wrap">
-    <p class="k rv">COMPANY — 会社情報</p>
+    <p class="k rv" data-i18n="company.k">COMPANY — 会社情報</p>
     <div class="cinfo rv d1" id="cinfo">
-      <h3 class="ci-h">会社概要</h3>
-      <div class="crow"><span class="cl">会社名</span><span class="cv">株式会社 UNITARY</span></div>
-      <div class="crow"><span class="cl">所在地</span><span class="cv">〒150-0021　東京都渋谷区恵比寿西2丁目4番8号　ウィンド恵比寿ビル 8F</span></div>
-      <div class="crow"><span class="cl">代表取締役</span><span class="cv">中原 華奈</span></div>
-      <div class="crow"><span class="cl">資本金</span><span class="cv">3,000,000円</span></div>
-      <div class="crow"><span class="cl">事業内容</span><span class="cv">ITソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</span></div>
+      <h3 class="ci-h" data-i18n="company.h">会社概要</h3>
+      <div class="crow"><span class="cl" data-i18n="company.name.l">会社名</span><span class="cv" data-i18n="company.name.v">株式会社 UNITARY</span></div>
+      <div class="crow"><span class="cl" data-i18n="company.addr.l">所在地</span><span class="cv" data-i18n="company.addr.v">〒150-0021　東京都渋谷区恵比寿西2丁目4番8号　ウィンド恵比寿ビル 8F</span></div>
+      <div class="crow"><span class="cl" data-i18n="company.ceo.l">代表取締役</span><span class="cv" data-i18n="company.ceo.v">中原 華奈</span></div>
+      <div class="crow"><span class="cl" data-i18n="company.capital.l">資本金</span><span class="cv" data-i18n="company.capital.v">3,000,000円</span></div>
+      <div class="crow"><span class="cl" data-i18n="company.biz.l">事業内容</span><span class="cv" data-i18n="company.biz.v">ITソフトウェアの企画・開発・運用・保守、DX推進支援、AIを活用した業務改善支援</span></div>
     </div>
   </div>
   <div class="co-waves" aria-hidden="true">
@@ -1262,15 +1295,15 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 
 <section class="founder" id="founder">
   <div class="wrap">
-    <p class="k rv">FOUNDER — 代表紹介</p>
+    <p class="k rv" data-i18n="founder.k">FOUNDER — 代表紹介</p>
     <div class="fhead rv d1">
-      <div class="avatar"><img src="/profile.jpg" width="320" height="320" alt="代表取締役 中原 華奈" loading="lazy"></div>
+      <div class="avatar"><img src="/profile.jpg" width="320" height="320" alt="代表取締役 中原 華奈" data-i18n-attr="alt:founder.alt" loading="lazy"></div>
       <div>
-        <p class="fnm">中原 華奈<small>KANA NAKAHARA</small></p>
+        <p class="fnm" data-i18n="founder.name">中原 華奈<small>KANA NAKAHARA</small></p>
       </div>
     </div>
     <div class="fquote rv d2">
-      <blockquote>学生時代、問題の解き方が分かっても「もっと美しい解き方があるはずだ」と常に考え続けてきました。<br>システムも同じです。動くだけの仕組みではなく、業務の構造まで美しい仕組みを。<br>実装をAIに任せられる今だからこそ、私たちは御社に寄り添う設計と提案——人にしかできない仕事に、すべての時間を使うことができます。</blockquote>
+      <blockquote data-i18n="founder.quote">学生時代、問題の解き方が分かっても「もっと美しい解き方があるはずだ」と常に考え続けてきました。<br>システムも同じです。動くだけの仕組みではなく、業務の構造まで美しい仕組みを。<br>実装をAIに任せられる今だからこそ、私たちは御社に寄り添う設計と提案——人にしかできない仕事に、すべての時間を使うことができます。</blockquote>
     </div>
     <div class="fplane" aria-hidden="true">
       <svg viewBox="0 0 1400 110" preserveAspectRatio="xMidYMid slice">
@@ -1285,13 +1318,13 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       </svg>
     </div>
     <div class="tl rv d3" id="ftl">
-      <div class="it"><p class="ty">1996</p><p class="tt">神奈川県鎌倉市にて生まれる</p></div>
-      <div class="it mv"><p class="ty">2018</p><p class="tt">東京工業大学（現東京科学大学）理学部物理学科　卒業</p></div>
-      <div class="it mv"><p class="ty">2020</p><p class="tt">東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</p></div>
-      <div class="it mv"><p class="ty">2020</p><p class="tt">日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</p></div>
-      <div class="it mv"><p class="ty">2023</p><p class="tt">コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</p></div>
-      <div class="it"><p class="ty">2024</p><p class="tt">30歳未満の若手MVP賞を受賞</p></div>
-      <div class="it mv"><p class="ty">2024</p><p class="tt">株式会社 UNITARY を立ち上げる</p></div>
+      <div class="it"><p class="ty">1996</p><p class="tt" data-i18n="founder.t1">神奈川県鎌倉市にて生まれる</p></div>
+      <div class="it mv"><p class="ty">2018</p><p class="tt" data-i18n="founder.t2">東京工業大学（現東京科学大学）理学部物理学科　卒業</p></div>
+      <div class="it mv"><p class="ty">2020</p><p class="tt" data-i18n="founder.t3">東京工業大学大学院（現東京科学大学大学院）情報理工学院情報工学系知能情報コース　卒業</p></div>
+      <div class="it mv"><p class="ty">2020</p><p class="tt" data-i18n="founder.t4">日本アイ・ビー・エム株式会社に入社、エンジニアとして多くのプロダクトの開発に携わる</p></div>
+      <div class="it mv"><p class="ty">2023</p><p class="tt" data-i18n="founder.t5">コンシューマーゲーム会社に入社、ゲームプログラマーとしてタイトル開発に従事</p></div>
+      <div class="it"><p class="ty">2024</p><p class="tt" data-i18n="founder.t6">30歳未満の若手MVP賞を受賞</p></div>
+      <div class="it mv"><p class="ty">2024</p><p class="tt" data-i18n="founder.t7">株式会社 UNITARY を立ち上げる</p></div>
     </div>
   </div>
 </section>
@@ -1299,12 +1332,13 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 <!-- ================= CTA ================= -->
 <section class="contact rv" id="contact">
   <p class="c-label">- CONTACT -</p>
-  <p class="c-lead">お気軽にご相談ください</p>
+  <p class="c-lead" data-i18n="contact.lead">お気軽にご相談ください</p>
   <a class="c-btn" href="mailto:info@unitary.jp">info@unitary.jp</a>
 </section>
 
 
-<script>
+<script type="module">
+import {t} from '/src/i18n.js';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* particles */
@@ -1327,7 +1361,7 @@ const typed=document.getElementById('typed'),cur=document.getElementById('cur');
 const genLines=document.querySelectorAll('#genCode .ln');
 const app=document.getElementById('app');
 const stage=document.getElementById('stage'),copy=document.getElementById('copy');
-const REQ='受注から出荷まで、品物の流れをひとつの画面で管理したい。';
+const REQ=t('hero.req','受注から出荷まで、品物の流れをひとつの画面で管理したい。');
 
 function show(el){[ph1,ph2,ph3].forEach(p=>p.classList.remove('on'));el.classList.add('on')}
 function resetGen(){genLines.forEach(l=>l.classList.remove('on'))}
@@ -1377,7 +1411,7 @@ if(mnavBtn){
   const setMenu=open=>{
     header.classList.toggle('mopen',open);
     mnavBtn.setAttribute('aria-expanded',String(open));
-    mnavBtn.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');
+    mnavBtn.setAttribute('aria-label',open?t('menu.close','メニューを閉じる'):t('menu.open','メニューを開く'));
   };
   mnavBtn.addEventListener('click',()=>setMenu(!header.classList.contains('mopen')));
   document.querySelectorAll('#mnav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
@@ -1468,7 +1502,7 @@ if(zcStage){
     const dur=1700,t0=performance.now();
     (function step(t){
       const k=Math.min((t-t0)/dur,1),ez=1-Math.pow(1-k,3);
-      dEl.textContent=Math.round(1000000*ez).toLocaleString('ja-JP')+(k>=1?'+':'');
+      dEl.textContent=Math.round(1000000*ez).toLocaleString('en-US')+(k>=1?'+':'');
       if(k<1)requestAnimationFrame(step);
     })(t0);
   }),{threshold:.35});
@@ -1488,10 +1522,10 @@ if(techBg){
 const cio=new IntersectionObserver(es=>es.forEach(e=>{
   if(!e.isIntersecting)return;cio.unobserve(e.target);
   const el=e.target,goal=+el.dataset.count,dur=1400,t0=performance.now();
-  if(reduce){el.textContent=goal;return}
+  if(reduce){el.textContent=goal.toLocaleString('en-US');return}
   (function step(t){
     const k=Math.min((t-t0)/dur,1);
-    el.textContent=Math.round(goal*(1-Math.pow(1-k,3)));
+    el.textContent=Math.round(goal*(1-Math.pow(1-k,3))).toLocaleString('en-US');
     if(k<1)requestAnimationFrame(step);
   })(t0);
 }),{threshold:.6});
