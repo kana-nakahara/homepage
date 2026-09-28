@@ -127,6 +127,8 @@ export default {
   'saas.attendance.p': 'Split shifts, overnight work, flexible hours and shift schedules are totaled automatically from clock-ins, with legal checks recorded alongside their grounds.',
   'saas.dispatch.h': 'Vehicle Dispatch Management System<small>For logistics and dispatch</small>',
   'saas.dispatch.p': 'Manages dispatch requests, vehicle assignment and trip records in one place. AI can read request forms and email or chat messages.',
+  'saas.shift.h': 'Shift Scheduling System<small>For store and site managers</small>',
+  'saas.shift.p': 'Set staffing needs, work conditions and requested days off, and a month of shifts is generated automatically within the rules. Unfilled slots show the reason and who could take them.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
