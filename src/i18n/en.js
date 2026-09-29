@@ -129,6 +129,8 @@ export default {
   'saas.dispatch.p': 'Manages dispatch requests, vehicle assignment and trip records in one place. AI can read request forms and email or chat messages.',
   'saas.shift.h': 'Shift Scheduling System<small>For store and site managers</small>',
   'saas.shift.p': 'Set staffing needs, work conditions and requested days off, and a month of shifts is generated automatically within the rules. Unfilled slots show the reason and who could take them.',
+  'saas.forecast.h': 'Demand Forecasting &amp; Staffing System<small>For logistics centers</small>',
+  'saas.forecast.p': 'Forecasts inbound and outbound volumes and man-hours per process with ranges, then sets how many temp staff to request and the daily staff placement. It also learns how inbound schedules slip.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
