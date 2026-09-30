@@ -131,6 +131,8 @@ export default {
   'saas.shift.p': 'Set staffing needs, work conditions and requested days off, and a month of shifts is generated automatically within the rules. Unfilled slots show the reason and who could take them.',
   'saas.forecast.h': 'Demand Forecasting &amp; Staffing System<small>For logistics centers</small>',
   'saas.forecast.p': 'Forecasts inbound and outbound volumes and man-hours per process with ranges, then sets how many temp staff to request and the daily staff placement. It also learns how inbound schedules slip.',
+  'saas.shipping.h': 'Delivery Order Management System<small>For logistics and dispatch</small>',
+  'saas.shipping.p': 'AI reads delivery requests arriving by fax, paper or email, splits them into one record per delivery and outputs CSV for your dispatch system. Changes and resends are never registered twice.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
