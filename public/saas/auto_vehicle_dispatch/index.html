@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNITARY 自動配車システム — 資料</title>
+<title>UNITARY 自動配車システム — 資料・動画</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +64,15 @@ main{padding:88px 0 110px;background:var(--wash)}
 .card .go .ar{transition:transform .3s ease}
 .card:hover .go .ar{transform:translateX(5px)}
 
+/* ---------- video modal ---------- */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(11,18,32,.86);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.modal-in{width:min(1000px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;gap:12px}
+.modal-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#fff}
+.modal-bar .t{font-size:14px;font-weight:700;letter-spacing:.03em}
+.modal-bar button{background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 14px;font:inherit;font-size:12.5px;cursor:pointer;transition:background .25s}
+.modal-bar button:hover{background:rgba(255,255,255,.12)}
+.modal video{width:100%;max-height:calc(100vh - 130px);background:#000;border-radius:12px;display:block}
 
 footer{background:var(--deep);color:var(--slate);text-align:center;padding:34px 0;font-size:12.5px}
 footer a{color:var(--pale)}
@@ -74,7 +83,7 @@ footer a{color:var(--pale)}
 <header>
   <div class="wrap hd">
     <a class="logo" href="/">UNITARY<small>自動配車システム</small></a>
-    <div class="tag">DOCUMENTS</div>
+    <div class="tag">DOCUMENTS &amp; MOVIES</div>
   </div>
 </header>
 
@@ -82,9 +91,10 @@ footer a{color:var(--pale)}
   <div class="grid-bg"></div>
   <div class="hero-in">
     <div class="k">AUTOMATED VEHICLE DISPATCH</div>
-    <h1><span class="thin">自動配車システム</span>資料のご案内</h1>
+    <h1><span class="thin">自動配車システム</span>資料・操作動画のご案内</h1>
     <p class="lead"><b>自動配車システム</b>について、<br>
-      「概要資料」をご用意しています。</p>
+      「概要資料」と「操作の流れ（動画）」をご用意しています。<br>
+      ご覧になりたいものを選んでください。</p>
     <div class="note">記載の会社名・人名・車両番号・現場名はすべて架空のサンプルデータです</div>
   </div>
 </div>
@@ -105,6 +115,14 @@ footer a{color:var(--pale)}
           <p>1日の配車の自動作成から、便・積付図・指示書、急な追加・変更の差し込み、車両の故障時の組み換え、配車ボードでの手直しまで。実機の画面で順に解説します。</p>
           <span class="go">資料を開く<span class="ar">→</span></span>
         </a>
+        <button class="card video" type="button"
+          data-src="%E8%87%AA%E5%8B%95%E9%85%8D%E8%BB%8A%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0_%E6%93%8D%E4%BD%9C%E3%81%AE%E6%B5%81%E3%82%8C.mp4"
+          data-title="自動配車システム — 操作の流れ">
+          <span class="kind"><span class="dot"></span>MOVIE</span>
+          <h3>自動配車システム 操作の流れ</h3>
+          <p>実際の画面を操作しながら、自動配車の実行から便・積付図・指示書の確認、急な追加・変更の反映までのひと通りの流れを動画でご覧いただけます。</p>
+          <span class="go">動画を再生<span class="ar">→</span></span>
+        </button>
       </div>
     </section>
 
@@ -114,6 +132,48 @@ footer a{color:var(--pale)}
 <footer>
   <div class="wrap">© UNITARY Inc. — <a href="/">unitary.jp</a></div>
 </footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="動画プレイヤー">
+  <div class="modal-in">
+    <div class="modal-bar">
+      <span class="t" id="modalTitle"></span>
+      <button type="button" id="modalClose">閉じる ✕</button>
+    </div>
+    <video id="modalVideo" controls playsinline preload="metadata"></video>
+  </div>
+</div>
+
+<script>
+(function(){
+  var modal=document.getElementById('modal'),
+      video=document.getElementById('modalVideo'),
+      title=document.getElementById('modalTitle');
+
+  function open(src,name){
+    title.textContent=name;
+    video.src=src;
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    video.play().catch(function(){});
+  }
+  function close(){
+    modal.classList.remove('open');
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    document.body.style.overflow='';
+  }
+
+  document.querySelectorAll('.card.video').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      open(btn.dataset.src,btn.dataset.title);
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click',close);
+  modal.addEventListener('click',function(e){ if(e.target===modal) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&modal.classList.contains('open')) close(); });
+})();
+</script>
 
 </body>
 </html>
