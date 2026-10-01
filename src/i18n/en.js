@@ -133,6 +133,8 @@ export default {
   'saas.forecast.p': 'Forecasts inbound and outbound volumes and man-hours per process with ranges, then sets how many temp staff to request and the daily staff placement. It also learns how inbound schedules slip.',
   'saas.shipping.h': 'Delivery Order Management System<small>For logistics and dispatch</small>',
   'saas.shipping.p': 'AI reads delivery requests arriving by fax, paper or email, splits them into one record per delivery and outputs CSV for your dispatch system. Changes and resends are never registered twice.',
+  'saas.autodispatch.h': 'Automated Vehicle Dispatch System<small>For delivery and pickup operators</small>',
+  'saas.autodispatch.p': 'Checks whether goods fit the truck bed from their dimensions, stacking and weight, then builds trips and visit order within time windows and work times. Urgent additions slot into existing trips.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
