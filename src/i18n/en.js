@@ -137,6 +137,8 @@ export default {
   'saas.autodispatch.p': 'Checks whether goods fit the truck bed from their dimensions, stacking and weight, then builds trips and visit order within time windows and work times. Urgent additions slot into existing trips.',
   'saas.logistics.h': 'Warehouse Management System<small>For logistics centers</small>',
   'saas.logistics.p': 'AI reads delivery notes and shipping requests and turns them into inbound plans and picking orders. On the floor, staff scan barcodes with a smartphone, and mistakes are stopped on the spot.',
+  'saas.progress.h': 'Progress Management System<small>For manufacturing management teams</small>',
+  'saas.progress.p': 'Calculates progress, delays and expected completion for processes and tasks across job numbers and departments every day. Shows the impact on due dates as signals and alerts on processes at risk.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
