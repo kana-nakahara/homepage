@@ -139,6 +139,8 @@ export default {
   'saas.logistics.p': 'AI reads delivery notes and shipping requests and turns them into inbound plans and picking orders. On the floor, staff scan barcodes with a smartphone, and mistakes are stopped on the spot.',
   'saas.progress.h': 'Progress Management System<small>For manufacturing management teams</small>',
   'saas.progress.p': 'Calculates progress, delays and expected completion for processes and tasks across job numbers and departments every day. Shows the impact on due dates as signals and alerts on processes at risk.',
+  'saas.drawing.h': 'Automated Drawing Check System<small>For mechanical design departments</small>',
+  'saas.drawing.p': 'Checks 2D drawings (DWG, DXF, PDF) for missing dimensions and material and surface-treatment combinations, marking numbered findings on the drawing. Manages everything from rejection to approval.',
   'saas.go.doc': 'View service brochure<i></i>',
   'saas.go.video': 'View brochure &amp; video<i></i>',
 
