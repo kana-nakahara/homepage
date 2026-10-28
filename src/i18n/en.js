@@ -170,7 +170,7 @@ export default {
   'company.capital.l': 'Capital',
   'company.capital.v': 'JPY 3,000,000',
   'company.biz.l': 'Business',
-  'company.biz.v': 'Planning, development, operation and maintenance of IT software; DX promotion support; AI-powered business improvement support',
+  'company.biz.v': 'Planning, development, operation and maintenance of IT software; DX promotion support; AI-powered business improvement support; game development',
 
   /* founder */
   'founder.k': 'FOUNDER — Meet the Founder',
