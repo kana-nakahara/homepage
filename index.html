@@ -66,6 +66,8 @@ html[lang="en"] .copy h1{font-size:clamp(30px,6.2vw,64px)}
   html[lang="en"] header.mopen nav a:hover{color:var(--orange)}
 }
 @media(max-width:560px){.hd-r{gap:12px}.hd .cta-s{padding:8px 14px}}
+/* JA / EN / CN: keep the switcher clear of the logo on phones */
+@media(max-width:420px){.hd-r{gap:10px;margin-left:12px}.lang{gap:5px;font-size:11px;letter-spacing:.06em}.logo{letter-spacing:.12em}}
 
 /* hamburger (narrow screens) */
 .mnav-btn{display:none;position:relative;width:36px;height:36px;margin-left:-8px;padding:0;border:0;background:none;cursor:pointer}
@@ -413,6 +415,38 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
 
 .cmpx-hint{display:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--slate);margin-top:12px;padding-left:24px}
 @media(max-width:1100px){.cmpx-hint{display:block}}
+
+/* 「短・平・快・好」比較表 */
+.quad{position:relative;max-width:960px;margin:72px auto 0;padding:0 28px 26px;border:1.5px solid rgba(246,163,62,.45);border-radius:18px;background:linear-gradient(180deg,#FFFDFA,#FFF8EF)}
+.quad-h{display:table;margin:-20px auto 20px;padding:8px 26px;border-radius:22px;background:var(--orange-d);color:#fff;font-size:clamp(14px,1.9vw,17px);font-weight:900;line-height:1.5;letter-spacing:.03em;text-align:center}
+.quad table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.quad th,.quad td{padding:12px 14px;vertical-align:middle}
+.quad thead th{padding:2px 6px;font-size:clamp(14px,1.8vw,19px);font-weight:900;line-height:1.4;color:var(--orange-d);text-align:center;white-space:nowrap}
+.quad tbody th,.quad tbody td{background:#fff;border-top:1px solid var(--line-l);border-bottom:1px solid var(--line-l)}
+.quad tbody th{border-left:1px solid var(--line-l);border-radius:10px 0 0 10px;font-size:14.5px;font-weight:700;line-height:1.5;text-align:left}
+.quad tbody td:last-child{border-right:1px solid var(--line-l);border-radius:0 10px 10px 0;font-size:13.5px;line-height:1.6;color:var(--slate-d)}
+.quad .q{width:78px;font-family:var(--en);font-size:21px;line-height:1;text-align:center}
+.q-x{color:#AFBBC9}.q-t{color:var(--orange)}.q-o{color:var(--orange-d)}.q-d{color:var(--orange-d);font-weight:800}
+.quad tbody tr.uni>*{background:var(--deep);border-color:var(--deep);color:#fff;font-weight:900}
+.quad tbody tr.uni th{color:var(--orange)}
+.quad tbody tr.uni .q-d{color:var(--orange)}
+.quad-f{margin-top:6px;padding:14px 18px;border-radius:10px;background:rgba(246,163,62,.13);font-size:14px;font-weight:700;line-height:1.7;text-align:center}
+.quad-lg{margin-top:10px;font-size:12px;color:var(--slate-d);text-align:right}
+@media(max-width:700px){
+  .quad{padding:0 12px 16px}
+  .quad tr{display:grid;grid-template-columns:minmax(0,1fr) repeat(4,clamp(40px,12.5vw,50px));align-items:center}
+  .quad thead th{padding:2px;font-size:11px;white-space:normal}
+  .quad th{overflow-wrap:anywhere}
+  .quad thead th:last-child{display:none}
+  .quad tbody tr{margin-bottom:8px;border:1px solid var(--line-l);border-radius:10px;background:#fff;overflow:hidden}
+  .quad tbody tr.uni{border-color:var(--deep);background:var(--deep)}
+  .quad tbody th,.quad tbody td{border:0!important;border-radius:0!important;background:none!important}
+  .quad tbody th{padding:12px 10px;font-size:13px}
+  .quad .q{width:auto;padding:12px 0;font-size:18px}
+  .quad tbody td:last-child{grid-column:1/-1;padding:0 10px 12px;font-size:12.5px}
+  .quad-f{font-size:13px;text-align:left}
+  .quad-lg{text-align:left}
+}
 
 /* 標準化された出力（毎回同じ） */
 .cx-sys{position:relative;height:124px;border:1.5px solid rgba(246,163,62,.65);border-radius:6px;background:#0E1116;overflow:hidden}
@@ -1057,6 +1091,21 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
         </div>
         <p class="cmpx-hint" data-i18n="cmp.hint">← 図は横にスクロールできます →</p>
       </div>
+    </div>
+
+    <div class="quad rv">
+      <p class="quad-h" id="quadH" data-i18n="quad.h">なぜZeroCoderだけが「短期間・低コスト・スピード・高品質」を両立できるのか？</p>
+      <table aria-labelledby="quadH">
+        <thead><tr><th></th><th scope="col" data-i18n="quad.c1">短期間</th><th scope="col" data-i18n="quad.c2">低コスト</th><th scope="col" data-i18n="quad.c3">スピード</th><th scope="col" data-i18n="quad.c4">高品質</th><th></th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-i18n="quad.r1.h">従来のオーダーメイド開発</th><td class="q"><span class="q-x">×</span></td><td class="q"><span class="q-x">×</span></td><td class="q"><span class="q-x">×</span></td><td class="q"><span class="q-o">○</span></td><td data-i18n="quad.r1.n">品質は高いが、費用が高く時間もかかる</td></tr>
+          <tr><th scope="row" data-i18n="quad.r2.h">AIにコードを書かせるだけ</th><td class="q"><span class="q-o">○</span></td><td class="q"><span class="q-t">△</span></td><td class="q"><span class="q-o">○</span></td><td class="q"><span class="q-x">×</span></td><td data-i18n="quad.r2.n">速いが、品質が安定せず保守も難しい</td></tr>
+          <tr><th scope="row" data-i18n="quad.r3.h">一般的なノーコードツール</th><td class="q"><span class="q-o">○</span></td><td class="q"><span class="q-o">○</span></td><td class="q"><span class="q-o">○</span></td><td class="q"><span class="q-x">×</span></td><td data-i18n="quad.r3.n">手軽に始められるが、複雑な業務には対応できない</td></tr>
+          <tr class="uni"><th scope="row" data-i18n="quad.r4.h">ZeroCoder</th><td class="q"><span class="q-d">◎</span></td><td class="q"><span class="q-d">◎</span></td><td class="q"><span class="q-d">◎</span></td><td class="q"><span class="q-d">◎</span></td><td data-i18n="quad.r4.n">4つすべてを両立し、課題を根本から解決</td></tr>
+        </tbody>
+      </table>
+      <p class="quad-f" data-i18n="quad.f">AIが生成するのは「定義データ」だけ。20年の実績あるエンジンが安定してシステムを組み立てる —— だから、速くても乱れず、品質が高くても高価にならない。</p>
+      <p class="quad-lg" data-i18n="quad.lg">◎ 非常に優れる　○ 優れる　△ 課題あり　× 不向き</p>
     </div>
   </div>
 </section>

@@ -37,7 +37,7 @@ export default {
   'hero.blk.report': '报表',
   'hero.blk.approve': '审批',
   'hero.blk.roles': '权限',
-  'hero.h1': '<span class="l1">以AI，为世界带来</span><br><span class="l2"><span class="o">自由与美</span></span>',
+  'hero.h1': '<span class="l1">以科技点亮梦想，</span><br><span class="l2">以AI<span class="o">改变世界</span></span>',
 
   /* bridge */
   'bridge.l1': 'UNITARY通过实现<b class="em-o">真正的AI驱动开发</b>，',
@@ -83,6 +83,21 @@ export default {
   'cmp.uni.outK': 'OUTPUT — 始终如一',
   'cmp.uni.note': '结果稳定＝标准化的质量',
   'cmp.hint': '← 图示可横向滚动 →',
+  'quad.h': '为什么只有ZeroCoder能做到「短・平・快・好」？',
+  'quad.c1': '短',
+  'quad.c2': '平',
+  'quad.c3': '快',
+  'quad.c4': '好',
+  'quad.r1.h': '传统定制开发',
+  'quad.r1.n': '品质虽好，但又贵又慢',
+  'quad.r2.h': '单靠AI写代码',
+  'quad.r2.n': '速度快，但质量不稳、难以维护',
+  'quad.r3.h': '一般无代码工具',
+  'quad.r3.n': '上手简单，但复杂业务做不了',
+  'quad.r4.h': 'ZeroCoder',
+  'quad.r4.n': '四者兼得，真正解决痛点',
+  'quad.f': 'AI只生成「定义数据」，由20年实绩的引擎稳定构建 —— 所以快而不乱、好而不贵',
+  'quad.lg': '◎ 非常出色　○ 良好　△ 有不足　× 不适合',
 
   /* value */
   'value.k': 'VALUE — 自由与美',
