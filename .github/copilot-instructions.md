@@ -22,5 +22,5 @@
 - ビルド成果物 `dist/` はコミットしない。
 
 ## Integration points
-- 外部依存は Google Fonts（Noto Sans JP / Inter / JetBrains Mono）のみ。それ以外の CDN は使わない。
+- 外部依存は Google Fonts（Noto Sans JP / Noto Sans SC / Inter / JetBrains Mono）のみ。それ以外の CDN は使わない。
 - `develop` への push で [.github/workflows/deploy.yml](.github/workflows/deploy.yml) が `npm ci && npm run build` を実行し、`dist` を GitHub Pages に公開する。

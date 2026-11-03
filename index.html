@@ -7,12 +7,12 @@
 <meta name="description" content="株式会社UNITARYは、自社製ノーコードフレームワーク「ZeroCoder」と100万件超の定義文を学習したAIによる真のAI駆動開発で、基幹業務システムをオーダーメイドで開発します。">
 <link rel="icon" type="image/png" href="/favicon.png">
 <script>
-/* Language is decided by URL before first paint: /en/ (path) or ?lang=en (query). Default: ja */
-(function(){var q=new URLSearchParams(location.search).get('lang');var en=q?q==='en':/^\/en(\/|$)/.test(location.pathname);var l=en?'en':'ja';document.documentElement.lang=l;document.documentElement.dataset.lang=l;})();
+/* Language is decided by URL before first paint: /en/ /cn/ (path) or ?lang=en|cn (query). Default: ja */
+(function(){var q=new URLSearchParams(location.search).get('lang');var m=location.pathname.match(/^\/(en|cn)(\/|$)/);var c=q||(m&&m[1]);var l=c==='en'?'en':(c==='cn'||c==='zh')?'zh':'ja';document.documentElement.lang=l==='zh'?'zh-CN':l;document.documentElement.dataset.lang=l;})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --deep:#0B1220; --deep2:#101A2E; --ink:#0E1116; --white:#FFFFFF; --pale:#EAF0F8;
@@ -47,8 +47,10 @@ header.solid .lang,header.mopen .lang{color:var(--slate)}
 .lang a:hover{color:var(--orange)}
 .lang a.on{color:#fff;font-weight:800}
 header.solid .lang a.on,header.mopen .lang a.on{color:var(--ink)}
-/* English page: hide until the dictionary has been applied (avoids a Japanese flash) */
-html[data-lang="en"]:not([data-i18n-ready]) body{visibility:hidden}
+/* English / Chinese page: hide until the dictionary has been applied (avoids a Japanese flash) */
+html[data-lang="en"]:not([data-i18n-ready]) body,html[data-lang="zh"]:not([data-i18n-ready]) body{visibility:hidden}
+/* Chinese page: Simplified Chinese glyphs (Noto Sans JP would draw Japanese forms) */
+html[data-lang="zh"]{--sans:'Noto Sans SC','Inter',sans-serif}
 html[lang="en"] .cx-def{width:266px}
 html[lang="en"] .copy h1{font-size:clamp(30px,6.2vw,64px)}
 /* English labels are longer: switch to the hamburger menu earlier */
@@ -612,7 +614,7 @@ h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;line-height:1.55;letter-spac
       <li><a href="#founder" data-i18n="nav.founder">代表紹介</a></li>
     </ul></nav>
     <div class="hd-r">
-      <div class="lang" aria-label="Language"><a href="/" data-lang-link="ja" hreflang="ja" lang="ja">JA</a><span aria-hidden="true">/</span><a href="/en/" data-lang-link="en" hreflang="en" lang="en">EN</a></div>
+      <div class="lang" aria-label="Language"><a href="/" data-lang-link="ja" hreflang="ja" lang="ja">JA</a><span aria-hidden="true">/</span><a href="/en/" data-lang-link="en" hreflang="en" lang="en">EN</a><span aria-hidden="true">/</span><a href="/cn/" data-lang-link="zh" hreflang="zh-CN" lang="zh-CN">CN</a></div>
       <a class="cta-s" href="#contact" data-i18n="nav.cta">無料相談</a>
     </div>
   </div>

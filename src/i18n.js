@@ -1,16 +1,21 @@
 /* Language switching.
    - Japanese is the source of truth written in index.html (default).
    - English is selected by URL: /en/ (path) or ?lang=en (query).
+   - Simplified Chinese: /cn/ (path) or ?lang=cn (query).
    - The <head> inline script sets <html data-lang> before first paint;
      this module swaps every [data-i18n] / [data-i18n-attr] element and
-     then marks the document ready (body is hidden until then for "en"). */
+     then marks the document ready (body is hidden until then for "en" / "zh"). */
 import en from './i18n/en.js';
+import zh from './i18n/zh.js';
 
 const html = document.documentElement;
-export const LANG = html.dataset.lang === 'en' ? 'en' : 'ja';
-const dict = LANG === 'en' ? en : null;
+const DICTS = { en, zh };
+/* language -> URL path (used by the switcher) */
+const PATHS = { ja: '/', en: '/en/', zh: '/cn/' };
+export const LANG = html.dataset.lang in DICTS ? html.dataset.lang : 'ja';
+const dict = DICTS[LANG] || null;
 
-/* t(key, jaText): English from the dictionary, otherwise the Japanese text. */
+/* t(key, jaText): translation from the dictionary, otherwise the Japanese text. */
 export function t(key, ja) {
   if (dict && key in dict) return dict[key];
   return ja;
@@ -41,7 +46,7 @@ const links = document.querySelectorAll('[data-lang-link]');
 function syncLinks() {
   links.forEach(a => {
     const l = a.dataset.langLink;
-    a.href = (l === 'en' ? '/en/' : '/') + location.hash;
+    a.href = PATHS[l] + location.hash;
     a.classList.toggle('on', l === LANG);
     if (l === LANG) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');

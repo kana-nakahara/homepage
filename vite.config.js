@@ -2,17 +2,19 @@ import { copyFileSync, mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
-/* /en/ serves the same page in English (see src/i18n.js).
-   dev: Vite's SPA fallback already serves index.html for /en/.
-   build: copy dist/index.html to dist/en/index.html so GitHub Pages can serve it. */
-function englishPage() {
+/* /en/ and /cn/ serve the same page in English / Simplified Chinese (see src/i18n.js).
+   dev: Vite's SPA fallback already serves index.html for /en/ and /cn/.
+   build: copy dist/index.html to dist/{en,cn}/index.html so GitHub Pages can serve them. */
+function localizedPages() {
   let outDir = 'dist'
   return {
-    name: 'english-page',
+    name: 'localized-pages',
     configResolved(config) { outDir = resolve(config.root, config.build.outDir) },
     closeBundle() {
-      mkdirSync(resolve(outDir, 'en'), { recursive: true })
-      copyFileSync(resolve(outDir, 'index.html'), resolve(outDir, 'en', 'index.html'))
+      for (const dir of ['en', 'cn']) {
+        mkdirSync(resolve(outDir, dir), { recursive: true })
+        copyFileSync(resolve(outDir, 'index.html'), resolve(outDir, dir, 'index.html'))
+      }
     },
   }
 }
@@ -20,5 +22,5 @@ function englishPage() {
 // https://vite.dev/config/
 export default defineConfig({
   base: "/",
-  plugins: [englishPage()],
+  plugins: [localizedPages()],
 })
