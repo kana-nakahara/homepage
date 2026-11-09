@@ -40,3 +40,5 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000  # 既定の10分ではサイトが大きく反映待ちが間に合わないため30分に延長
